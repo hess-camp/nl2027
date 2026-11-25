@@ -1279,7 +1279,7 @@
   <g id="pin-amsterdam">
     <path d="M364,430 m0,-40 c-14,0 -25,11 -25,25 0,17 25,39 25,39 s25,-22 25,-39 c0,-14 -11,-25 -25,-25 z" fill="#FF6B00" stroke="#1B4965" stroke-width="2.4"/>
     <circle cx="364" cy="412" r="9.5" fill="#FAF6F0"/>
-    <rect x="28" y="448" width="300" height="44" rx="12" fill="#1B4965"/>
+    <rect x="18" y="448" width="320" height="44" rx="12" fill="#1B4965"/>
     <text x="178" y="478" text-anchor="middle" font-size="24" font-weight="700" fill="#FAF6F0">Amsterdam 阿姆斯特丹</text>
     <path d="M178,448 L364,424" stroke="#1B4965" stroke-width="3" fill="none"/>
   </g>
@@ -1287,12 +1287,12 @@
   <g id="pin-opende">
     <path d="M623,173 m0,-40 c-14,0 -25,11 -25,25 0,17 25,39 25,39 s25,-22 25,-39 c0,-14 -11,-25 -25,-25 z" fill="#FF6B00" stroke="#1B4965" stroke-width="2.4"/>
     <circle cx="623" cy="155" r="9.5" fill="#FAF6F0"/>
-    <rect x="300" y="86" width="250" height="44" rx="12" fill="#1B4965"/>
+    <rect x="290" y="86" width="270" height="44" rx="12" fill="#1B4965"/>
     <text x="425" y="116" text-anchor="middle" font-size="26" font-weight="700" fill="#FAF6F0">Opende 營隊基地</text>
     <path d="M550,130 L623,150" stroke="#1B4965" stroke-width="3" fill="none"/>
   </g>
   <g id="map-legend">
-    <rect x="22" y="250" width="300" height="96" rx="14" fill="#FAF6F0" stroke="#1B4965" stroke-width="2"/>
+    <rect x="22" y="250" width="380" height="96" rx="14" fill="#FAF6F0" stroke="#1B4965" stroke-width="2"/>
     <rect x="42" y="272" width="26" height="26" rx="5" fill="#38A3A5" stroke="#1B4965" stroke-width="1.5"/>
     <text x="80" y="293" font-size="24" font-weight="700" fill="#1B4965">格羅寧根省 Groningen</text>
     <circle cx="55" cy="322" r="12" fill="#FF6B00" stroke="#1B4965" stroke-width="1.8"/>
