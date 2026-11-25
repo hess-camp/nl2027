@@ -1285,11 +1285,11 @@
   </g>
   <!-- Opende 53.1628 N, 6.1872 E -->
   <g id="pin-opende">
-    <path d="M623,173 m0,-40 c-14,0 -25,11 -25,25 0,17 25,39 25,39 s25,-22 25,-39 c0,-14 -11,-25 -25,-25 z" fill="#FF6B00" stroke="#1B4965" stroke-width="2.4"/>
-    <circle cx="623" cy="155" r="9.5" fill="#FAF6F0"/>
+    <path transform="translate(17,-17)" d="M623,173 m0,-40 c-14,0 -25,11 -25,25 0,17 25,39 25,39 s25,-22 25,-39 c0,-14 -11,-25 -25,-25 z" fill="#FF6B00" stroke="#1B4965" stroke-width="2.4"/>
+    <circle cx="640" cy="138" r="9.5" fill="#FAF6F0"/>
     <rect x="290" y="86" width="270" height="44" rx="12" fill="#1B4965"/>
     <text x="425" y="116" text-anchor="middle" font-size="26" font-weight="700" fill="#FAF6F0">Opende 營隊基地</text>
-    <path d="M550,130 L623,150" stroke="#1B4965" stroke-width="3" fill="none"/>
+    <path d="M560,118 L630,133" stroke="#1B4965" stroke-width="3" fill="none"/>
   </g>
   <g id="map-legend">
     <rect x="22" y="250" width="380" height="96" rx="14" fill="#FAF6F0" stroke="#1B4965" stroke-width="2"/>
