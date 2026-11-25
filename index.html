@@ -47,6 +47,7 @@
         /* 照片框 */
         .photo-box { position: relative; overflow: hidden; background-color: #EFE8DC; }
         .photo-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .photo-box.photo-show-full img { object-fit: contain; object-position: center; background-color: #3d3a34; }
         @media (min-width: 1024px) {
             .photo-mosaic { grid-template-rows: minmax(0, 1.45fr) minmax(0, 1fr); }
             .photo-mosaic > .photo-box.col-span-2 { aspect-ratio: auto; min-height: 10rem; }
@@ -303,8 +304,8 @@
                             <figcaption class="photo-cap">2026 荷蘭營 • 桑斯安斯風車村</figcaption>
                         </figure>
                         <figure class="hero-slide">
-                            <img src="hero-02.jpg" alt="學員在桑斯安斯風車村的巨大木鞋前合影" width="1400" height="787" loading="lazy">
-                            <figcaption class="photo-cap">2026 荷蘭營 • 桑斯安斯木鞋</figcaption>
+                            <img src="hero-02.jpg" alt="學員在運河小鎮花橋前合影" width="1400" height="787" loading="lazy">
+                            <figcaption class="photo-cap">2026 荷蘭營 • 運河小鎮</figcaption>
                         </figure>
                         <figure class="hero-slide">
                             <img src="hero-03.jpg" alt="學員在馬術課與馬匹合影" width="1400" height="787" loading="lazy">
@@ -327,8 +328,8 @@
                             <figcaption class="photo-cap">2026 荷蘭營 • 德國里爾城堡</figcaption>
                         </figure>
                         <figure class="hero-slide">
-                            <img src="hero-08.jpg" alt="學員騎單車出行" width="1400" height="787" loading="lazy">
-                            <figcaption class="photo-cap">2026 荷蘭營 • 單車出行</figcaption>
+                            <img src="hero-08.jpg" alt="學員分組到超市採買食材" width="1400" height="787" loading="lazy">
+                            <figcaption class="photo-cap">2026 荷蘭營 • 採買食材</figcaption>
                         </figure>
                         <figure class="hero-slide">
                             <img src="hero-09.jpg" alt="學員與老師在格羅寧根博物館前合影" width="1400" height="787" loading="lazy">
@@ -421,8 +422,8 @@
                                     <div class="photo-cap">赤足步道招牌合影</div>
                                 </div>
                                 <div class="photo-box rounded-2xl border-2 border-delftBlue/20 aspect-[16/10]">
-                                    <img src="intl-set4-b.jpg" alt="學員赤足走過水徑" loading="lazy" width="1400" height="788">
-                                    <div class="photo-cap">赤足走過水徑</div>
+                                    <img src="intl-set4-b.jpg" alt="學員赤足走過泥水步道" loading="lazy" width="1400" height="788">
+                                    <div class="photo-cap">赤足走過泥水步道</div>
                                 </div>
                             </div>
                             <div class="fade-slide" data-rotate-slide="4" aria-hidden="true">
@@ -530,9 +531,9 @@
                         </p>
                     </div>
                     <div class="grid grid-cols-2 gap-2.5 flex-1 min-h-0 photo-mosaic">
-                        <div class="photo-box rounded-xl border border-delftBlue/15 aspect-[16/10] col-span-2">
-                            <img src="meals-bbq.jpg" alt="戶外 BBQ 晚會烤架上的料理" loading="lazy" width="1400" height="882">
-                            <div class="photo-cap">戶外 BBQ 晚會</div>
+                        <div class="photo-box photo-show-full rounded-xl border border-delftBlue/15 aspect-[16/10] col-span-2">
+                            <img src="meals-cookoff.jpg" alt="學員在營火旁動手料理，進行廚藝挑戰" loading="lazy" width="1400" height="788">
+                            <div class="photo-cap">學員搶奪食神之位</div>
                         </div>
                         <div class="photo-box rounded-xl border border-delftBlue/15 aspect-[16/10]"><img src="meals-dinner.jpg" alt="學員與老師一起用餐" loading="lazy" width="1000" height="750"></div>
                         <div class="photo-box rounded-xl border border-delftBlue/15 aspect-[16/10]"><img src="meals-cooking.jpg" alt="學員動手做料理" loading="lazy" width="1000" height="562"></div>
@@ -663,8 +664,8 @@
                                 </figure>
                             </div>
                             <div class="fade-slide" data-rotate-slide="7" aria-hidden="true">
-                                <figure class="photo-box rounded-2xl border border-delftBlue/15 aspect-[16/10]">
-                                <img src="horse-trail-2.jpg" alt="學員在戶外草坡上騎乘" loading="lazy" width="1360" height="1214" style="object-position:25% 50%">
+                                <figure class="photo-box photo-show-full rounded-2xl border border-delftBlue/15 aspect-[16/10]">
+                                <img src="horse-trail-2.jpg" alt="學員戶外騎乘，走過林間溪水" loading="lazy" width="1400" height="875">
                                 <figcaption class="photo-cap">學員戶外騎乘</figcaption>
                                 </figure>
                             </div>
