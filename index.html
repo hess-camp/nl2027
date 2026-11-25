@@ -98,6 +98,41 @@
         .bar-link.is-active { color: #FF6B00; box-shadow: inset 0 -3px 0 #FF6B00; }
         #horse-game-canvas { touch-action: manipulation; }
 
+
+        /* 單元內淡入輪播（營隊理念 5 組、馬場生活單張） */
+        .fade-rotate { position: relative; }
+        .fade-rotate-stack { display: grid; }
+        .fade-rotate-stack > .fade-slide {
+            grid-area: 1 / 1;
+            display: grid;
+            gap: 0.75rem;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.7s ease, visibility 0.7s ease;
+        }
+        .fade-rotate-stack > .fade-slide.is-on {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            z-index: 1;
+        }
+        .fade-rotate-dots {
+            display: flex; justify-content: center; align-items: center;
+            gap: 0.4rem; margin-top: 0.65rem;
+        }
+        .fade-dot {
+            width: 0.55rem; height: 0.55rem; padding: 0; border: 0;
+            border-radius: 999px; background: #1B4965; opacity: 0.28;
+            cursor: pointer;
+        }
+        .fade-dot.is-on { width: 1.15rem; opacity: 1; background: #FF6B00; }
+        .fade-rotate--solo { max-width: 760px; margin-inline: auto; width: 100%; }
+        .fade-rotate--solo .fade-slide { gap: 0; }
+        @media (prefers-reduced-motion: reduce) {
+            .fade-rotate-stack > .fade-slide { transition: none; }
+        }
+
         /* 首頁照片輪播 */
         .hero-carousel { position: relative; }
         .hero-viewport { overflow: hidden; border-radius: 1.25rem; aspect-ratio: 16 / 9; background: #EFE8DC; }
@@ -281,7 +316,7 @@
                         </figure>
                         <figure class="hero-slide">
                             <img src="hero-05.jpg" alt="學員在 Carmen 馬術學校合影" width="1400" height="787" loading="lazy">
-                            <figcaption class="photo-cap">2026 荷蘭營 • Carmen 馬術學校</figcaption>
+                            <figcaption class="photo-cap">2026 荷蘭營 • 馬術騎乘挑戰</figcaption>
                         </figure>
                         <figure class="hero-slide">
                             <img src="hero-06.jpg" alt="學員搭船前往斯希蒙尼克島" width="1400" height="787" loading="lazy">
@@ -348,14 +383,65 @@
                             由何嘉仁專業教學團隊統籌設計與細緻規劃，打造安全、有深度的沉浸式學習，融合結構化學習、實作活動與文化體驗，陪伴學員帶著自信走向更遼闊的世界。
                         </p>
                     </div>
-                    <div class="grid grid-cols-1 gap-3">
-                        <div class="photo-box rounded-2xl border-2 border-delftBlue/20 aspect-[16/10]">
-                            <img src="spirit-team-circle.jpg" alt="學員圍成一圈進行團隊活動" loading="lazy" width="1000" height="562">
-                            <div class="photo-cap">團隊活動</div>
+                    <div class="fade-rotate" data-fade-rotate aria-roledescription="carousel" aria-label="國際營隊活動照片">
+                        <div class="fade-rotate-stack">
+                            <div class="fade-slide is-on" data-rotate-slide="0" aria-hidden="false">
+                                <div class="photo-box rounded-2xl border-2 border-delftBlue/20 aspect-[16/10]">
+                                    <img src="intl-set1-a.jpg" alt="學員在博物館拍下展覽中的唱片牆" width="1400" height="788">
+                                    <div class="photo-cap">學員在博物館拍下展覽</div>
+                                </div>
+                                <div class="photo-box rounded-2xl border-2 border-delftBlue/20 aspect-[16/10]">
+                                    <img src="intl-set1-b.jpg" alt="學員參觀嘻哈音樂檔案展" width="1400" height="788">
+                                    <div class="photo-cap">學員參觀嘻哈音樂檔案展</div>
+                                </div>
+                            </div>
+                            <div class="fade-slide" data-rotate-slide="1" aria-hidden="true">
+                                <div class="photo-box rounded-2xl border-2 border-delftBlue/20 aspect-[16/10]">
+                                    <img src="intl-set2-a.jpg" alt="學員騎鐵馬走鄉村小路" loading="lazy" width="1400" height="1050">
+                                    <div class="photo-cap">學員騎鐵馬走鄉村小路</div>
+                                </div>
+                                <div class="photo-box rounded-2xl border-2 border-delftBlue/20 aspect-[16/10]">
+                                    <img src="intl-set2-b.jpg" alt="兩位學員站在赤足步道的鄉村起點" loading="lazy" width="1400" height="788">
+                                    <div class="photo-cap">赤足步道的鄉村起點</div>
+                                </div>
+                            </div>
+                            <div class="fade-slide" data-rotate-slide="2" aria-hidden="true">
+                                <div class="photo-box rounded-2xl border-2 border-delftBlue/20 aspect-[16/10]">
+                                    <img src="intl-set3-a.jpg" alt="學員走上風車參觀" loading="lazy" width="1400" height="788">
+                                    <div class="photo-cap">學員走上風車參觀</div>
+                                </div>
+                                <div class="photo-box rounded-2xl border-2 border-delftBlue/20 aspect-[16/10]">
+                                    <img src="intl-set3-b.jpg" alt="學員在桑斯安斯巨型木鞋前合影" loading="lazy" width="1400" height="1050">
+                                    <div class="photo-cap">在巨型木鞋前合影</div>
+                                </div>
+                            </div>
+                            <div class="fade-slide" data-rotate-slide="3" aria-hidden="true">
+                                <div class="photo-box rounded-2xl border-2 border-delftBlue/20 aspect-[16/10]">
+                                    <img src="intl-set4-a.jpg" alt="學員在赤足步道招牌後合影" loading="lazy" width="1400" height="788">
+                                    <div class="photo-cap">赤足步道招牌合影</div>
+                                </div>
+                                <div class="photo-box rounded-2xl border-2 border-delftBlue/20 aspect-[16/10]">
+                                    <img src="intl-set4-b.jpg" alt="學員赤足走過水徑" loading="lazy" width="1400" height="788">
+                                    <div class="photo-cap">赤足走過水徑</div>
+                                </div>
+                            </div>
+                            <div class="fade-slide" data-rotate-slide="4" aria-hidden="true">
+                                <div class="photo-box rounded-2xl border-2 border-delftBlue/20 aspect-[16/10]">
+                                    <img src="intl-set5-a.jpg" alt="學員在格羅寧根論壇參觀城市模型" loading="lazy" width="1400" height="788">
+                                    <div class="photo-cap">在格羅寧根論壇看城市模型</div>
+                                </div>
+                                <div class="photo-box rounded-2xl border-2 border-delftBlue/20 aspect-[16/10]">
+                                    <img src="intl-set5-b.jpg" alt="四位學員在小鎮吊橋上合影" loading="lazy" width="1400" height="788">
+                                    <div class="photo-cap">在小鎮吊橋上合影</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="photo-box rounded-2xl border-2 border-delftBlue/20 aspect-[16/10]">
-                            <img src="spirit-campfire.jpg" alt="學員與老師一起烤棉花糖" loading="lazy" width="1000" height="750">
-                            <div class="photo-cap">學員與老師烤棉花糖</div>
+                        <div class="fade-rotate-dots" role="tablist" aria-label="選擇照片組">
+                            <button type="button" class="fade-dot is-on" data-rotate-dot="0" aria-label="第 1 組照片" aria-selected="true"></button>
+                            <button type="button" class="fade-dot" data-rotate-dot="1" aria-label="第 2 組照片" aria-selected="false"></button>
+                            <button type="button" class="fade-dot" data-rotate-dot="2" aria-label="第 3 組照片" aria-selected="false"></button>
+                            <button type="button" class="fade-dot" data-rotate-dot="3" aria-label="第 4 組照片" aria-selected="false"></button>
+                            <button type="button" class="fade-dot" data-rotate-dot="4" aria-label="第 5 組照片" aria-selected="false"></button>
                         </div>
                     </div>
                 </div>
@@ -445,7 +531,7 @@
                     </div>
                     <div class="grid grid-cols-2 gap-2.5 flex-1 min-h-0 photo-mosaic">
                         <div class="photo-box rounded-xl border border-delftBlue/15 aspect-[16/10] col-span-2">
-                            <img src="meals-bbq.jpg" alt="學員在戶外 BBQ 晚會圍著火爐烤棉花糖" loading="lazy" width="1000" height="625" style="object-position:36% 50%">
+                            <img src="meals-bbq.jpg" alt="戶外 BBQ 晚會烤架上的料理" loading="lazy" width="1400" height="882">
                             <div class="photo-cap">戶外 BBQ 晚會</div>
                         </div>
                         <div class="photo-box rounded-xl border border-delftBlue/15 aspect-[16/10]"><img src="meals-dinner.jpg" alt="學員與老師一起用餐" loading="lazy" width="1000" height="750"></div>
@@ -461,34 +547,46 @@
             <div class="rounded-3xl bg-white p-6 sm:p-8 border-2 border-delftBlue shadow-[6px_6px_0px_#38A3A5]">
                 <span class="text-sm font-bold tracking-widest text-canalTeal uppercase">FIVE TOPICS 五大主題課程</span>
                 <h2 class="text-2xl sm:text-3xl font-black text-delftBlue mt-1 mb-5">結構化主題探索 × 沉浸式實作</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                    <div class="rounded-2xl bg-polderCream p-4 border-2 border-delftBlue/15">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-stretch">
+                    <div class="rounded-2xl bg-polderCream p-4 border-2 border-delftBlue/15 flex flex-col h-full">
+                        <div class="photo-box rounded-xl border border-delftBlue/15 aspect-[16/9] mb-3">
+                            <img src="topic-01.jpg" alt="老師為學員講解課程" loading="lazy" width="1400" height="788">
+                        </div>
                         <div class="text-sm font-black text-dutchOrange mb-1">TOPIC 01</div>
                         <h3 class="text-lg font-black text-delftBlue mb-1.5">荷蘭歷史、生活與語言</h3>
-                        <p class="text-base text-delftBlue/85 leading-relaxed">認識荷蘭黃金時代與歷史文化脈絡，練習荷蘭語日常溝通用語。</p>
+                        <p class="text-base text-delftBlue/85 leading-relaxed flex-1">認識荷蘭黃金時代與歷史文化脈絡，練習荷蘭語日常溝通用語。</p>
                     </div>
-                    <div class="rounded-2xl bg-polderCream p-4 border-2 border-delftBlue/15">
+                    <div class="rounded-2xl bg-polderCream p-4 border-2 border-delftBlue/15 flex flex-col h-full">
+                        <div class="photo-box rounded-xl border border-delftBlue/15 aspect-[16/9] mb-3">
+                            <img src="topic-02.jpg" alt="學員一起討論創新專題" loading="lazy" width="1400" height="788">
+                        </div>
                         <div class="text-sm font-black text-dutchOrange mb-1">TOPIC 02</div>
                         <h3 class="text-lg font-black text-delftBlue mb-1.5">創新與永續</h3>
-                        <p class="text-base text-delftBlue/85 leading-relaxed">探索荷蘭人如何與水共存、風力與水利工程，培養永續生活思維。</p>
+                        <p class="text-base text-delftBlue/85 leading-relaxed flex-1">探索荷蘭人如何與水共存、風力與水利工程，培養永續生活思維。</p>
                     </div>
-                    <div class="rounded-2xl bg-polderCream p-4 border-2 border-delftBlue/15">
+                    <div class="rounded-2xl bg-polderCream p-4 border-2 border-delftBlue/15 flex flex-col h-full">
+                        <div class="photo-box rounded-xl border border-delftBlue/15 aspect-[16/9] mb-3">
+                            <img src="topic-03.jpg" alt="學員赤腳走過步道水徑" loading="lazy" width="1400" height="788" style="object-position:center 50%">
+                        </div>
                         <div class="text-sm font-black text-dutchOrange mb-1">TOPIC 03</div>
                         <h3 class="text-lg font-black text-delftBlue mb-1.5">自然與生活</h3>
-                        <p class="text-base text-delftBlue/85 leading-relaxed">親近北荷蘭自然生態，體驗道地單車文化與簡樸自律的生活態度。</p>
+                        <p class="text-base text-delftBlue/85 leading-relaxed flex-1">親近北荷蘭自然生態，體驗道地單車文化與簡樸自律的生活態度。</p>
                     </div>
-                    <div class="rounded-2xl bg-polderCream p-4 border-2 border-delftBlue/15">
+                    <div class="rounded-2xl bg-polderCream p-4 border-2 border-delftBlue/15 flex flex-col h-full">
+                        <div class="photo-box rounded-xl border border-delftBlue/15 aspect-[16/9] mb-3">
+                            <img src="topic-04.jpg" alt="學員展示自己的繪畫作品" loading="lazy" width="1400" height="788">
+                        </div>
                         <div class="text-sm font-black text-dutchOrange mb-1">TOPIC 04</div>
                         <h3 class="text-lg font-black text-delftBlue mb-1.5">藝術與設計</h3>
-                        <p class="text-base text-delftBlue/85 leading-relaxed">走進荷蘭藝術傳統與簡約實用的 Dutch Design 設計美學。</p>
+                        <p class="text-base text-delftBlue/85 leading-relaxed flex-1">走進荷蘭藝術傳統與簡約實用的 Dutch Design 設計美學。</p>
                     </div>
-                    <div class="rounded-2xl bg-dutchOrange/10 p-4 border-2 border-dutchOrange flex flex-col">
+                    <div class="rounded-2xl bg-dutchOrange/10 p-4 border-2 border-dutchOrange flex flex-col h-full">
                         <div class="photo-box rounded-xl border border-dutchOrange/25 aspect-[16/9] mb-3 bg-polderCream">
                             <img src="horse-carmen-rider.jpg" alt="Carmen 馬術學校教練騎乘示範" loading="lazy" width="1024" height="768" style="object-position:center 35%">
                         </div>
                         <div class="text-sm font-black text-dutchOrange mb-1">TOPIC 05 ★ 特色亮點</div>
                         <h3 class="text-lg font-black text-delftBlue mb-1.5">馬術學習</h3>
-                        <p class="text-base text-delftBlue/90 leading-relaxed">深入荷蘭馬文化與人馬互信，從日常照顧與互動中培養責任感。</p>
+                        <p class="text-base text-delftBlue/90 leading-relaxed flex-1">深入荷蘭馬文化與人馬互信，從日常照顧與互動中培養責任感。</p>
                     </div>
                 </div>
             </div>
@@ -518,22 +616,68 @@
                 </div>
             </div>
             <div class="rounded-3xl bg-white p-5 sm:p-7 border-2 border-delftBlue shadow-[6px_6px_0px_#FF6B00]">
-                <span class="text-sm font-bold tracking-widest text-dutchOrange uppercase">TRAIL RIDE • 林間騎乘</span>
-                <h3 class="text-2xl font-black text-delftBlue mt-1 mb-4">學員騎馬走進樹林</h3>
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-4">
-                    <figure class="photo-box rounded-2xl border border-delftBlue/15 aspect-[16/10] lg:aspect-auto lg:h-full lg:col-span-7">
-                        <img src="horse-trail-2.jpg" alt="學員在林間步道上騎乘" loading="lazy" width="1360" height="1214" style="object-position:25% 50%">
-                        <figcaption class="photo-cap">學員騎馬走進林間溪徑</figcaption>
-                    </figure>
-                    <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3 sm:gap-4">
-                        <figure class="photo-box rounded-2xl border border-delftBlue/15 aspect-[16/10]">
-                            <img src="horse-field.jpg" alt="學員在戶外草場上練習馬上平衡" loading="lazy" width="1600" height="1000">
-                            <figcaption class="photo-cap">草場騎乘練習</figcaption>
-                        </figure>
-                        <figure class="photo-box rounded-2xl border border-delftBlue/15 aspect-[16/10]">
-                            <img src="horse-vaulting.jpg" alt="學員在教練引導下練習馬上平衡" loading="lazy" width="1000" height="625">
-                            <figcaption class="photo-cap">馬上平衡與韻律</figcaption>
-                        </figure>
+                <span class="text-sm font-bold tracking-widest text-dutchOrange uppercase">HORSEMANSHIP • 馬場生活</span>
+                <h3 class="text-2xl font-black text-delftBlue mt-1 mb-4">馬場生活 · 與馬相處</h3>
+                <div class="fade-rotate fade-rotate--solo" data-fade-rotate aria-roledescription="carousel" aria-label="馬場生活照片">
+                    <div class="fade-rotate-stack">
+                            <div class="fade-slide is-on" data-rotate-slide="0" aria-hidden="false">
+                                <figure class="photo-box rounded-2xl border border-delftBlue/15 aspect-[16/10]">
+                                <img src="horse-interact.jpg" alt="學員輕撫馬匹、近距離互動" width="1400" height="898">
+                                <figcaption class="photo-cap">與馬互動</figcaption>
+                                </figure>
+                            </div>
+                            <div class="fade-slide" data-rotate-slide="1" aria-hidden="true">
+                                <figure class="photo-box rounded-2xl border border-delftBlue/15 aspect-[16/10]">
+                                <img src="horse-groom.jpg" alt="學員在馬房為馬刷毛" loading="lazy" width="1400" height="788">
+                                <figcaption class="photo-cap">刷刷馬</figcaption>
+                                </figure>
+                            </div>
+                            <div class="fade-slide" data-rotate-slide="2" aria-hidden="true">
+                                <figure class="photo-box rounded-2xl border border-delftBlue/15 aspect-[16/10]">
+                                <img src="horse-walk.jpg" alt="學員牽著迷你馬一起走" loading="lazy" width="1400" height="788">
+                                <figcaption class="photo-cap">與馬同行</figcaption>
+                                </figure>
+                            </div>
+                            <div class="fade-slide" data-rotate-slide="3" aria-hidden="true">
+                                <figure class="photo-box rounded-2xl border border-delftBlue/15 aspect-[16/10]">
+                                <img src="horse-arena-ride.jpg" alt="學員在室內馬場騎乘，教練在旁引導" loading="lazy" width="1400" height="1050">
+                                <figcaption class="photo-cap">馬場騎乘體驗</figcaption>
+                                </figure>
+                            </div>
+                            <div class="fade-slide" data-rotate-slide="4" aria-hidden="true">
+                                <figure class="photo-box rounded-2xl border border-delftBlue/15 aspect-[16/10]">
+                                <img src="horse-field.jpg" alt="學員在戶外草場上練習馬上平衡" loading="lazy" width="1600" height="1000">
+                                <figcaption class="photo-cap">草場騎乘練習</figcaption>
+                                </figure>
+                            </div>
+                            <div class="fade-slide" data-rotate-slide="5" aria-hidden="true">
+                                <figure class="photo-box rounded-2xl border border-delftBlue/15 aspect-[16/10]">
+                                <img src="horse-vaulting.jpg" alt="學員在教練引導下練習馬上平衡" loading="lazy" width="1000" height="625">
+                                <figcaption class="photo-cap">馬上平衡與韻律</figcaption>
+                                </figure>
+                            </div>
+                            <div class="fade-slide" data-rotate-slide="6" aria-hidden="true">
+                                <figure class="photo-box rounded-2xl border border-delftBlue/15 aspect-[16/10]">
+                                <img src="horse-woods.jpg" alt="學員騎馬走過林間溪徑" loading="lazy" width="1000" height="625">
+                                <figcaption class="photo-cap">林間溪徑騎乘</figcaption>
+                                </figure>
+                            </div>
+                            <div class="fade-slide" data-rotate-slide="7" aria-hidden="true">
+                                <figure class="photo-box rounded-2xl border border-delftBlue/15 aspect-[16/10]">
+                                <img src="horse-trail-2.jpg" alt="學員在戶外草坡上騎乘" loading="lazy" width="1360" height="1214" style="object-position:25% 50%">
+                                <figcaption class="photo-cap">學員戶外騎乘</figcaption>
+                                </figure>
+                            </div>
+                    </div>
+                    <div class="fade-rotate-dots" role="tablist" aria-label="選擇照片">
+                        <button type="button" class="fade-dot is-on" data-rotate-dot="0" aria-label="第 1 張照片" aria-selected="true"></button>
+                        <button type="button" class="fade-dot" data-rotate-dot="1" aria-label="第 2 張照片" aria-selected="false"></button>
+                        <button type="button" class="fade-dot" data-rotate-dot="2" aria-label="第 3 張照片" aria-selected="false"></button>
+                        <button type="button" class="fade-dot" data-rotate-dot="3" aria-label="第 4 張照片" aria-selected="false"></button>
+                        <button type="button" class="fade-dot" data-rotate-dot="4" aria-label="第 5 張照片" aria-selected="false"></button>
+                        <button type="button" class="fade-dot" data-rotate-dot="5" aria-label="第 6 張照片" aria-selected="false"></button>
+                        <button type="button" class="fade-dot" data-rotate-dot="6" aria-label="第 7 張照片" aria-selected="false"></button>
+                        <button type="button" class="fade-dot" data-rotate-dot="7" aria-label="第 8 張照片" aria-selected="false"></button>
                     </div>
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-3 sm:mt-4">
@@ -673,28 +817,28 @@
                             <div class="photo-box w-16 h-16 rounded-xl border border-delftBlue/20 shrink-0"><img src="student-sunny.jpg" alt="Sunny" loading="lazy" width="400" height="400"></div>
                             <div>
                                 <div class="text-sm font-black text-dutchOrange">Sunny</div>
-                                <p class="text-base text-delftBlue/90 leading-relaxed mt-1">「每天用英語和荷蘭老師、同學討論與發表，讓我變得更敢開口，也交到一輩子的好朋友！」</p>
+                                <p class="text-base text-delftBlue/90 leading-relaxed mt-1">「謝謝老師們一路上的照顧與陪伴，這趟旅程充滿歡笑與美好回憶，謝謝您的耐心、細心和付出，我都會一直記得。」</p>
                             </div>
                         </div>
                         <div class="rounded-2xl bg-white p-4 border-2 border-delftBlue/20 shadow-sm flex gap-3 items-start">
                             <div class="photo-box w-16 h-16 rounded-xl border border-delftBlue/20 shrink-0"><img src="student-johnny.jpg" alt="Johnny" loading="lazy" width="400" height="400"></div>
                             <div>
                                 <div class="text-sm font-black text-dutchOrange">Johnny</div>
-                                <p class="text-base text-delftBlue/90 leading-relaxed mt-1">「在馬術學校學習照顧馬匹與騎乘，還有德國麥爾造船廠的巨大郵輪，都是課本學不到的震撼！」</p>
+                                <p class="text-base text-delftBlue/90 leading-relaxed mt-1">「卡門馬術學校，因為在那裡學習跟馬接觸，算是我人生的重大突破。」</p>
                             </div>
                         </div>
                         <div class="rounded-2xl bg-white p-4 border-2 border-delftBlue/20 shadow-sm flex gap-3 items-start">
                             <div class="photo-box w-16 h-16 rounded-xl border border-delftBlue/20 shrink-0"><img src="student-sharon.jpg" alt="Sharon" loading="lazy" width="400" height="400"></div>
                             <div>
                                 <div class="text-sm font-black text-dutchOrange">Sharon</div>
-                                <p class="text-base text-delftBlue/90 leading-relaxed mt-1">「斯希蒙尼克島騎單車環島和阿姆斯特丹梵谷博物館超難忘，讓我學會獨立規劃與團隊合作。」</p>
+                                <p class="text-base text-delftBlue/90 leading-relaxed mt-1">「騎馬，最後小組騎馬進森林，很有成就感，還學了馬的行為表現和怎麼清理馬。」</p>
                             </div>
                         </div>
                         <div class="rounded-2xl bg-white p-4 border-2 border-delftBlue/20 shadow-sm flex gap-3 items-start">
                             <div class="photo-box w-16 h-16 rounded-xl border border-delftBlue/20 shrink-0"><img src="student-apple.jpg" alt="Apple" loading="lazy" width="400" height="400"></div>
                             <div>
                                 <div class="text-sm font-black text-dutchOrange">Apple</div>
-                                <p class="text-base text-delftBlue/90 leading-relaxed mt-1">「從分組買菜做料理到結業英文簡報，17 天裡每一天都充滿成就感與溫暖回憶。」</p>
+                                <p class="text-base text-delftBlue/90 leading-relaxed mt-1">「最有收穫的是去騎馬，因為我一開始很緊張，後來我跟馬建立了信任，也變得很開心。」</p>
                             </div>
                         </div>
                     </div>
@@ -821,6 +965,50 @@
 
 
         // ===== 首頁照片輪播：自動輕柔切換、圓點、手機可滑動 =====
+
+        (function initFadeRotators() {
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const INTERVAL = 4500;
+            document.querySelectorAll('[data-fade-rotate]').forEach((root) => {
+                const slides = Array.from(root.querySelectorAll('[data-rotate-slide]'));
+                const dots = Array.from(root.querySelectorAll('[data-rotate-dot]'));
+                if (slides.length < 2) return;
+                let index = 0;
+                let timer = null;
+                function show(n) {
+                    index = (n + slides.length) % slides.length;
+                    slides.forEach((s, i) => {
+                        const on = i === index;
+                        s.classList.toggle('is-on', on);
+                        s.setAttribute('aria-hidden', on ? 'false' : 'true');
+                    });
+                    dots.forEach((d, i) => {
+                        const on = i === index;
+                        d.classList.toggle('is-on', on);
+                        d.setAttribute('aria-selected', on ? 'true' : 'false');
+                    });
+                }
+                function stop() { if (timer) { clearInterval(timer); timer = null; } }
+                function start() {
+                    if (reduce) return;
+                    stop();
+                    timer = setInterval(() => show(index + 1), INTERVAL);
+                }
+                dots.forEach((d) => {
+                    d.addEventListener('click', () => {
+                        show(Number(d.getAttribute('data-rotate-dot')));
+                        start();
+                    });
+                });
+                root.addEventListener('mouseenter', stop);
+                root.addEventListener('mouseleave', start);
+                document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else start(); });
+                show(0);
+                start();
+                root.__showSet = show;
+            });
+        })();
+
         (function initHeroCarousel() {
             const track = document.getElementById('hero-track');
             const viewport = document.getElementById('hero-viewport');
