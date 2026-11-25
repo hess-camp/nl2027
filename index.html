@@ -118,6 +118,78 @@
         .hero-arrow.next { right: 0.5rem; }
         @media (prefers-reduced-motion: reduce) { .hero-track { transition: none; } }
 
+        /* 開場奔馬：Eadweard Muybridge《Animal Locomotion》(1887) Plate 626，
+           純血馬「Annie G.」奔馳序列，公有領域。來源：Wikimedia Commons。 */
+        .gallop-intro {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .gallop-runner {
+            --gw: 11.25rem;
+            --gh: 7.26rem;
+            position: absolute;
+            left: 0;
+            bottom: max(4.5rem, 16vh);
+            width: var(--gw);
+            height: var(--gh);
+            will-change: transform;
+            animation: gallop-cross 2.55s cubic-bezier(0.33, 0.1, 0.55, 1) forwards;
+        }
+        @media (min-width: 768px) {
+            .gallop-runner { --gw: 14.5rem; --gh: 9.35rem; }
+        }
+        @media (min-width: 1280px) {
+            .gallop-runner { --gw: 16.25rem; --gh: 10.48rem; }
+        }
+        .gallop-sprite {
+            position: relative;
+            z-index: 1;
+            width: var(--gw);
+            height: var(--gh);
+            background-image: url('gallop-sprite.webp');
+            background-repeat: no-repeat;
+            background-size: calc(var(--gw) * 14) var(--gh);
+            animation: gallop-frames 0.64s steps(14) infinite;
+            filter: drop-shadow(0 8px 10px rgba(27, 73, 101, 0.38)) drop-shadow(0 1px 0 rgba(250, 246, 240, 0.4));
+        }
+        .gallop-dust {
+            position: absolute;
+            left: 8%;
+            bottom: 6%;
+            width: 42%;
+            height: 36%;
+            z-index: 0;
+        }
+        .gallop-dust span {
+            position: absolute;
+            left: 10%;
+            bottom: 0;
+            width: 0.7rem;
+            height: 0.7rem;
+            border-radius: 50%;
+            background: rgba(244, 162, 97, 0.7);
+            animation: gallop-puff 0.48s ease-out infinite;
+        }
+        .gallop-dust span:nth-child(2) { left: 28%; width: 0.7rem; height: 0.7rem; animation-delay: 0.16s; background: rgba(250, 246, 240, 0.7); }
+        .gallop-dust span:nth-child(3) { left: 4%; width: 0.45rem; height: 0.45rem; animation-delay: 0.3s; }
+        @keyframes gallop-cross {
+            0%   { transform: translateX(-32vw); }
+            100% { transform: translateX(110vw); }
+        }
+        @keyframes gallop-frames {
+            to { background-position: calc(var(--gw) * -14) 0; }
+        }
+        @keyframes gallop-puff {
+            0%   { opacity: 0.6; transform: translate(0, 0) scale(0.35); }
+            100% { opacity: 0; transform: translate(-1.15rem, -1.05rem) scale(1.35); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .gallop-intro { display: none !important; }
+        }
+
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -371,7 +443,11 @@
                             每日兼顧歐式在地健康風味與亞洲家鄉菜色；特別規劃分組採買食材與動手烹飪的「廚藝挑戰」，以及正式西餐禮儀體驗與溫馨熱鬧的戶外 BBQ 晚會。
                         </p>
                     </div>
-                    <div class="grid grid-cols-1 gap-2.5 photo-stack">
+                    <div class="grid grid-cols-2 gap-2.5 flex-1 min-h-0 photo-mosaic">
+                        <div class="photo-box rounded-xl border border-delftBlue/15 aspect-[16/10] col-span-2">
+                            <img src="meals-bbq.jpg" alt="學員在戶外 BBQ 晚會圍著火爐烤棉花糖" loading="lazy" width="1000" height="625" style="object-position:36% 50%">
+                            <div class="photo-cap">戶外 BBQ 晚會</div>
+                        </div>
                         <div class="photo-box rounded-xl border border-delftBlue/15 aspect-[16/10]"><img src="meals-dinner.jpg" alt="學員與老師一起用餐" loading="lazy" width="1000" height="750"></div>
                         <div class="photo-box rounded-xl border border-delftBlue/15 aspect-[16/10]"><img src="meals-cooking.jpg" alt="學員動手做料理" loading="lazy" width="1000" height="562"></div>
                     </div>
@@ -406,7 +482,10 @@
                         <h3 class="text-lg font-black text-delftBlue mb-1.5">藝術與設計</h3>
                         <p class="text-base text-delftBlue/85 leading-relaxed">走進荷蘭藝術傳統與簡約實用的 Dutch Design 設計美學。</p>
                     </div>
-                    <div class="rounded-2xl bg-dutchOrange/10 p-4 border-2 border-dutchOrange">
+                    <div class="rounded-2xl bg-dutchOrange/10 p-4 border-2 border-dutchOrange flex flex-col">
+                        <div class="photo-box rounded-xl border border-dutchOrange/25 aspect-[16/9] mb-3 bg-polderCream">
+                            <img src="illus-horse-accent.jpg" alt="Carmen Dressage School 手冊插畫" loading="lazy" width="800" height="599" style="object-fit:contain;background:#FAF6F0">
+                        </div>
                         <div class="text-sm font-black text-dutchOrange mb-1">TOPIC 05 ★ 特色亮點</div>
                         <h3 class="text-lg font-black text-delftBlue mb-1.5">馬術學習</h3>
                         <p class="text-base text-delftBlue/90 leading-relaxed">深入荷蘭馬文化與人馬互信，從日常照顧與互動中培養責任感。</p>
@@ -427,11 +506,6 @@
                     <p class="text-base text-white/90 leading-relaxed">
                         馬術課程於 <strong>Dressuurschool Carmen</strong> 學校進行，由專業教練親自指導。教學內容重視安全規範、人馬互信與循序引導，特別適合初次接觸馬術的學員，包含馬匹日常照護、行為觀察及迷你馬騎乘體驗。
                     </p>
-                    <div class="grid grid-cols-3 gap-2 pt-2">
-                        <div class="photo-box rounded-xl border border-white/20 aspect-[4/3]"><img src="horse-carmen-hall.jpg" alt="學員在 Carmen 馬術學校室內馬場騎乘" loading="lazy" width="1000" height="562"></div>
-                        <div class="photo-box rounded-xl border border-white/20 aspect-[4/3]"><img src="horse-trail.jpg" alt="學員在戶外步道騎馬" loading="lazy" width="1000" height="563"></div>
-                        <div class="photo-box rounded-xl border border-white/20 aspect-[4/3]"><img src="horse-pony.jpg" alt="學員牽著迷你馬" loading="lazy" width="1000" height="563"></div>
-                    </div>
                 </div>
                 <div class="lg:col-span-7">
                     <div class="rounded-2xl overflow-hidden border-2 border-white/25 shadow-lg aspect-video bg-black">
@@ -443,13 +517,49 @@
                     </div>
                 </div>
             </div>
+            <div class="rounded-3xl bg-white p-5 sm:p-7 border-2 border-delftBlue shadow-[6px_6px_0px_#FF6B00]">
+                <span class="text-sm font-bold tracking-widest text-dutchOrange uppercase">TRAIL RIDE • 林間騎乘</span>
+                <h3 class="text-2xl font-black text-delftBlue mt-1 mb-4">學員騎馬走進樹林</h3>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-4">
+                    <figure class="photo-box rounded-2xl border border-delftBlue/15 aspect-[16/10] lg:aspect-auto lg:h-full lg:col-span-7">
+                        <img src="horse-trail.jpg" alt="學員與老師騎馬走過林間溪徑" loading="lazy" width="1000" height="563">
+                        <figcaption class="photo-cap">學員騎馬走進林間溪徑</figcaption>
+                    </figure>
+                    <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3 sm:gap-4">
+                        <figure class="photo-box rounded-2xl border border-delftBlue/15 aspect-[16/10]">
+                            <img src="horse-woods.jpg" alt="學員在林蔭步道上騎乘，由教練牽引" loading="lazy" width="1000" height="625">
+                            <figcaption class="photo-cap">林蔭步道騎乘</figcaption>
+                        </figure>
+                        <figure class="photo-box rounded-2xl border border-delftBlue/15 aspect-[16/10]">
+                            <img src="horse-vaulting.jpg" alt="學員在教練引導下練習馬上平衡" loading="lazy" width="1000" height="625">
+                            <figcaption class="photo-cap">馬上平衡與韻律</figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-3 sm:mt-4">
+                    <figure class="photo-box rounded-xl border border-delftBlue/15 aspect-[16/10]">
+                        <img src="horse-carmen-hall.jpg" alt="學員在 Carmen 馬術學校室內馬場騎乘" loading="lazy" width="1000" height="562">
+                        <figcaption class="photo-cap">室內馬場騎乘</figcaption>
+                    </figure>
+                    <figure class="photo-box rounded-xl border border-delftBlue/15 aspect-[16/10]">
+                        <img src="horse-pony.jpg" alt="學員牽著迷你馬" loading="lazy" width="1000" height="563">
+                        <figcaption class="photo-cap">迷你馬互動</figcaption>
+                    </figure>
+                    <figure class="col-span-2 rounded-xl border border-delftBlue/15 overflow-hidden bg-polderCream min-h-[7.5rem] sm:min-h-[8.5rem] flex items-center justify-center p-2 sm:p-3">
+                        <img src="illus-13-carmen-dressage.jpg" alt="Carmen Dressage School 手冊插畫" class="w-full h-full object-contain" loading="lazy" width="1000" height="670">
+                    </figure>
+                </div>
+            </div>
             <div class="rounded-3xl bg-white border-2 border-delftBlue p-5 sm:p-7 shadow-[6px_6px_0px_#FF6B00]">
                 <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pb-4 mb-5 border-b-2 border-delftBlue/10">
+                    <div class="flex items-start gap-4 min-w-0">
+                        <img src="illus-13-carmen-dressage.jpg" alt="Carmen Dressage School 手冊插畫" class="hidden sm:block w-28 lg:w-36 rounded-xl border border-delftBlue/15 shrink-0 bg-polderCream" width="1000" height="670" loading="lazy">
                     <div>
                         <span class="text-sm font-bold tracking-widest text-dutchOrange uppercase">DUTCH EQUESTRIAN MINI-GAME</span>
                         <h2 class="text-2xl sm:text-3xl font-black text-delftBlue mt-0.5">🐎 騎馬快跑：跨越柵欄大挑戰</h2>
                         <p class="text-lg font-black text-dutchOrange mt-1">快來挑戰你騎馬的天賦！</p>
                         <p class="text-base text-delftBlue/85 mt-1">填寫「何嘉仁分校＋英文名字」挑戰跨欄跳躍，每一局的分數都會累積起來！</p>
+                    </div>
                     </div>
                     <div class="rounded-2xl bg-dutchGold/20 border-2 border-dutchOrange px-4 py-2.5 text-base font-bold text-delftBlue max-w-md">
                         🎁 冠軍神秘小禮物：累積總分第 1 名可獲得神秘小禮物（<span class="text-dutchOrange">限報名 2027 荷蘭夏令營學員享有</span>）。
@@ -625,6 +735,33 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-3 text-[11px] text-white/50 text-center">Managed by Sylar</div>
     </footer>
     <script>
+        // ===== 0. 開場奔馬：每訪播放一次，不擋點擊；?gallop=1 可重播，?gallop=0 略過 =====
+        (function () {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                const force = params.get('gallop') === '1';
+                const skip = params.get('gallop') === '0';
+                if (skip) return;
+                const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                if (!force && reduced) return;
+                if (!force && sessionStorage.getItem('nl2027-gallop') === '1') return;
+                if (!force) sessionStorage.setItem('nl2027-gallop', '1');
+            } catch (err) {
+                return;
+            }
+            const root = document.createElement('div');
+            root.className = 'gallop-intro';
+            root.setAttribute('aria-hidden', 'true');
+            root.innerHTML = '<div class="gallop-runner"><div class="gallop-dust"><span></span><span></span><span></span></div><div class="gallop-sprite"></div></div>';
+            document.body.appendChild(root);
+            const runner = root.querySelector('.gallop-runner');
+            const done = function () { if (root.parentNode) root.remove(); };
+            runner.addEventListener('animationend', function (e) {
+                if (e.animationName === 'gallop-cross') done();
+            });
+            setTimeout(done, 4000);
+        })();
+
         // ===== 1. 單元切換：上方細長列、手機選單、內文單元按鈕、下一單元按鈕都共用 =====
         const panelButtons = document.querySelectorAll('[data-panel-btn]');
         const contentPanels = document.querySelectorAll('[data-content-panel]');
