@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2027 何嘉仁荷蘭國際領袖營 | HESS Netherlands International Leadership Camp</title>
+    <meta name="description" content="2027 何嘉仁荷蘭國際領袖營：2027/7/9–7/25，共 17 天。營隊理念、基地與師資、五大課程、馬術體驗、11 個遊學景點與學員回饋。">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dutchOrange: '#FF6B00',
+                        delftBlue: '#1B4965',
+                        canalTeal: '#38A3A5',
+                        polderCream: '#FAF6F0',
+                        dutchGold: '#F4A261'
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif']
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: #FAF6F0;
+            color: #1B4965;
+            overflow-x: hidden;
+            font-family: "Noto Sans TC", sans-serif;
+            font-size: 17px;
+            line-height: 1.7;
+        }
+        /* 切換單元時，捲到單元標題，避開上方細長選單列 */
+        [data-content-panel], #section-tabs { scroll-margin-top: 64px; }
+
+        @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .windmill-blades { transform-origin: 50px 50px; animation: spinSlow 22s linear infinite; }
+        @media (prefers-reduced-motion: reduce) { .windmill-blades { animation: none; } html { scroll-behavior: auto; } }
+
+        /* 照片框 */
+        .photo-box { position: relative; overflow: hidden; background-color: #EFE8DC; }
+        .photo-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        @media (min-width: 1024px) {
+            .photo-mosaic { grid-template-rows: minmax(0, 1.45fr) minmax(0, 1fr); }
+            .photo-mosaic > .photo-box.col-span-2 { aspect-ratio: auto; min-height: 10rem; }
+            .photo-mosaic > .photo-box:not(.col-span-2) { aspect-ratio: auto; min-height: 5.5rem; }
+            .photo-stack {
+                flex: 1 1 auto;
+                min-height: 0;
+                grid-template-rows: 1fr 1fr;
+            }
+            .photo-stack > .photo-box { aspect-ratio: auto; min-height: 8rem; height: 100%; }
+        }
+        .photo-cap {
+            position: absolute; left: 0; right: 0; bottom: 0;
+            padding: 0.9rem 0.75rem 0.45rem;
+            background: linear-gradient(to top, rgba(27,73,101,0.85), rgba(27,73,101,0));
+            color: #fff; font-size: 0.85rem; font-weight: 700; line-height: 1.35;
+        }
+
+        /* 景點翻翻卡：兩面疊在同一格，高度跟著內容走，手機也不會被切掉 */
+        .flip-card { perspective: 1100px; }
+        .flip-card-inner {
+            display: grid;
+            transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+            transform-style: preserve-3d;
+            cursor: pointer;
+            border-radius: 1.25rem;
+        }
+        .flip-card.is-flipped .flip-card-inner { transform: rotateY(180deg); }
+        @media (hover: hover) and (pointer: fine) {
+            .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+        }
+        .flip-card-front, .flip-card-back {
+            grid-area: 1 / 1;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 1.25rem;
+            overflow: hidden;
+        }
+        .flip-card-back { transform: rotateY(180deg); }
+        .flip-card:focus-visible { outline: 3px solid #FF6B00; outline-offset: 4px; border-radius: 1.25rem; }
+
+        /* 單元按鈕 */
+        .panel-btn.is-active {
+            background-color: #FF6B00;
+            color: #FFFFFF;
+            border-color: #1B4965;
+            box-shadow: 3px 3px 0px #1B4965;
+        }
+        .bar-link.is-active { color: #FF6B00; box-shadow: inset 0 -3px 0 #FF6B00; }
+        #horse-game-canvas { touch-action: manipulation; }
+
+        /* 首頁照片輪播 */
+        .hero-carousel { position: relative; }
+        .hero-viewport { overflow: hidden; border-radius: 1.25rem; aspect-ratio: 16 / 9; background: #EFE8DC; }
+        .hero-track { display: flex; height: 100%; transition: transform 0.7s ease; will-change: transform; }
+        .hero-slide { position: relative; min-width: 100%; height: 100%; margin: 0; }
+        .hero-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .hero-dots { position: absolute; left: 0; right: 0; bottom: 2.55rem; z-index: 2; display: flex; justify-content: center; gap: 0.4rem; }
+        .hero-dot { width: 0.55rem; height: 0.55rem; padding: 0; border: 0; border-radius: 999px; background: rgba(255,255,255,0.6); box-shadow: 0 0 0 1px rgba(27,73,101,0.25); cursor: pointer; }
+        .hero-dot.is-on { width: 1.15rem; background: #FF6B00; }
+        .hero-arrow {
+            position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+            width: 2rem; height: 2rem; border: 0; border-radius: 999px;
+            background: rgba(27,73,101,0.55); color: #fff; font-size: 1.1rem; line-height: 1;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+        }
+        .hero-arrow:hover, .hero-arrow:focus-visible { background: rgba(27,73,101,0.85); outline: none; }
+        .hero-arrow.prev { left: 0.5rem; }
+        .hero-arrow.next { right: 0.5rem; }
+        @media (prefers-reduced-motion: reduce) { .hero-track { transition: none; } }
+
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- 唯一固定在畫面上的元素：細長選單列（高 48px） -->
+    <header id="top-bar" class="sticky top-0 z-40 h-12 bg-polderCream/95 backdrop-blur border-b-2 border-delftBlue/15">
+        <div class="max-w-7xl mx-auto h-full px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-3">
+            <a href="#top" class="flex items-center gap-2 min-w-0 font-black text-delftBlue">
+                <svg class="w-7 h-7 shrink-0" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+                    <path d="M36 92L44 46H56L64 92H36Z" fill="#1B4965"/>
+                    <circle cx="50" cy="46" r="6" fill="#FF6B00"/>
+                    <g class="windmill-blades">
+                        <rect x="47.5" y="10" width="5" height="34" rx="2" fill="#FF6B00"/>
+                        <rect x="47.5" y="56" width="5" height="34" rx="2" fill="#38A3A5"/>
+                        <rect x="10" y="47.5" width="34" height="5" rx="2" fill="#38A3A5"/>
+                        <rect x="56" y="47.5" width="34" height="5" rx="2" fill="#FF6B00"/>
+                    </g>
+                </svg>
+                <span class="truncate text-base">2027 荷蘭領袖營</span>
+            </a>
+
+            <!-- 電腦版：單元連結直接放在細長列上 -->
+            <nav aria-label="單元" class="hidden lg:flex items-stretch h-full gap-1 text-[15px] font-bold">
+                <button type="button" data-panel-btn="spirit" class="bar-link is-active px-2.5 h-full text-delftBlue hover:text-dutchOrange cursor-pointer">營隊理念</button>
+                <button type="button" data-panel-btn="base" class="bar-link px-2.5 h-full text-delftBlue hover:text-dutchOrange cursor-pointer">基地與師資</button>
+                <button type="button" data-panel-btn="courses" class="bar-link px-2.5 h-full text-delftBlue hover:text-dutchOrange cursor-pointer">五大課程</button>
+                <button type="button" data-panel-btn="horse" class="bar-link px-2.5 h-full text-delftBlue hover:text-dutchOrange cursor-pointer">馬術體驗</button>
+                <button type="button" data-panel-btn="excursions" class="bar-link px-2.5 h-full text-delftBlue hover:text-dutchOrange cursor-pointer">遊學景點</button>
+                <button type="button" data-panel-btn="feedback" class="bar-link px-2.5 h-full text-delftBlue hover:text-dutchOrange cursor-pointer">學生回饋</button>
+            </nav>
+
+            <!-- 手機版：只有一顆小小的「單元」按鈕 -->
+            <div class="relative lg:hidden">
+                <button id="menu-btn" type="button" aria-expanded="false" aria-controls="menu-sheet" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-delftBlue text-white text-[15px] font-bold cursor-pointer">
+                    <span aria-hidden="true">☰</span> 單元
+                </button>
+                <div id="menu-sheet" class="hidden absolute right-0 top-11 w-60 rounded-2xl bg-white border-2 border-delftBlue shadow-[4px_4px_0px_#38A3A5] p-2">
+                    <button type="button" data-panel-btn="spirit" class="menu-item w-full text-left px-3 py-2.5 rounded-xl text-base font-bold text-delftBlue hover:bg-polderCream cursor-pointer">營隊理念與荷蘭優勢</button>
+                    <button type="button" data-panel-btn="base" class="menu-item w-full text-left px-3 py-2.5 rounded-xl text-base font-bold text-delftBlue hover:bg-polderCream cursor-pointer">基地、師資與餐食</button>
+                    <button type="button" data-panel-btn="courses" class="menu-item w-full text-left px-3 py-2.5 rounded-xl text-base font-bold text-delftBlue hover:bg-polderCream cursor-pointer">五大課程</button>
+                    <button type="button" data-panel-btn="horse" class="menu-item w-full text-left px-3 py-2.5 rounded-xl text-base font-bold text-delftBlue hover:bg-polderCream cursor-pointer">馬術體驗</button>
+                    <button type="button" data-panel-btn="excursions" class="menu-item w-full text-left px-3 py-2.5 rounded-xl text-base font-bold text-delftBlue hover:bg-polderCream cursor-pointer">遊學景點翻翻卡</button>
+                    <button type="button" data-panel-btn="feedback" class="menu-item w-full text-left px-3 py-2.5 rounded-xl text-base font-bold text-delftBlue hover:bg-polderCream cursor-pointer">學生回饋與成果</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 色條（跟著頁面捲動，不固定） -->
+    <div id="top" class="w-full h-2 flex shrink-0">
+        <div class="w-1/4 bg-delftBlue"></div>
+        <div class="w-1/4 bg-dutchOrange"></div>
+        <div class="w-1/4 bg-canalTeal"></div>
+        <div class="w-1/4 bg-dutchGold"></div>
+    </div>
+
+    <!-- 首頁大圖與營隊資訊（不固定，往下捲就讓出畫面） -->
+    <section class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
+            <div class="lg:col-span-6 space-y-4 order-2 lg:order-1">
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="px-3 py-1 rounded-full bg-delftBlue text-white text-sm font-bold">2027 荷蘭國際領袖營</span>
+                    <span class="px-3 py-1 rounded-full bg-dutchOrange/15 text-dutchOrange border border-dutchOrange/40 text-sm font-bold">2027/7/9(五) – 7/25(日)，共 17 天</span>
+                </div>
+                <h1 class="text-[2rem] sm:text-5xl font-black text-delftBlue leading-tight">2027 何嘉仁<br>荷蘭國際領袖營</h1>
+                <p class="text-base sm:text-lg font-bold text-dutchOrange">HESS Netherlands International Leadership Camp<br>Explore Cultures. Grow Your World.</p>
+                <p class="inline-block px-4 py-2 rounded-2xl bg-canalTeal/15 border border-canalTeal/40 text-base font-bold text-delftBlue">資格：THC / TH+ / ESL 10級以上或 IA</p>
+            </div>
+            <div class="lg:col-span-6 order-1 lg:order-2">
+                <div class="rounded-3xl bg-delftBlue p-1.5 shadow-[6px_6px_0px_#FF6B00]">
+                    <div class="hero-carousel" aria-roledescription="carousel" aria-label="2026 荷蘭營活動照片">
+                        <div class="hero-viewport" id="hero-viewport">
+                            <div class="hero-track" id="hero-track">
+                        <figure class="hero-slide">
+                            <img src="hero-01.jpg" alt="2026 荷蘭營學員在桑斯安斯風車村合影" width="1400" height="787" fetchpriority="high">
+                            <figcaption class="photo-cap">2026 荷蘭營 • 桑斯安斯風車村</figcaption>
+                        </figure>
+                        <figure class="hero-slide">
+                            <img src="hero-02.jpg" alt="學員在桑斯安斯風車村的巨大木鞋前合影" width="1400" height="787" loading="lazy">
+                            <figcaption class="photo-cap">2026 荷蘭營 • 桑斯安斯木鞋</figcaption>
+                        </figure>
+                        <figure class="hero-slide">
+                            <img src="hero-03.jpg" alt="學員在馬術課與馬匹合影" width="1400" height="787" loading="lazy">
+                            <figcaption class="photo-cap">2026 荷蘭營 • 馬術課</figcaption>
+                        </figure>
+                        <figure class="hero-slide">
+                            <img src="hero-04.jpg" alt="學員在阿姆斯特丹 NEMO 科學博物館屋頂合影" width="1400" height="787" loading="lazy">
+                            <figcaption class="photo-cap">2026 荷蘭營 • 阿姆斯特丹 NEMO 屋頂</figcaption>
+                        </figure>
+                        <figure class="hero-slide">
+                            <img src="hero-05.jpg" alt="學員在 Carmen 馬術學校合影" width="1400" height="787" loading="lazy">
+                            <figcaption class="photo-cap">2026 荷蘭營 • Carmen 馬術學校</figcaption>
+                        </figure>
+                        <figure class="hero-slide">
+                            <img src="hero-06.jpg" alt="學員搭船前往斯希蒙尼克島" width="1400" height="787" loading="lazy">
+                            <figcaption class="photo-cap">2026 荷蘭營 • 前往斯希蒙尼克島</figcaption>
+                        </figure>
+                        <figure class="hero-slide">
+                            <img src="hero-07.jpg" alt="學員在德國里爾 Schloss Evenburg 城堡前合影" width="1400" height="787" loading="lazy">
+                            <figcaption class="photo-cap">2026 荷蘭營 • 德國里爾城堡</figcaption>
+                        </figure>
+                        <figure class="hero-slide">
+                            <img src="hero-08.jpg" alt="學員騎單車出行" width="1400" height="787" loading="lazy">
+                            <figcaption class="photo-cap">2026 荷蘭營 • 單車出行</figcaption>
+                        </figure>
+                        <figure class="hero-slide">
+                            <img src="hero-09.jpg" alt="學員與老師在格羅寧根博物館前合影" width="1400" height="787" loading="lazy">
+                            <figcaption class="photo-cap">2026 荷蘭營 • 格羅寧根博物館</figcaption>
+                        </figure>
+                        <figure class="hero-slide">
+                            <img src="hero-10.jpg" alt="學員戶外團隊活動" width="1400" height="787" loading="lazy">
+                            <figcaption class="photo-cap">2026 荷蘭營 • 戶外團隊活動</figcaption>
+                        </figure>
+                            </div>
+                        </div>
+                        <button type="button" class="hero-arrow prev" id="hero-prev" aria-label="上一張照片">‹</button>
+                        <button type="button" class="hero-arrow next" id="hero-next" aria-label="下一張照片">›</button>
+                        <div class="hero-dots" role="tablist" aria-label="選擇照片">
+                        <button type="button" class="hero-dot is-on" data-hero-dot="0" aria-label="第 1 張照片"></button>
+                        <button type="button" class="hero-dot" data-hero-dot="1" aria-label="第 2 張照片"></button>
+                        <button type="button" class="hero-dot" data-hero-dot="2" aria-label="第 3 張照片"></button>
+                        <button type="button" class="hero-dot" data-hero-dot="3" aria-label="第 4 張照片"></button>
+                        <button type="button" class="hero-dot" data-hero-dot="4" aria-label="第 5 張照片"></button>
+                        <button type="button" class="hero-dot" data-hero-dot="5" aria-label="第 6 張照片"></button>
+                        <button type="button" class="hero-dot" data-hero-dot="6" aria-label="第 7 張照片"></button>
+                        <button type="button" class="hero-dot" data-hero-dot="7" aria-label="第 8 張照片"></button>
+                        <button type="button" class="hero-dot" data-hero-dot="8" aria-label="第 9 張照片"></button>
+                        <button type="button" class="hero-dot" data-hero-dot="9" aria-label="第 10 張照片"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 單元按鈕：放在內文裡，不黏在畫面上 -->
+        <nav id="section-tabs" aria-label="營隊資訊單元" class="mt-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
+            <button type="button" data-panel-btn="spirit" class="panel-btn is-active px-3 py-3 rounded-2xl bg-white text-delftBlue border-2 border-delftBlue/30 text-[15px] sm:text-base font-bold leading-snug transition-all cursor-pointer">營隊理念與荷蘭優勢</button>
+            <button type="button" data-panel-btn="base" class="panel-btn px-3 py-3 rounded-2xl bg-white text-delftBlue border-2 border-delftBlue/30 text-[15px] sm:text-base font-bold leading-snug transition-all cursor-pointer">基地、師資與餐食</button>
+            <button type="button" data-panel-btn="courses" class="panel-btn px-3 py-3 rounded-2xl bg-white text-delftBlue border-2 border-delftBlue/30 text-[15px] sm:text-base font-bold leading-snug transition-all cursor-pointer">五大課程</button>
+            <button type="button" data-panel-btn="horse" class="panel-btn px-3 py-3 rounded-2xl bg-white text-delftBlue border-2 border-delftBlue/30 text-[15px] sm:text-base font-bold leading-snug transition-all cursor-pointer">馬術體驗</button>
+            <button type="button" data-panel-btn="excursions" class="panel-btn px-3 py-3 rounded-2xl bg-white text-delftBlue border-2 border-delftBlue/30 text-[15px] sm:text-base font-bold leading-snug transition-all cursor-pointer">遊學景點翻翻卡</button>
+            <button type="button" data-panel-btn="feedback" class="panel-btn px-3 py-3 rounded-2xl bg-white text-delftBlue border-2 border-delftBlue/30 text-[15px] sm:text-base font-bold leading-snug transition-all cursor-pointer">學生回饋與成果</button>
+        </nav>
+    </section>
+
+    <main id="dynamic-content-area" class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+
+        <!-- 單元 1：營隊理念與荷蘭優勢 -->
+        <section id="panel-spirit" data-content-panel class="space-y-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                <div class="lg:col-span-5 rounded-3xl bg-white p-6 sm:p-8 border-2 border-delftBlue shadow-[6px_6px_0px_#FF6B00] flex flex-col gap-5 h-full">
+                    <div class="shrink-0">
+                        <span class="text-sm font-bold tracking-widest text-canalTeal uppercase">SPIRIT 營隊理念</span>
+                        <h2 class="text-2xl sm:text-3xl font-black text-delftBlue mt-1 mb-3 leading-snug">國際營隊，培養自信與成長型思維</h2>
+                        <p class="text-base sm:text-lg text-delftBlue/90 leading-relaxed">
+                            由何嘉仁專業教學團隊統籌設計與細緻規劃，打造安全、有深度的沉浸式學習，融合結構化學習、實作活動與文化體驗，陪伴學員帶著自信走向更遼闊的世界。
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-1 gap-3">
+                        <div class="photo-box rounded-2xl border-2 border-delftBlue/20 aspect-[16/10]">
+                            <img src="spirit-team-circle.jpg" alt="學員圍成一圈進行團隊活動" loading="lazy" width="1000" height="562">
+                            <div class="photo-cap">團隊活動</div>
+                        </div>
+                        <div class="photo-box rounded-2xl border-2 border-delftBlue/20 aspect-[16/10]">
+                            <img src="spirit-campfire.jpg" alt="學員與老師一起烤棉花糖" loading="lazy" width="1000" height="750">
+                            <div class="photo-cap">學員與老師烤棉花糖</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 rounded-3xl bg-delftBlue text-white p-6 sm:p-8 shadow-[6px_6px_0px_#38A3A5] h-full flex flex-col">
+                    <span class="text-sm font-bold tracking-widest text-dutchGold uppercase">WHY THE NETHERLANDS</span>
+                    <h2 class="text-2xl sm:text-3xl font-black mt-1 mb-5 leading-snug">為什麼到荷蘭學習？智慧、開放、高幸福感的小型超級大國</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-stretch flex-1 min-h-0">
+                        <figure class="rounded-2xl bg-[#FAF6F0] p-2 border border-white/20 m-0 h-fit">
+                            <img src="netherlands-map.svg" alt="荷蘭地圖，標示格羅寧根省、Opende 營隊基地與阿姆斯特丹" width="888" height="1001" loading="lazy" class="w-full h-auto">
+                            <figcaption class="px-1.5 pt-1 text-right text-[10px] leading-none text-delftBlue/50"><a href="https://commons.wikimedia.org/wiki/File:Groningen_in_the_Netherlands.svg" target="_blank" rel="noopener" title="地圖：TUBS, Wikimedia Commons, CC BY-SA 3.0">CC BY-SA</a></figcaption>
+                        </figure>
+                        <div class="grid grid-cols-1 grid-rows-4 gap-3 h-full">
+                        <div class="rounded-2xl bg-white/10 p-4 border border-white/15">
+                            <div class="text-lg font-black text-dutchGold mb-1">01 安全、友善與高英語力</div>
+                            <p class="text-base text-white/90 leading-relaxed">近九成人口能以英語溝通，提供安心自然的跨文化英語使用環境。</p>
+                        </div>
+                        <div class="rounded-2xl bg-white/10 p-4 border border-white/15">
+                            <div class="text-lg font-black text-dutchGold mb-1">02 自律與責任感</div>
+                            <p class="text-base text-white/90 leading-relaxed">重視獨立自主與責任承擔，面對挑戰踏實投入、勇於嘗試。</p>
+                        </div>
+                        <div class="rounded-2xl bg-white/10 p-4 border border-white/15">
+                            <div class="text-lg font-black text-dutchGold mb-1">03 風車、水利與填海智慧</div>
+                            <p class="text-base text-white/90 leading-relaxed">見證荷蘭人與水共存的工程智慧，以及 17 世紀大航海貿易與金融底蘊。</p>
+                        </div>
+                        <div class="rounded-2xl bg-white/10 p-4 border border-white/15">
+                            <div class="text-lg font-black text-dutchGold mb-1">04 藝術與創意之國</div>
+                            <p class="text-base text-white/90 leading-relaxed">從經典繪畫到現代建築與城市規劃，培養敏銳美感與創新視野。</p>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end"><button type="button" data-next-panel="base" class="next-btn px-5 py-3 rounded-2xl bg-white border-2 border-delftBlue text-delftBlue text-base font-bold shadow-[3px_3px_0px_#FF6B00] cursor-pointer">下一單元：基地、師資與餐食 →</button></div>
+        </section>
+
+        <!-- 單元 2：基地、師資與餐食 -->
+        <section id="panel-base" data-content-panel class="hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+                <div class="rounded-3xl bg-white p-6 border-2 border-delftBlue shadow-[5px_5px_0px_#38A3A5] flex flex-col gap-4 h-full">
+                    <div class="shrink-0">
+                        <span class="text-sm font-bold tracking-widest text-canalTeal uppercase">LOCATION 營隊基地</span>
+                        <h3 class="text-2xl font-black text-delftBlue mt-1 mb-2">格羅寧根省 Groningen • Opende</h3>
+                        <p class="text-base text-delftBlue/90 leading-relaxed">
+                            選址於荷蘭北部格羅寧根省（Groningen），以遼闊自然景觀與深厚農業、水利文化聞名。活動所在地 Opende 為寧靜且富有文化素養的小鎮，保留純粹並有質感的歐洲生活樣貌。
+                        </p>
+                    </div>
+                    <div class="space-y-2 flex-1 flex flex-col min-h-0">
+                        <div class="grid grid-cols-2 gap-2.5 flex-1 min-h-0 photo-mosaic">
+                            <div class="photo-box col-span-2 rounded-xl border border-delftBlue/15 aspect-[16/10]">
+                                <img src="base-opende-house.jpg" alt="Opende 住宿 Eigendraads 屋舍與庭院" loading="lazy" width="1024" height="683">
+                                <div class="photo-cap">Eigendraads 屋舍</div>
+                            </div>
+                            <div class="photo-box rounded-xl border border-delftBlue/15 aspect-[4/3]">
+                                <img src="base-opende-playground.jpg" alt="Opende 住宿 Eigendraads 的戶外遊戲場與溜滑梯" loading="lazy" width="1139" height="900">
+                                <div class="photo-cap">戶外遊戲場</div>
+                            </div>
+                            <div class="photo-box rounded-xl border border-delftBlue/15 aspect-[4/3]">
+                                <img src="base-opende-farm.jpg" alt="Opende 住宿 Eigendraads 的小農場山羊" loading="lazy" width="1063" height="1600">
+                                <div class="photo-cap">小農場</div>
+                            </div>
+                        </div>
+                        <p class="text-sm text-delftBlue/75 leading-snug">照片來源：<a href="https://www.visitgroningen.nl/en/locations/474430841/idiosyncratic" class="underline font-bold" target="_blank" rel="noopener">Visit Groningen</a>（Eigendraads 官方介紹頁）</p>
+                    </div>
+                </div>
+
+                <div class="rounded-3xl bg-white p-6 border-2 border-delftBlue shadow-[5px_5px_0px_#FF6B00] flex flex-col gap-4 h-full">
+                    <div class="shrink-0">
+                        <span class="text-sm font-bold tracking-widest text-dutchOrange uppercase">TEACHERS 雙軌專業師資</span>
+                        <h3 class="text-2xl font-black text-delftBlue mt-1 mb-2">HESS 中外師 × 荷蘭在地教師</h3>
+                        <p class="text-base text-delftBlue/90 leading-relaxed">
+                            由 HESS 中、外籍教師組成的教學團隊全程陪伴學員學習與生活；課程特別安排荷蘭在地教師參與教學與活動帶領，引導學員深度理解荷蘭與歐洲社會價值觀與多元文化。
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-1 gap-2.5 photo-stack">
+                        <div class="photo-box rounded-xl border border-delftBlue/15 aspect-[16/10]"><img src="teachers-coast-group.jpg" alt="師生在運河橋上合影" loading="lazy" width="1000" height="750"></div>
+                        <div class="photo-box rounded-xl border border-delftBlue/15 aspect-[16/10]"><img src="teachers-certificates.jpg" alt="學員與老師拿著證書合影" loading="lazy" width="1000" height="563"></div>
+                    </div>
+                </div>
+
+                <div class="rounded-3xl bg-white p-6 border-2 border-delftBlue shadow-[5px_5px_0px_#F4A261] flex flex-col gap-4 h-full">
+                    <div class="shrink-0">
+                        <span class="text-sm font-bold tracking-widest text-dutchGold uppercase">MEALS 吃出文化體驗</span>
+                        <h3 class="text-2xl font-black text-delftBlue mt-1 mb-2">歐式在地風味 ＋ 廚藝挑戰</h3>
+                        <p class="text-base text-delftBlue/90 leading-relaxed">
+                            每日兼顧歐式在地健康風味與亞洲家鄉菜色；特別規劃分組採買食材與動手烹飪的「廚藝挑戰」，以及正式西餐禮儀體驗與溫馨熱鬧的戶外 BBQ 晚會。
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-1 gap-2.5 photo-stack">
+                        <div class="photo-box rounded-xl border border-delftBlue/15 aspect-[16/10]"><img src="meals-dinner.jpg" alt="學員與老師一起用餐" loading="lazy" width="1000" height="750"></div>
+                        <div class="photo-box rounded-xl border border-delftBlue/15 aspect-[16/10]"><img src="meals-cooking.jpg" alt="學員動手做料理" loading="lazy" width="1000" height="562"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end"><button type="button" data-next-panel="courses" class="next-btn px-5 py-3 rounded-2xl bg-white border-2 border-delftBlue text-delftBlue text-base font-bold shadow-[3px_3px_0px_#FF6B00] cursor-pointer">下一單元：五大課程 →</button></div>
+        </section>
+
+        <!-- 單元 3：五大課程與馬術 -->
+        <section id="panel-courses" data-content-panel class="hidden space-y-6">
+            <div class="rounded-3xl bg-white p-6 sm:p-8 border-2 border-delftBlue shadow-[6px_6px_0px_#38A3A5]">
+                <span class="text-sm font-bold tracking-widest text-canalTeal uppercase">FIVE TOPICS 五大主題課程</span>
+                <h2 class="text-2xl sm:text-3xl font-black text-delftBlue mt-1 mb-5">結構化主題探索 × 沉浸式實作</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                    <div class="rounded-2xl bg-polderCream p-4 border-2 border-delftBlue/15">
+                        <div class="text-sm font-black text-dutchOrange mb-1">TOPIC 01</div>
+                        <h3 class="text-lg font-black text-delftBlue mb-1.5">荷蘭歷史、生活與語言</h3>
+                        <p class="text-base text-delftBlue/85 leading-relaxed">認識荷蘭黃金時代與歷史文化脈絡，練習荷蘭語日常溝通用語。</p>
+                    </div>
+                    <div class="rounded-2xl bg-polderCream p-4 border-2 border-delftBlue/15">
+                        <div class="text-sm font-black text-dutchOrange mb-1">TOPIC 02</div>
+                        <h3 class="text-lg font-black text-delftBlue mb-1.5">創新與永續</h3>
+                        <p class="text-base text-delftBlue/85 leading-relaxed">探索荷蘭人如何與水共存、風力與水利工程，培養永續生活思維。</p>
+                    </div>
+                    <div class="rounded-2xl bg-polderCream p-4 border-2 border-delftBlue/15">
+                        <div class="text-sm font-black text-dutchOrange mb-1">TOPIC 03</div>
+                        <h3 class="text-lg font-black text-delftBlue mb-1.5">自然與生活</h3>
+                        <p class="text-base text-delftBlue/85 leading-relaxed">親近北荷蘭自然生態，體驗道地單車文化與簡樸自律的生活態度。</p>
+                    </div>
+                    <div class="rounded-2xl bg-polderCream p-4 border-2 border-delftBlue/15">
+                        <div class="text-sm font-black text-dutchOrange mb-1">TOPIC 04</div>
+                        <h3 class="text-lg font-black text-delftBlue mb-1.5">藝術與設計</h3>
+                        <p class="text-base text-delftBlue/85 leading-relaxed">走進荷蘭藝術傳統與簡約實用的 Dutch Design 設計美學。</p>
+                    </div>
+                    <div class="rounded-2xl bg-dutchOrange/10 p-4 border-2 border-dutchOrange">
+                        <div class="text-sm font-black text-dutchOrange mb-1">TOPIC 05 ★ 特色亮點</div>
+                        <h3 class="text-lg font-black text-delftBlue mb-1.5">馬術學習 Horsemanship</h3>
+                        <p class="text-base text-delftBlue/90 leading-relaxed">深入荷蘭馬文化與人馬互信，從日常照顧與互動中培養責任感。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-end"><button type="button" data-next-panel="horse" class="next-btn px-5 py-3 rounded-2xl bg-white border-2 border-delftBlue text-delftBlue text-base font-bold shadow-[3px_3px_0px_#FF6B00] cursor-pointer">下一單元：馬術體驗 →</button></div>
+        </section>
+
+        <!-- 單元：馬術體驗（含騎馬快跑小遊戲） -->
+        <section id="panel-horse" data-content-panel class="hidden space-y-6">
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center rounded-3xl bg-delftBlue text-white p-6 sm:p-8 shadow-[6px_6px_0px_#FF6B00]">
+                <div class="lg:col-span-5 space-y-3">
+                    <span class="text-sm font-bold tracking-widest text-dutchGold uppercase">HORSEMANSHIP • CARMEN DRESSAGE SCHOOL</span>
+                    <h3 class="text-2xl font-black">專業馬術學校循序引導體驗</h3>
+                    <p class="text-base text-white/90 leading-relaxed">
+                        馬術課程於 <strong>Dressuurschool Carmen</strong> 學校進行，由專業教練親自指導。教學內容重視安全規範、人馬互信與循序引導，特別適合初次接觸馬術的學員，包含馬匹日常照護、行為觀察及迷你馬騎乘體驗。
+                    </p>
+                    <div class="grid grid-cols-3 gap-2 pt-2">
+                        <div class="photo-box rounded-xl border border-white/20 aspect-[4/3]"><img src="horse-carmen-hall.jpg" alt="學員在 Carmen 馬術學校室內馬場騎乘" loading="lazy" width="1000" height="562"></div>
+                        <div class="photo-box rounded-xl border border-white/20 aspect-[4/3]"><img src="horse-trail.jpg" alt="學員在戶外步道騎馬" loading="lazy" width="1000" height="563"></div>
+                        <div class="photo-box rounded-xl border border-white/20 aspect-[4/3]"><img src="horse-pony.jpg" alt="學員牽著迷你馬" loading="lazy" width="1000" height="563"></div>
+                    </div>
+                </div>
+                <div class="lg:col-span-7">
+                    <div class="rounded-2xl overflow-hidden border-2 border-white/25 shadow-lg aspect-video bg-black">
+                        <iframe class="w-full h-full" loading="lazy"
+                            src="https://www.youtube.com/embed/9Fk7EJxQFDE?list=PLbbENLDXRlnbD2SDm4XUhUq342Xqe2d4e"
+                            title="Carmen Dressage School 馬術課程實況" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+            <div class="rounded-3xl bg-white border-2 border-delftBlue p-5 sm:p-7 shadow-[6px_6px_0px_#FF6B00]">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 pb-4 mb-5 border-b-2 border-delftBlue/10">
+                    <div>
+                        <span class="text-sm font-bold tracking-widest text-dutchOrange uppercase">DUTCH EQUESTRIAN MINI-GAME</span>
+                        <h2 class="text-2xl sm:text-3xl font-black text-delftBlue mt-0.5">🐎 騎馬快跑：跨越柵欄大挑戰</h2>
+                        <p class="text-lg font-black text-dutchOrange mt-1">快來挑戰你騎馬的天賦！</p>
+                        <p class="text-base text-delftBlue/85 mt-1">填寫「何嘉仁分校＋英文名字」挑戰跨欄跳躍，每一局的分數都會累積起來！</p>
+                    </div>
+                    <div class="rounded-2xl bg-dutchGold/20 border-2 border-dutchOrange px-4 py-2.5 text-base font-bold text-delftBlue max-w-md">
+                        🎁 冠軍神秘小禮物：累積總分第 1 名可獲得神秘小禮物（<span class="text-dutchOrange">限報名 2027 荷蘭夏令營學員享有</span>）。
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-3 mb-5 bg-polderCream p-4 rounded-2xl border-2 border-delftBlue/15 items-end">
+                    <div class="md:col-span-5">
+                        <label for="game-branch" class="block text-base font-bold text-delftBlue mb-1">何嘉仁分校（HESS Branch）</label>
+                        <input id="game-branch" type="text" maxlength="30" autocomplete="off" placeholder="例如：台北大安分校" class="w-full px-3.5 py-2.5 rounded-xl bg-white border-2 border-delftBlue/20 focus:border-delftBlue outline-none text-base font-bold text-delftBlue">
+                    </div>
+                    <div class="md:col-span-4">
+                        <label for="game-en-name" class="block text-base font-bold text-delftBlue mb-1">英文名字（English Name）</label>
+                        <input id="game-en-name" type="text" maxlength="25" autocomplete="off" placeholder="例如：Sunny" class="w-full px-3.5 py-2.5 rounded-xl bg-white border-2 border-delftBlue/20 focus:border-delftBlue outline-none text-base font-bold text-delftBlue">
+                    </div>
+                    <div class="md:col-span-3 flex gap-2">
+                        <button id="start-game-btn" type="button" class="flex-1 py-3 px-4 rounded-xl bg-dutchOrange hover:bg-orange-600 text-white font-black text-base shadow-[3px_3px_0px_#1B4965] transition-all cursor-pointer">▶ 開始奔跑</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                    <div class="lg:col-span-8 space-y-3">
+                        <div class="relative rounded-2xl overflow-hidden border-2 border-delftBlue bg-[#E6F4F1] shadow-inner">
+                            <div class="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 px-4 py-2 bg-delftBlue text-white text-sm sm:text-base font-bold">
+                                <div id="active-player-badge" class="truncate max-w-full">選手：尚未設定</div>
+                                <div class="flex items-center gap-3 sm:gap-4 shrink-0">
+                                    <span>關卡 <strong id="game-stage" class="text-dutchGold">Lv.1</strong></span>
+                                    <span>柵欄 <strong id="game-hurdles" class="text-dutchGold">0</strong></span>
+                                    <span>得分 <strong id="game-score" class="text-dutchGold">0</strong></span>
+                                </div>
+                            </div>
+                            <div class="relative">
+                                <canvas id="horse-game-canvas" class="w-full h-72 sm:h-80 block select-none" aria-label="騎馬快跑遊戲畫面"></canvas>
+                                <div id="game-overlay" class="absolute inset-0 bg-delftBlue/75 backdrop-blur-[2px] flex flex-col items-center justify-center p-4 text-center text-white">
+                                    <div id="overlay-title" class="text-xl sm:text-2xl font-black text-dutchGold mb-1">準備好騎上駿馬了嗎？</div>
+                                    <p id="overlay-subtitle" class="text-base text-white/95 max-w-md mb-4">按空白鍵（Space）、向上鍵（↑）、點一下畫面或按「跳躍」按鈕，越過荷蘭草原上的柵欄獲得分數！</p>
+                                    <button id="overlay-start-btn" type="button" class="px-6 py-3 rounded-xl bg-dutchOrange hover:bg-orange-600 text-white font-black text-base shadow-[3px_3px_0px_#FAF6F0] cursor-pointer">立即出賽</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-wrap items-center justify-between gap-3">
+                            <div class="text-base font-bold text-delftBlue/80">
+                                操作方式：鍵盤 <kbd class="px-2 py-0.5 rounded bg-polderCream border border-delftBlue/30">Space</kbd> / <kbd class="px-2 py-0.5 rounded bg-polderCream border border-delftBlue/30">↑</kbd>，或點畫面、按跳躍鍵
+                            </div>
+                            <button id="jump-action-btn" type="button" class="w-full sm:w-auto px-10 py-4 rounded-2xl bg-canalTeal hover:bg-teal-600 active:translate-y-0.5 text-white font-black text-lg shadow-[4px_4px_0px_#1B4965] transition-all cursor-pointer select-none">⬆ 跳躍 JUMP</button>
+                        </div>
+                    </div>
+
+                    <!-- 我的成績：只顯示玩家自己的分數 -->
+                    <div class="lg:col-span-4 rounded-2xl bg-polderCream border-2 border-delftBlue p-4 sm:p-5 space-y-3">
+                        <h3 class="text-xl font-black text-delftBlue">🏅 我的成績</h3>
+                        <div id="my-stats-name" class="text-base font-bold text-delftBlue/80">填好分校與英文名字就能開始累積</div>
+                        <div class="grid grid-cols-3 gap-2 text-center">
+                            <div class="rounded-xl bg-white border border-delftBlue/20 p-2.5">
+                                <div id="my-total" class="text-2xl font-black text-dutchOrange">0</div>
+                                <div class="text-sm font-bold text-delftBlue/70">累積總分</div>
+                            </div>
+                            <div class="rounded-xl bg-white border border-delftBlue/20 p-2.5">
+                                <div id="my-best" class="text-2xl font-black text-delftBlue">Lv.1</div>
+                                <div class="text-sm font-bold text-delftBlue/70">最高關卡</div>
+                            </div>
+                            <div class="rounded-xl bg-white border border-delftBlue/20 p-2.5">
+                                <div id="my-runs" class="text-2xl font-black text-delftBlue">0</div>
+                                <div class="text-sm font-bold text-delftBlue/70">挑戰局數</div>
+                            </div>
+                        </div>
+                        <p class="text-base text-delftBlue/85 leading-relaxed">每過 3 座柵欄就會晉升下一關，速度變快、每座柵欄的分數也變多。多玩幾局，衝刺更高的累積總分！</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end"><button type="button" data-next-panel="excursions" class="next-btn px-5 py-3 rounded-2xl bg-white border-2 border-delftBlue text-delftBlue text-base font-bold shadow-[3px_3px_0px_#FF6B00] cursor-pointer">下一單元：遊學景點翻翻卡 →</button></div>
+        </section>
+
+        <!-- 單元 4：11 大景點翻翻卡（插圖取自行前手冊） -->
+        <section id="panel-excursions" data-content-panel class="hidden space-y-5">
+            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+                <div>
+                    <span class="text-sm font-bold tracking-widest text-dutchOrange uppercase">EXCURSIONS 跨國遊學景點</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-delftBlue mt-0.5">11 大精選荷德景點明信片翻翻卡</h2>
+                </div>
+                <p class="text-base font-bold text-delftBlue/80">點一下明信片，就能翻面看景點介紹</p>
+            </div>
+            <div id="flip-cards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"></div>
+            <div class="flex justify-end"><button type="button" data-next-panel="feedback" class="next-btn px-5 py-3 rounded-2xl bg-white border-2 border-delftBlue text-delftBlue text-base font-bold shadow-[3px_3px_0px_#FF6B00] cursor-pointer">下一單元：學生回饋與成果 →</button></div>
+        </section>
+
+        <!-- 單元 5：學生回饋與成果 -->
+        <section id="panel-feedback" data-content-panel class="hidden space-y-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                <div class="lg:col-span-6 rounded-3xl bg-white p-6 border-2 border-delftBlue shadow-[6px_6px_0px_#38A3A5] space-y-4">
+                    <div class="flex items-center justify-between gap-3">
+                        <div>
+                            <span class="text-sm font-bold tracking-widest text-canalTeal uppercase">STUDENT FEEDBACK 學員真實回饋</span>
+                            <h2 class="text-2xl font-black text-delftBlue mt-0.5">在旅途中突破自我、滿載而歸</h2>
+                        </div>
+                        <span class="px-3.5 py-1.5 rounded-2xl bg-dutchOrange text-white text-sm sm:text-base font-black shadow-[2px_2px_0px_#1B4965] shrink-0">100% 滿意度</span>
+                    </div>
+                    <div class="rounded-2xl overflow-hidden border-2 border-delftBlue/20 shadow-md aspect-video bg-black">
+                        <iframe class="w-full h-full" loading="lazy"
+                            src="https://www.youtube.com/embed/v3u_h4o4aE8?list=PLbbENLDXRlnbD2SDm4XUhUq342Xqe2d4e"
+                            title="2027 何嘉仁荷蘭國際領袖營學員心得影片" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-6 space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                        <div class="rounded-2xl bg-white p-4 border-2 border-delftBlue/20 shadow-sm flex gap-3 items-start">
+                            <div class="photo-box w-16 h-16 rounded-xl border border-delftBlue/20 shrink-0"><img src="student-sunny.jpg" alt="Sunny" loading="lazy" width="400" height="400"></div>
+                            <div>
+                                <div class="text-sm font-black text-dutchOrange">Sunny • THC 學員</div>
+                                <p class="text-base text-delftBlue/90 leading-relaxed mt-1">「每天用英語和荷蘭老師、同學討論與發表，讓我變得更敢開口，也交到一輩子的好朋友！」</p>
+                            </div>
+                        </div>
+                        <div class="rounded-2xl bg-white p-4 border-2 border-delftBlue/20 shadow-sm flex gap-3 items-start">
+                            <div class="photo-box w-16 h-16 rounded-xl border border-delftBlue/20 shrink-0"><img src="student-johnny.jpg" alt="Johnny" loading="lazy" width="400" height="400"></div>
+                            <div>
+                                <div class="text-sm font-black text-dutchOrange">Johnny • TH+ 學員</div>
+                                <p class="text-base text-delftBlue/90 leading-relaxed mt-1">「在馬術學校學習照顧馬匹與騎乘，還有德國麥爾造船廠的巨大郵輪，都是課本學不到的震撼！」</p>
+                            </div>
+                        </div>
+                        <div class="rounded-2xl bg-white p-4 border-2 border-delftBlue/20 shadow-sm flex gap-3 items-start">
+                            <div class="photo-box w-16 h-16 rounded-xl border border-delftBlue/20 shrink-0"><img src="student-sharon.jpg" alt="Sharon" loading="lazy" width="400" height="400"></div>
+                            <div>
+                                <div class="text-sm font-black text-dutchOrange">Sharon • ESL 10級</div>
+                                <p class="text-base text-delftBlue/90 leading-relaxed mt-1">「斯希蒙尼克島騎單車環島和阿姆斯特丹梵谷博物館超難忘，讓我學會獨立規劃與團隊合作。」</p>
+                            </div>
+                        </div>
+                        <div class="rounded-2xl bg-white p-4 border-2 border-delftBlue/20 shadow-sm flex gap-3 items-start">
+                            <div class="photo-box w-16 h-16 rounded-xl border border-delftBlue/20 shrink-0"><img src="student-apple.jpg" alt="Apple" loading="lazy" width="400" height="400"></div>
+                            <div>
+                                <div class="text-sm font-black text-dutchOrange">Apple • IA 學員</div>
+                                <p class="text-base text-delftBlue/90 leading-relaxed mt-1">「從分組買菜做料理到結業英文簡報，17 天裡每一天都充滿成就感與溫暖回憶。」</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rounded-3xl bg-delftBlue text-white p-5 sm:p-6">
+                        <span class="text-sm font-bold tracking-widest text-dutchGold uppercase">SHOWCASE 學習成果展現</span>
+                        <div class="photo-box rounded-2xl border border-white/20 aspect-[16/9] mt-3">
+                            <img src="showcase-leadership.jpg" alt="學員結業成果發表合影" loading="lazy" width="1000" height="562">
+                            <div class="photo-cap">2026 荷蘭營 • 結業成果發表</div>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3">
+                            <div class="rounded-xl bg-white/10 p-3.5 border border-white/15">
+                                <div class="font-black text-dutchGold text-base mb-1">知識 Knowledge</div>
+                                <p class="text-base text-white/90 leading-relaxed">蒐集、分析與整合資訊，建立基礎研究能力。</p>
+                            </div>
+                            <div class="rounded-xl bg-white/10 p-3.5 border border-white/15">
+                                <div class="font-black text-dutchGold text-base mb-1">技能 Skill</div>
+                                <p class="text-base text-white/90 leading-relaxed">從獨立思考與解決問題中，提升判斷與行動力。</p>
+                            </div>
+                            <div class="rounded-xl bg-white/10 p-3.5 border border-white/15">
+                                <div class="font-black text-dutchGold text-base mb-1">表達 Expression</div>
+                                <p class="text-base text-white/90 leading-relaxed">個人寫作、團體影片，以簡報與辯論發表成果。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+
+    <footer class="bg-delftBlue text-white/90 py-6 mt-auto border-t-4 border-dutchOrange">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-center sm:text-left">
+            <div class="font-bold text-white">2027 何嘉仁荷蘭國際領袖營 • HESS Netherlands International Leadership Camp</div>
+            <div>帶著自信與夢想前行，走向更遼闊的世界</div>
+        </div>
+    </footer>
+    <script>
+        // ===== 1. 單元切換：上方細長列、手機選單、內文單元按鈕、下一單元按鈕都共用 =====
+        const panelButtons = document.querySelectorAll('[data-panel-btn]');
+        const contentPanels = document.querySelectorAll('[data-content-panel]');
+        const menuBtn = document.getElementById('menu-btn');
+        const menuSheet = document.getElementById('menu-sheet');
+
+        function setMenu(open) {
+            if (!menuSheet || !menuBtn) return;
+            menuSheet.classList.toggle('hidden', !open);
+            menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+
+        function activatePanel(panelKey, scroll) {
+            panelButtons.forEach((btn) => {
+                const isTarget = btn.getAttribute('data-panel-btn') === panelKey;
+                btn.classList.toggle('is-active', isTarget);
+                btn.setAttribute('aria-pressed', isTarget ? 'true' : 'false');
+                if (btn.classList.contains('menu-item')) {
+                    btn.classList.toggle('bg-polderCream', isTarget);
+                    btn.classList.toggle('text-dutchOrange', isTarget);
+                }
+            });
+            let target = null;
+            contentPanels.forEach((panel) => {
+                const isTarget = panel.id === `panel-${panelKey}`;
+                panel.classList.toggle('hidden', !isTarget);
+                if (isTarget) target = panel;
+            });
+            if (panelKey === 'horse' && typeof window.__nlCampGameOnShow === 'function') {
+                window.__nlCampGameOnShow();
+            }
+            if (scroll && target) {
+                const top = target.getBoundingClientRect().top;
+                if (top < 56 || top > window.innerHeight * 0.6) {
+                    target.scrollIntoView({ block: 'start' });
+                }
+            }
+        }
+
+        panelButtons.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                setMenu(false);
+                activatePanel(btn.getAttribute('data-panel-btn'), true);
+            });
+        });
+        document.querySelectorAll('[data-next-panel]').forEach((btn) => {
+            btn.addEventListener('click', () => activatePanel(btn.getAttribute('data-next-panel'), true));
+        });
+        menuBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            setMenu(menuSheet.classList.contains('hidden'));
+        });
+        document.addEventListener('click', (e) => {
+            if (menuSheet && !menuSheet.classList.contains('hidden') && !menuSheet.contains(e.target)) setMenu(false);
+        });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+
+
+        // ===== 首頁照片輪播：自動輕柔切換、圓點、手機可滑動 =====
+        (function initHeroCarousel() {
+            const track = document.getElementById('hero-track');
+            const viewport = document.getElementById('hero-viewport');
+            if (!track || !viewport) return;
+            const dots = Array.from(document.querySelectorAll('[data-hero-dot]'));
+            const total = track.children.length;
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const INTERVAL = 5500;
+            let index = 0;
+            let timer = null;
+            let startX = 0;
+            let deltaX = 0;
+            let dragging = false;
+
+            function show(n) {
+                index = (n + total) % total;
+                track.style.transform = 'translateX(' + (-index * 100) + '%)';
+                dots.forEach((dot, i) => {
+                    const on = i === index;
+                    dot.classList.toggle('is-on', on);
+                    dot.setAttribute('aria-selected', on ? 'true' : 'false');
+                });
+            }
+            function next() { show(index + 1); }
+            function prev() { show(index - 1); }
+            function stop() { if (timer) { clearInterval(timer); timer = null; } }
+            function start() {
+                if (reduce) return;
+                stop();
+                timer = setInterval(next, INTERVAL);
+            }
+
+            document.getElementById('hero-next')?.addEventListener('click', () => { next(); start(); });
+            document.getElementById('hero-prev')?.addEventListener('click', () => { prev(); start(); });
+            dots.forEach((dot) => {
+                dot.addEventListener('click', () => { show(Number(dot.getAttribute('data-hero-dot'))); start(); });
+            });
+
+            const carousel = viewport.parentElement;
+            carousel?.addEventListener('mouseenter', stop);
+            carousel?.addEventListener('mouseleave', start);
+            document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else start(); });
+
+            viewport.addEventListener('touchstart', (e) => {
+                if (!e.changedTouches.length) return;
+                dragging = true;
+                startX = e.changedTouches[0].clientX;
+                deltaX = 0;
+                stop();
+            }, { passive: true });
+            viewport.addEventListener('touchmove', (e) => {
+                if (!dragging || !e.changedTouches.length) return;
+                deltaX = e.changedTouches[0].clientX - startX;
+            }, { passive: true });
+            viewport.addEventListener('touchend', () => {
+                if (!dragging) return;
+                dragging = false;
+                if (deltaX > 40) prev();
+                else if (deltaX < -40) next();
+                start();
+            });
+
+            show(0);
+            start();
+        })();
+
+        // ===== 2. 11 大景點翻翻卡（卡通插圖取自 2026 行前手冊） =====
+        const excursions = [
+            { en: "ZAANSE SCHANS", zh: "桑斯安斯風車村", tag: "荷蘭經典文化", img: "illus-01-zaanse-schans.jpg",
+              desc: "桑斯安斯風車村是荷蘭最具代表性的露天歷史村落，完整保留了 17–18 世紀的傳統風車、木造房屋與手工藝工坊。學員將親眼見到運轉中的真實風車，了解它們如何被用於磨麵、鋸木及抽水，並深入認識荷蘭先人的工作方式與生活文化。" },
+            { en: "ENKHUIZEN", zh: "恩克赫伊森", tag: "荷蘭黃金時代海港", img: "illus-02-enkhuizen.jpg",
+              desc: "恩克赫伊森是一座古老的海港城鎮，荷蘭黃金時代的繁榮在此留下深刻印記。學員可探訪老港口、漁船與博物館，了解海上貿易如何形塑昔日的生活樣貌，感受歷史與現代並存的城鎮風情。" },
+            { en: "GRONINGER MUSEUM", zh: "格羅寧根博物館", tag: "前衛藝術與建築", img: "illus-03-groninger-museum.jpg",
+              desc: "格羅寧根博物館以其大膽前衛的建築設計聞名，外觀由多位不同建築師操刀。館內收藏橫跨荷蘭經典繪畫、應用藝術與當代藝術，啟發學員對色彩與空間的想像。" },
+            { en: "FORUM GRONINGEN", zh: "格羅寧根論壇", tag: "城市文化客廳", img: "illus-04-forum-groningen.jpg",
+              desc: "這裡不僅是圖書館與電影院，更是充滿活力的城市文化客廳。登上頂樓觀景台，便能將整座格羅寧根古城的錯落屋頂與遠方地平線盡收眼底。" },
+            { en: "SCHIERMONNIKOOG", zh: "斯希蒙尼克島", tag: "無車生態島嶼單車行", img: "illus-05-schiermonnikoog.jpg",
+              desc: "斯希蒙尼克島以壯闊的自然海岸與寧靜的島村生活著稱，島上禁止私家車。學員搭渡輪抵達後以自行車環島，在沙灘與濕地間感受荷蘭獨特的自然生態。" },
+            { en: "THE SEAL HOSPITAL AT THE WEC", zh: "海豹保育中心", tag: "野生動物救援與保育", img: "illus-06-seal-hospital.jpg",
+              desc: "海豹保育中心是荷蘭著名的野生動物保育機構，長年致力於受傷海豹的救援、照護與野放。學員將近距離觀察海豹的日常照護與餵食，並了解野生動物保育的重要性。" },
+            { en: "VAN GOGH MUSEUM", zh: "梵谷博物館", tag: "世界級藝術殿堂", img: "illus-07-van-gogh-museum.jpg",
+              desc: "位於阿姆斯特丹，收藏了世界上最完整的梵谷作品，包括《向日葵》、《杏花》等名作真跡。學員可從畫作的色彩、筆觸與構圖中，感受這位藝術家對生命的熱情與對自然的觀察。" },
+            { en: "NEMO SCIENCE MUSEUM", zh: "NEMO 科學博物館", tag: "互動式科學探索", img: "illus-08-nemo.jpg",
+              desc: "位於阿姆斯特丹港口旁，外型猶如一艘即將出海的輪船，內有大量互動式科學展覽。學員可透過動手實驗體驗電力、聲音、能源等科學原理。" },
+            { en: "CANAL BOAT CRUISE", zh: "阿姆斯特丹運河遊船", tag: "世界文化遺產巡禮", img: "illus-09-canal-cruise.jpg",
+              desc: "阿姆斯特丹擁有超過 100 公里的運河網絡，被列為世界文化遺產。學員將搭乘遊船欣賞沿岸 17 世紀建築、歷史橋樑與特色船屋，認識這座城市的發展與運河文化。" },
+            { en: "LEER, GERMANY", zh: "德國里爾", tag: "跨國邊境文化比較", img: "illus-10-leer.jpg",
+              desc: "里爾是德國歷史悠久的河港城市，位於荷蘭邊境附近。學員將參訪 Schloss Evenburg 城堡，認識當地歷史與建築特色，並透過城市漫遊比較德荷兩地的風景與文化。" },
+            { en: "PAPENBURG & MEYER WERFT", zh: "德國帕彭堡與麥爾造船廠", tag: "頂尖豪華郵輪工藝", img: "illus-12-meyer-werft.jpg", insetImg: "illus-11-papenburg.jpg",
+              desc: "帕彭堡隨處可見如詩如畫的運河與木造帆船；學員更將參觀世界頂尖郵輪製造廠 Meyer Werft，近距離見識超大型豪華郵輪的建造過程與巨型船艦規模。" }
+        ];
+
+        const flipCardsGrid = document.getElementById('flip-cards-grid');
+        if (flipCardsGrid) {
+            flipCardsGrid.innerHTML = excursions.map((item, idx) => `
+                <div class="flip-card" role="button" tabindex="0" aria-label="${item.zh} 明信片，點一下翻面">
+                    <div class="flip-card-inner shadow-[4px_4px_0px_#1B4965]">
+                        <div class="flip-card-front bg-white border-2 border-delftBlue flex flex-col">
+                            <div class="relative shrink-0 aspect-[4/3] w-full bg-[#FAF6F0] border-b-2 border-delftBlue/15 overflow-hidden flex items-center">
+                                <img src="${item.img}" alt="${item.zh} 手冊插圖" loading="lazy" class="w-full h-auto">
+                                ${item.insetImg ? `<img src="${item.insetImg}" alt="帕彭堡手冊插圖" loading="lazy" class="absolute left-2 top-2 w-[38%] rounded-md border-2 border-white shadow-[2px_2px_0px_#1B4965]">` : ''}
+                            </div>
+                            <div class="p-4 flex-1 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center justify-between gap-2 mb-1">
+                                        <span class="text-xs font-black tracking-wider text-dutchOrange uppercase">${item.en}</span>
+                                        <span class="px-2 py-0.5 rounded-full bg-canalTeal/15 text-delftBlue text-xs font-bold shrink-0">#${String(idx + 1).padStart(2, '0')}</span>
+                                    </div>
+                                    <h3 class="text-xl font-black text-delftBlue leading-snug">${item.zh}</h3>
+                                </div>
+                                <div class="pt-2 mt-2 border-t border-delftBlue/10 flex items-center justify-between text-sm font-bold text-delftBlue/75">
+                                    <span>${item.tag}</span>
+                                    <span class="text-dutchOrange shrink-0">點我翻面 ↻</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card-back bg-delftBlue text-white border-2 border-dutchOrange p-5 flex flex-col justify-between gap-3">
+                            <div>
+                                <div class="flex items-center justify-between gap-2 mb-2">
+                                    <span class="text-xs font-black tracking-widest text-dutchGold uppercase">${item.en}</span>
+                                    <span class="px-2 py-0.5 rounded bg-dutchOrange text-white text-xs font-black shrink-0">${item.tag}</span>
+                                </div>
+                                <h3 class="text-xl font-black text-white mb-2">${item.zh}</h3>
+                                <p class="text-base text-white/95 leading-relaxed">${item.desc}</p>
+                            </div>
+                            <div class="pt-2 border-t border-white/15 text-sm font-bold text-dutchGold text-right">點一下翻回正面 ↺</div>
+                        </div>
+                    </div>
+                </div>`).join('');
+
+            flipCardsGrid.querySelectorAll('.flip-card').forEach((card) => {
+                card.addEventListener('click', () => card.classList.toggle('is-flipped'));
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        card.classList.toggle('is-flipped');
+                    }
+                });
+            });
+        }
+
+        // ===== 3. 遊戲紀錄：安靜地寫進營隊的 Google 試算表 =====
+        // 部署 Apps Script 網頁應用程式後，把 /exec 網址貼在這裡。空白時不傳送，遊戲照常玩。
+        const GAS_URL = 'https://script.google.com/macros/s/AKfycbwrbt2VQAlvYQfMjrOEHs519VnIbEPL9IJixG9Ued6E5HIUzAOQl2U9l7hBxI80-Ysg3g/exec';
+        const RecordSender = (() => {
+            const QUEUE_KEY = 'nlcamp-game-queue-v1';
+            const PLAYER_KEY = 'nlcamp-player-id-v1';
+            const TIMEOUT_MS = 15000;
+            const MAX_QUEUE = 50;
+            let flushing = false;
+
+            function makeId() {
+                try {
+                    if (window.crypto && crypto.randomUUID) return crypto.randomUUID().replace(/-/g, '');
+                } catch (e) {}
+                return Date.now().toString(36) + Math.random().toString(36).slice(2, 12);
+            }
+            function readQueue() {
+                try { const q = JSON.parse(localStorage.getItem(QUEUE_KEY) || '[]'); return Array.isArray(q) ? q : []; } catch (e) { return []; }
+            }
+            function writeQueue(q) {
+                try { localStorage.setItem(QUEUE_KEY, JSON.stringify(q.slice(-MAX_QUEUE))); } catch (e) {}
+            }
+            function playerId() {
+                try {
+                    let id = localStorage.getItem(PLAYER_KEY);
+                    if (!id) { id = 'p' + makeId().slice(0, 15); localStorage.setItem(PLAYER_KEY, id); }
+                    return id;
+                } catch (e) { return ''; }
+            }
+            function postOnce(item) {
+                const controller = window.AbortController ? new AbortController() : null;
+                const timer = setTimeout(() => { try { controller && controller.abort(); } catch (e) {} }, TIMEOUT_MS);
+                return fetch(GAS_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify({ action: 'record', submissionId: item.submissionId, data: item.data }),
+                    credentials: 'omit',
+                    redirect: 'follow',
+                    cache: 'no-store',
+                    signal: controller ? controller.signal : undefined
+                }).then((res) => {
+                    if (!res.ok) throw new Error('HTTP ' + res.status);
+                    return res.text();
+                }).then((text) => {
+                    const result = JSON.parse(text);
+                    // ok:true 代表已寫入；ok:false 且 retry:false 代表資料不合格，丟掉不再重送
+                    if (result && (result.ok || result.retry === false)) return true;
+                    throw new Error('not saved');
+                }).finally(() => clearTimeout(timer));
+            }
+            async function flush() {
+                if (!GAS_URL || flushing || !window.fetch) return;
+                flushing = true;
+                try {
+                    let queue = readQueue();
+                    while (queue.length) {
+                        const item = queue[0];
+                        let sent = false;
+                        try { sent = await postOnce(item); } catch (e) {
+                            try { sent = await postOnce(item); } catch (e2) { sent = false; }
+                        }
+                        if (!sent) break; // 下次開頁面或玩完下一局再補送（同一個編號不會重複寫入）
+                        queue = readQueue().filter((q) => q.submissionId !== item.submissionId);
+                        writeQueue(queue);
+                    }
+                } catch (e) {
+                } finally {
+                    flushing = false;
+                }
+            }
+            function send(data) {
+                if (!GAS_URL) return;
+                try {
+                    const queue = readQueue();
+                    queue.push({ submissionId: makeId(), data: Object.assign({ playerId: playerId() }, data) });
+                    writeQueue(queue);
+                } catch (e) {}
+                setTimeout(flush, 0);
+            }
+            if (GAS_URL) setTimeout(flush, 4000);
+            return { send, flush };
+        })();
+
+        // ===== 4. 騎馬快跑小遊戲 =====
+        (function initHorseJumpGame() {
+            const canvas = document.getElementById('horse-game-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            if (ctx && !ctx.roundRect) {
+                ctx.roundRect = function (x, y, w, h) { this.rect(x, y, w, h); };
+            }
+
+            const branchInput = document.getElementById('game-branch');
+            const enNameInput = document.getElementById('game-en-name');
+            const startGameBtn = document.getElementById('start-game-btn');
+            const overlayStartBtn = document.getElementById('overlay-start-btn');
+            const jumpActionBtn = document.getElementById('jump-action-btn');
+            const overlay = document.getElementById('game-overlay');
+            const overlayTitle = document.getElementById('overlay-title');
+            const overlaySubtitle = document.getElementById('overlay-subtitle');
+            const activePlayerBadge = document.getElementById('active-player-badge');
+            const stageEl = document.getElementById('game-stage');
+            const scoreEl = document.getElementById('game-score');
+            const hurdlesEl = document.getElementById('game-hurdles');
+            const myNameEl = document.getElementById('my-stats-name');
+            const myTotalEl = document.getElementById('my-total');
+            const myBestEl = document.getElementById('my-best');
+            const myRunsEl = document.getElementById('my-runs');
+
+            // 遊戲參數（固定值）
+            const gameConfig = {
+                baseSpeed: 320,
+                hurdlePoints: 50,
+                hurdlesPerStage: 3,
+                jumpPower: 750
+            };
+
+            let gameState = 'idle';
+            let animationFrameId = null;
+            let lastTimestamp = 0;
+
+            let viewWidth = 800;
+            let viewHeight = 320;
+            let groundY = 255;
+
+            const rider = { x: 115, y: 0, vy: 0, width: 66, height: 62, isJumping: false, gallopPhase: 0 };
+            const GRAVITY = 2250;
+
+            let obstacles = [];
+            let spawnTimer = 0;
+            let nextSpawnInterval = 1.4;
+            let baseSpeed = gameConfig.baseSpeed;
+            let scrollSpeed = gameConfig.baseSpeed;
+            let currentStage = 1;
+            let stageBannerTimer = 0;
+            let score = 0;
+            let hurdlesCleared = 0;
+            let bgScroll = 0;
+
+            const SAVED_NAME_KEY = 'nlcamp-player-name-v1';
+            const MY_STATS_KEY = 'nlcamp-my-stats-v1';
+            try {
+                const saved = JSON.parse(localStorage.getItem(SAVED_NAME_KEY) || 'null');
+                if (saved && branchInput && enNameInput) {
+                    branchInput.value = saved.branch || '';
+                    enNameInput.value = saved.enName || '';
+                }
+            } catch (e) {}
+
+            function getPlayerIdentity() {
+                const branch = (branchInput?.value || '').trim().replace(/\s+/g, ' ') || '何嘉仁分校';
+                const enName = (enNameInput?.value || '').trim().replace(/\s+/g, ' ') || 'Rider';
+                return { branch, enName };
+            }
+            function statsKey() {
+                const { branch, enName } = getPlayerIdentity();
+                return `${branch}__${enName}`.toLowerCase();
+            }
+            function readAllStats() {
+                try { return JSON.parse(localStorage.getItem(MY_STATS_KEY) || '{}') || {}; } catch (e) { return {}; }
+            }
+            function renderMyStats() {
+                const s = readAllStats()[statsKey()] || { total: 0, best: 1, runs: 0 };
+                const { branch, enName } = getPlayerIdentity();
+                const hasName = (branchInput?.value || '').trim() && (enNameInput?.value || '').trim();
+                if (myNameEl) myNameEl.textContent = hasName ? `${branch} • ${enName}` : '填好分校與英文名字就能開始累積';
+                if (myTotalEl) myTotalEl.textContent = String(s.total || 0);
+                if (myBestEl) myBestEl.textContent = `Lv.${s.best || 1}`;
+                if (myRunsEl) myRunsEl.textContent = String(s.runs || 0);
+            }
+            function updatePlayerBadge() {
+                const { branch, enName } = getPlayerIdentity();
+                if (activePlayerBadge) activePlayerBadge.textContent = `選手：${branch} • ${enName}`;
+                renderMyStats();
+            }
+
+            function recordRun(runScore, stageReached, hurdles) {
+                const { branch, enName } = getPlayerIdentity();
+                try {
+                    localStorage.setItem(SAVED_NAME_KEY, JSON.stringify({ branch: (branchInput?.value || '').trim(), enName: (enNameInput?.value || '').trim() }));
+                    const all = readAllStats();
+                    const key = statsKey();
+                    const s = all[key] || { total: 0, best: 1, runs: 0 };
+                    s.total += runScore;
+                    s.best = Math.max(s.best || 1, stageReached);
+                    s.runs += 1;
+                    all[key] = s;
+                    localStorage.setItem(MY_STATS_KEY, JSON.stringify(all));
+                } catch (e) {}
+                renderMyStats();
+                // 安靜送出，不等待、不顯示任何訊息、失敗也不影響遊戲
+                try {
+                    RecordSender.send({
+                        branch, enName, runScore, stage: stageReached, hurdles,
+                        playedAt: new Date().toISOString()
+                    });
+                } catch (e) {}
+            }
+
+            function drawWindmillDecor(x, baseY, scale, timeSec) {
+                ctx.save();
+                ctx.translate(x, baseY);
+                ctx.scale(scale, scale);
+
+                ctx.fillStyle = '#1B4965';
+                ctx.beginPath();
+                ctx.moveTo(-14, 0);
+                ctx.lineTo(-8, -56);
+                ctx.lineTo(8, -56);
+                ctx.lineTo(14, 0);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle = '#FF6B00';
+                ctx.beginPath();
+                ctx.moveTo(-10, -56);
+                ctx.lineTo(0, -68);
+                ctx.lineTo(10, -56);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.save();
+                ctx.translate(0, -52);
+                ctx.rotate(timeSec * 0.9);
+                ctx.strokeStyle = '#FAF6F0';
+                ctx.lineWidth = 3.5;
+                for (let b = 0; b < 4; b++) {
+                    ctx.rotate(Math.PI / 2);
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.lineTo(0, -28);
+                    ctx.stroke();
+                }
+                ctx.restore();
+
+                ctx.restore();
+            }
+
+            function drawCuteRiderOnHorse(timeSec) {
+                const bobOffset = rider.isJumping ? -3 : Math.sin(rider.gallopPhase) * 3.5;
+                const x = rider.x;
+                const y = rider.y + bobOffset;
+
+                ctx.save();
+
+                const heightAboveGround = Math.max(0, groundY - (rider.y + rider.height));
+                const shadowScale = Math.max(0.45, 1 - heightAboveGround / 180);
+                ctx.fillStyle = 'rgba(27, 73, 101, 0.18)';
+                ctx.beginPath();
+                ctx.ellipse(x + 34, groundY + 3, 28 * shadowScale, 6 * shadowScale, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                const legSwing = rider.isJumping ? 10 : Math.sin(rider.gallopPhase) * 11;
+                ctx.strokeStyle = '#6F3E24';
+                ctx.lineWidth = 5;
+                ctx.lineCap = 'round';
+
+                ctx.beginPath();
+                ctx.moveTo(x + 18, y + 40);
+                ctx.lineTo(x + 14 - legSwing, y + 58);
+                ctx.moveTo(x + 24, y + 40);
+                ctx.lineTo(x + 28 + legSwing, y + 58);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(x + 44, y + 40);
+                ctx.lineTo(x + 42 + legSwing, y + 58);
+                ctx.moveTo(x + 50, y + 40);
+                ctx.lineTo(x + 54 - legSwing, y + 58);
+                ctx.stroke();
+
+                ctx.strokeStyle = '#3B2012';
+                ctx.lineWidth = 4;
+                ctx.beginPath();
+                ctx.moveTo(x + 11, y + 29);
+                ctx.quadraticCurveTo(x + 1, y + 34 + Math.cos(timeSec * 8) * 3, x + 4, y + 45);
+                ctx.stroke();
+
+                ctx.fillStyle = '#8D4F2E';
+                ctx.beginPath();
+                ctx.roundRect(x + 11, y + 24, 42, 20, 10);
+                ctx.fill();
+
+                ctx.fillStyle = '#1B4965';
+                ctx.beginPath();
+                ctx.roundRect(x + 23, y + 21, 18, 12, 4);
+                ctx.fill();
+
+                ctx.fillStyle = '#8D4F2E';
+                ctx.beginPath();
+                ctx.moveTo(x + 46, y + 27);
+                ctx.lineTo(x + 55, y + 11);
+                ctx.lineTo(x + 65, y + 15);
+                ctx.lineTo(x + 55, y + 33);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle = '#C68B67';
+                ctx.beginPath();
+                ctx.ellipse(x + 62, y + 17, 6, 4.5, 0.2, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#1B4965';
+                ctx.beginPath();
+                ctx.arc(x + 57, y + 13, 2, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#FF6B00';
+                ctx.beginPath();
+                ctx.roundRect(x + 27, y + 6, 14, 17, 5);
+                ctx.fill();
+
+                ctx.fillStyle = '#FCD5B5';
+                ctx.beginPath();
+                ctx.arc(x + 34, y + 1, 7.5, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#1B4965';
+                ctx.beginPath();
+                ctx.arc(x + 34, y - 1, 8, Math.PI, Math.PI * 2);
+                ctx.fill();
+                ctx.fillRect(x + 34, y - 2, 10, 2.5);
+
+                ctx.fillStyle = '#1B4965';
+                ctx.beginPath();
+                ctx.arc(x + 37, y + 1, 1.3, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.restore();
+            }
+
+            function drawObstacles() {
+                for (const obs of obstacles) {
+                    ctx.save();
+                    ctx.fillStyle = '#1B4965';
+                    ctx.fillRect(obs.x + 2, obs.y, 5, obs.height);
+                    ctx.fillRect(obs.x + obs.width - 7, obs.y, 5, obs.height);
+
+                    const stripeCount = 3;
+                    const step = Math.max(10, Math.floor((obs.height - 6) / stripeCount));
+                    for (let s = 0; s < stripeCount; s++) {
+                        const barY = obs.y + 4 + s * step;
+                        if (barY + 5 > groundY) break;
+                        ctx.fillStyle = s % 2 === 0 ? '#FF6B00' : '#FFFFFF';
+                        ctx.strokeStyle = '#1B4965';
+                        ctx.lineWidth = 1.5;
+                        ctx.beginPath();
+                        ctx.roundRect(obs.x, barY, obs.width, 5.5, 2);
+                        ctx.fill();
+                        ctx.stroke();
+                    }
+                    ctx.restore();
+                }
+            }
+            function resizeCanvas() {
+                const rect = canvas.getBoundingClientRect();
+                const dpr = Math.min(window.devicePixelRatio || 1, 2);
+                viewWidth = Math.max(320, Math.floor(rect.width));
+                viewHeight = Math.max(220, Math.floor(rect.height));
+                groundY = Math.floor(viewHeight * 0.78);
+
+                canvas.width = Math.floor(viewWidth * dpr);
+                canvas.height = Math.floor(viewHeight * dpr);
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+                if (!rider.isJumping) {
+                    rider.y = groundY - rider.height;
+                }
+                drawScene(0);
+            }
+
+            function resetAndStartGame() {
+                updatePlayerBadge();
+                score = 0;
+                hurdlesCleared = 0;
+                currentStage = 1;
+                stageBannerTimer = 0;
+                baseSpeed = Math.max(gameConfig.baseSpeed, viewWidth * 0.42);
+                scrollSpeed = baseSpeed;
+                obstacles = [];
+                spawnTimer = 0.45;
+                nextSpawnInterval = 1.35;
+                rider.y = groundY - rider.height;
+                rider.vy = 0;
+                rider.isJumping = false;
+                rider.gallopPhase = 0;
+
+                if (stageEl) stageEl.textContent = 'Lv.1';
+                if (scoreEl) scoreEl.textContent = '0';
+                if (hurdlesEl) hurdlesEl.textContent = '0';
+                overlay?.classList.add('hidden');
+                gameState = 'playing';
+                lastTimestamp = performance.now();
+
+                if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                animationFrameId = requestAnimationFrame(loop);
+            }
+
+            function triggerJump() {
+                if (gameState !== 'playing') return;
+                if (!rider.isJumping) {
+                    rider.vy = -Math.abs(gameConfig.jumpPower);
+                    rider.isJumping = true;
+                }
+            }
+
+            function spawnObstacle() {
+                const heightScale = Math.random() > 0.55 ? 1.15 : 0.92;
+                const h = Math.round(40 * heightScale);
+                const w = 24;
+                obstacles.push({
+                    x: viewWidth + 24,
+                    y: groundY - h,
+                    width: w,
+                    height: h,
+                    passed: false
+                });
+                if (currentStage >= 3 && Math.random() < Math.min(0.42, 0.14 + currentStage * 0.04)) {
+                    const h2 = Math.round(38 * (Math.random() > 0.5 ? 1.1 : 0.9));
+                    obstacles.push({
+                        x: viewWidth + 54,
+                        y: groundY - h2,
+                        width: w,
+                        height: h2,
+                        passed: false
+                    });
+                }
+            }
+
+            function finishRun() {
+                gameState = 'gameover';
+                const finalScore = Math.floor(score);
+                recordRun(finalScore, currentStage, hurdlesCleared);
+                if (overlayTitle) overlayTitle.textContent = `抵達 Lv.${currentStage} • 本局獲得 ${finalScore} 分！`;
+                if (overlaySubtitle) overlaySubtitle.textContent = '分數已加進你的累積總分，再挑戰一局，衝刺更高關卡！';
+                if (overlayStartBtn) overlayStartBtn.textContent = '再玩一局';
+                overlay?.classList.remove('hidden');
+            }
+
+            function update(dt) {
+                if (gameState !== 'playing') return;
+
+                if (stageBannerTimer > 0) {
+                    stageBannerTimer = Math.max(0, stageBannerTimer - dt);
+                }
+
+                const targetStageSpeed = baseSpeed + (currentStage - 1) * 45;
+                scrollSpeed = Math.min(720, Math.max(scrollSpeed + dt * 10, targetStageSpeed));
+                score += dt * (18 + (currentStage - 1) * 4);
+                if (scoreEl) scoreEl.textContent = String(Math.floor(score));
+
+                bgScroll = (bgScroll + scrollSpeed * dt) % 240;
+                rider.gallopPhase += dt * (rider.isJumping ? 5 : 16 + currentStage * 1.2);
+
+                if (rider.isJumping) {
+                    rider.y += rider.vy * dt;
+                    rider.vy += GRAVITY * dt;
+                    if (rider.y >= groundY - rider.height) {
+                        rider.y = groundY - rider.height;
+                        rider.vy = 0;
+                        rider.isJumping = false;
+                    }
+                } else {
+                    rider.y = groundY - rider.height;
+                }
+
+                spawnTimer += dt;
+                if (spawnTimer >= nextSpawnInterval) {
+                    spawnTimer = 0;
+                    spawnObstacle();
+                    const minGap = Math.max(0.68, 1.08 - (currentStage - 1) * 0.06);
+                    const randRange = Math.max(0.32, 0.72 - (currentStage - 1) * 0.05);
+                    nextSpawnInterval = minGap + Math.random() * randRange;
+                }
+
+                const hitBoxPaddingX = 11;
+                const hitBoxPaddingY = 8;
+                const rLeft = rider.x + hitBoxPaddingX;
+                const rRight = rider.x + rider.width - hitBoxPaddingX;
+                const rTop = rider.y + hitBoxPaddingY;
+                const rBottom = rider.y + rider.height - 4;
+
+                for (let i = obstacles.length - 1; i >= 0; i--) {
+                    const obs = obstacles[i];
+                    obs.x -= scrollSpeed * dt;
+
+                    if (!obs.passed && obs.x + obs.width < rider.x) {
+                        obs.passed = true;
+                        hurdlesCleared += 1;
+                        const hurdleBonus = gameConfig.hurdlePoints + (currentStage - 1) * Math.round(gameConfig.hurdlePoints * 0.5);
+                        score += hurdleBonus;
+
+                        const nextStage = Math.floor(hurdlesCleared / gameConfig.hurdlesPerStage) + 1;
+                        if (nextStage > currentStage) {
+                            currentStage = nextStage;
+                            stageBannerTimer = 2.2;
+                            if (stageEl) stageEl.textContent = `Lv.${currentStage}`;
+                        }
+
+                        if (hurdlesEl) hurdlesEl.textContent = String(hurdlesCleared);
+                        if (scoreEl) scoreEl.textContent = String(Math.floor(score));
+                    }
+
+                    const oLeft = obs.x + 3;
+                    const oRight = obs.x + obs.width - 3;
+                    const oTop = obs.y + 4;
+                    const oBottom = groundY;
+
+                    const collided = rRight > oLeft && rLeft < oRight && rBottom > oTop && rTop < oBottom;
+                    if (collided) {
+                        finishRun();
+                        return;
+                    }
+
+                    if (obs.x + obs.width < -60) {
+                        obstacles.splice(i, 1);
+                    }
+                }
+            }
+
+            function drawScene(timeSec) {
+                ctx.clearRect(0, 0, viewWidth, viewHeight);
+
+                const skyGrad = ctx.createLinearGradient(0, 0, 0, groundY);
+                skyGrad.addColorStop(0, '#DDF1F5');
+                skyGrad.addColorStop(1, '#FAF6F0');
+                ctx.fillStyle = skyGrad;
+                ctx.fillRect(0, 0, viewWidth, groundY);
+
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+                for (let c = 0; c < 3; c++) {
+                    const cx = ((c * 290 - bgScroll * 0.25) % (viewWidth + 140) + (viewWidth + 140)) % (viewWidth + 140) - 70;
+                    const cy = 42 + (c % 2) * 22;
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, 16, 0, Math.PI * 2);
+                    ctx.arc(cx + 15, cy - 4, 20, 0, Math.PI * 2);
+                    ctx.arc(cx + 32, cy, 15, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                for (let w = 0; w < 3; w++) {
+                    const wx = ((w * 320 - bgScroll * 0.45) % (viewWidth + 160) + (viewWidth + 160)) % (viewWidth + 160) - 60;
+                    drawWindmillDecor(wx, groundY, 0.72 + (w % 2) * 0.12, timeSec);
+                }
+
+                ctx.fillStyle = '#74C69D';
+                ctx.fillRect(0, groundY, viewWidth, viewHeight - groundY);
+
+                ctx.fillStyle = '#38A3A5';
+                ctx.fillRect(0, groundY, viewWidth, 5);
+
+                ctx.fillStyle = '#2D6A4F';
+                for (let g = -240; g < viewWidth + 240; g += 48) {
+                    const gx = g - bgScroll;
+                    ctx.fillRect(gx, groundY + 16, 18, 3);
+                    ctx.fillRect(gx + 22, groundY + 34, 12, 3);
+                }
+
+                drawObstacles();
+                drawCuteRiderOnHorse(timeSec);
+
+                if (gameState === 'playing' && stageBannerTimer > 0) {
+                    ctx.save();
+                    ctx.fillStyle = 'rgba(27, 73, 101, 0.88)';
+                    ctx.beginPath();
+                    ctx.roundRect(viewWidth / 2 - 125, 16, 250, 34, 12);
+                    ctx.fill();
+                    ctx.fillStyle = '#F4A261';
+                    ctx.font = '900 14px "Noto Sans TC", sans-serif';
+                    ctx.textAlign = 'center';
+                    const nextBonus = gameConfig.hurdlePoints + (currentStage - 1) * Math.round(gameConfig.hurdlePoints * 0.5);
+                    ctx.fillText(`⚡ STAGE ${currentStage} 加速！單欄 +${nextBonus} 分`, viewWidth / 2, 38);
+                    ctx.restore();
+                }
+            }
+
+            function loop(timestamp) {
+                if (gameState !== 'playing') return;
+                const dt = Math.min(0.05, Math.max(0.001, (timestamp - lastTimestamp) / 1000));
+                lastTimestamp = timestamp;
+
+                update(dt);
+                drawScene(timestamp / 1000);
+
+                if (gameState === 'playing') {
+                    animationFrameId = requestAnimationFrame(loop);
+                }
+            }
+
+            startGameBtn?.addEventListener('click', resetAndStartGame);
+            overlayStartBtn?.addEventListener('click', resetAndStartGame);
+
+            jumpActionBtn?.addEventListener('pointerdown', (e) => { e.preventDefault(); triggerJump(); });
+            jumpActionBtn?.addEventListener('click', (e) => { e.preventDefault(); triggerJump(); });
+            canvas.addEventListener('pointerdown', (e) => {
+                if (gameState === 'playing') { e.preventDefault(); triggerJump(); }
+            });
+
+            branchInput?.addEventListener('input', updatePlayerBadge);
+            enNameInput?.addEventListener('input', updatePlayerBadge);
+
+            window.addEventListener('keydown', (e) => {
+                const gamePanelVisible = !document.getElementById('panel-horse')?.classList.contains('hidden');
+                if (!gamePanelVisible) return;
+                if (e.code === 'Space' || e.code === 'ArrowUp') {
+                    const activeTag = document.activeElement?.tagName;
+                    if (activeTag === 'INPUT' || activeTag === 'TEXTAREA' || activeTag === 'BUTTON') {
+                        if (activeTag !== 'BUTTON' || gameState !== 'playing') return;
+                    }
+                    e.preventDefault();
+                    if (gameState === 'playing') triggerJump();
+                }
+            });
+
+            window.addEventListener('resize', () => {
+                const gamePanelVisible = !document.getElementById('panel-horse')?.classList.contains('hidden');
+                if (gamePanelVisible) resizeCanvas();
+            });
+
+            window.__nlCampGameOnShow = function () {
+                updatePlayerBadge();
+                requestAnimationFrame(() => resizeCanvas());
+            };
+
+            updatePlayerBadge();
+        })();
+    </script>
+</body>
+</html>
