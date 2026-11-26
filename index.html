@@ -1094,6 +1094,7 @@
                                     <span>關卡 <strong id="game-stage" class="text-dutchGold">Lv.1</strong></span>
                                     <span>柵欄 <strong id="game-hurdles" class="text-dutchGold">0</strong></span>
                                     <span>得分 <strong id="game-score" class="text-dutchGold">0</strong></span>
+                                    <span class="inline-flex items-center gap-1" title="剩餘生命">生命 <strong id="game-lives" class="text-base sm:text-lg tracking-tight leading-none" aria-label="剩餘生命 3">❤️❤️❤️</strong></span>
                                 </div>
                             </div>
                             <div class="relative">
@@ -1101,7 +1102,8 @@
                                 <div id="game-overlay" class="absolute inset-0 bg-delftBlue/75 backdrop-blur-[2px] flex flex-col items-center justify-center p-4 text-center text-white">
                                     <div id="overlay-title" class="text-xl sm:text-2xl font-black text-dutchGold mb-1">準備好騎上駿馬了嗎？</div>
                                     <p id="overlay-subtitle" class="text-base text-white/95 max-w-md mb-2">按空白鍵（Space）、向上鍵（↑）、點一下畫面或按「跳躍」按鈕，越過荷蘭草原上的柵欄獲得分數！</p>
-                                    <p class="text-base text-white/95 max-w-md mb-4">吃到紅蘿蔔會變成飛馬，自動飛越 10 秒，飛過的柵欄都得分！</p>
+                                    <p class="text-base text-white/95 max-w-md mb-2">吃到紅蘿蔔會變成飛馬，自動飛越 10 秒，飛過的柵欄都得分！</p>
+                                    <p class="text-base text-white/95 max-w-md mb-4">共有 3 條命，撞到柵欄會失去 1 條命，3 條命用完遊戲結束。</p>
                                     <button id="overlay-start-btn" type="button" class="px-6 py-3 rounded-xl bg-dutchOrange hover:bg-orange-600 text-white font-black text-base shadow-[3px_3px_0px_#FAF6F0] cursor-pointer">立即出賽</button>
                                 </div>
                             </div>
@@ -1114,6 +1116,7 @@
                             <button id="jump-action-btn" type="button" class="w-full sm:w-auto px-10 py-4 rounded-2xl bg-canalTeal hover:bg-teal-600 active:translate-y-0.5 text-white font-black text-lg shadow-[4px_4px_0px_#1B4965] transition-all cursor-pointer select-none">⬆ 跳躍 JUMP</button>
                         </div>
                         <p class="text-base font-bold text-delftBlue/80">吃到紅蘿蔔會變成飛馬，自動飛越 10 秒，飛過的柵欄都得分！</p>
+                        <p class="text-base font-bold text-delftBlue/80">共有 3 條命，撞到柵欄會失去 1 條命，3 條命用完遊戲結束。</p>
                     </div>
 
                     <!-- 我的成績：只顯示玩家自己的分數 -->
@@ -1695,6 +1698,7 @@
             const stageEl = document.getElementById('game-stage');
             const scoreEl = document.getElementById('game-score');
             const hurdlesEl = document.getElementById('game-hurdles');
+            const livesEl = document.getElementById('game-lives');
             const myNameEl = document.getElementById('my-stats-name');
             const myTotalEl = document.getElementById('my-total');
             const myBestEl = document.getElementById('my-best');
@@ -1744,6 +1748,18 @@
             let nextCarrotAt = 5 + Math.floor(Math.random() * 2);
             let pegasusGrace = 0;
             let pegasusPendingGrace = false;
+            const MAX_LIVES = 3;
+            let lives = MAX_LIVES;
+            let hitInvincible = 0;
+            let hitFlash = 0;
+
+            function updateLivesHud() {
+                if (!livesEl) return;
+                let hearts = '';
+                for (let i = 0; i < MAX_LIVES; i++) hearts += i < lives ? '❤️' : '🤍';
+                livesEl.textContent = hearts;
+                livesEl.setAttribute('aria-label', '剩餘生命 ' + lives);
+            }
 
             function rollNextCarrotAt() {
                 nextCarrotAt = fencesSpawned + 8 + Math.floor(Math.random() * 5);
@@ -1831,10 +1847,22 @@
 
             function drawCuteRiderOnHorse(timeSec) {
                 const bobOffset = rider.isJumping ? -3 : Math.sin(rider.gallopPhase) * 3.5;
-                const x = rider.x;
+                const shakeX = hitFlash > 0 ? Math.sin(timeSec * 42) * 6 : 0;
+                const x = rider.x + shakeX;
                 const y = rider.y + bobOffset;
 
                 ctx.save();
+
+                if (hitFlash > 0 && Math.sin(timeSec * 24) < 0) {
+                    const heightAboveGround = Math.max(0, groundY - (rider.y + rider.height));
+                    const shadowScale = Math.max(0.45, 1 - heightAboveGround / 180);
+                    ctx.fillStyle = 'rgba(27, 73, 101, 0.18)';
+                    ctx.beginPath();
+                    ctx.ellipse(x + 34, groundY + 3, 28 * shadowScale, 6 * shadowScale, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                    return;
+                }
 
                 const heightAboveGround = Math.max(0, groundY - (rider.y + rider.height));
                 const shadowScale = Math.max(0.45, 1 - heightAboveGround / 180);
@@ -2013,6 +2041,10 @@
                 rider.isJumping = false;
                 rider.gallopPhase = 0;
                 resetPegasus();
+                lives = MAX_LIVES;
+                hitInvincible = 0;
+                hitFlash = 0;
+                updateLivesHud();
 
                 if (stageEl) stageEl.textContent = 'Lv.1';
                 if (scoreEl) scoreEl.textContent = '0';
@@ -2152,6 +2184,8 @@
                 if (stageBannerTimer > 0) {
                     stageBannerTimer = Math.max(0, stageBannerTimer - dt);
                 }
+                if (hitInvincible > 0) hitInvincible = Math.max(0, hitInvincible - dt);
+                if (hitFlash > 0) hitFlash = Math.max(0, hitFlash - dt);
 
                 const targetStageSpeed = baseSpeed + (currentStage - 1) * 22;
                 scrollSpeed = Math.min(420, Math.max(scrollSpeed + dt * 5, targetStageSpeed));
@@ -2249,7 +2283,7 @@
                     }
                 }
 
-                const invincible = pegasusActive || pegasusPendingGrace || pegasusGrace > 0;
+                const invincible = pegasusActive || pegasusPendingGrace || pegasusGrace > 0 || hitInvincible > 0;
 
                 for (let i = obstacles.length - 1; i >= 0; i--) {
                     const obs = obstacles[i];
@@ -2281,8 +2315,16 @@
                     // fences that pass the rider still score in the block above.
                     const collided = !invincible && rRight > oLeft && rLeft < oRight && rBottom > oTop && rTop < oBottom;
                     if (collided) {
-                        finishRun();
-                        return;
+                        // Hit fence does not score; remove it so it is not cleared later.
+                        obstacles.splice(i, 1);
+                        lives = Math.max(0, lives - 1);
+                        updateLivesHud();
+                        if (lives <= 0) {
+                            finishRun();
+                            return;
+                        }
+                        hitInvincible = 1.5;
+                        hitFlash = 0.7;
                     }
 
                     if (obs.x + obs.width < -60) {
@@ -2440,6 +2482,11 @@
                 if (carrot) drawCarrot(carrot);
                 drawRainbowTrail();
                 drawCuteRiderOnHorse(timeSec);
+
+                if (gameState === 'playing' && hitFlash > 0) {
+                    ctx.fillStyle = `rgba(200, 36, 36, ${0.2 * Math.min(1, hitFlash / 0.35)})`;
+                    ctx.fillRect(0, 0, viewWidth, viewHeight);
+                }
 
                 if (gameState === 'playing' && pegasusActive) {
                     const remain = Math.max(0, pegasusTimer);
