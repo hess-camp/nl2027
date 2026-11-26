@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2027 何嘉仁荷蘭國際領袖營 | HESS Netherlands International Leadership Camp</title>
-    <meta name="description" content="2027 何嘉仁荷蘭國際領袖營：2027/7/9–7/25，共 17 天。營隊理念、課程與師資、營地與餐食、專業馬術學校、11 個遊學景點與學生回饋。">
+    <meta name="description" content="2027 何嘉仁荷蘭國際領袖營：2027/7/9–7/25，共 17 天。營隊理念、課程與師資、營地與餐食、專業馬術學校、10 個遊學景點與學生回饋。">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -160,6 +160,15 @@
         .hero-arrow.prev { left: 0.5rem; }
         .hero-arrow.next { right: 0.5rem; }
         @media (prefers-reduced-motion: reduce) { .hero-track { transition: none; } }
+
+        /* 師資照片輪播（獨立於首頁輪播） */
+        .teachers-carousel { position: relative; }
+        .teachers-viewport { overflow: hidden; border-radius: 0.75rem; aspect-ratio: 4 / 3; background: #EFE8DC; }
+        .teachers-track { display: flex; height: 100%; transition: transform 0.7s ease; will-change: transform; }
+        .teachers-slide { position: relative; min-width: 100%; height: 100%; margin: 0; }
+        .teachers-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .teachers-dots { position: absolute; left: 0; right: 0; bottom: 0.65rem; z-index: 2; display: flex; justify-content: center; gap: 0.4rem; }
+        @media (prefers-reduced-motion: reduce) { .teachers-track { transition: none; } }
 
         /* 開場奔馬：Eadweard Muybridge《Animal Locomotion》(1887) Plate 626，
            純血馬「Annie G.」奔馳序列，公有領域。來源：Wikimedia Commons。 */
@@ -842,9 +851,27 @@
                             由 HESS 中、外籍教師組成的教學團隊全程陪伴學員學習與生活；課程特別安排荷蘭教師參與教學與活動帶領，引導學員深度理解荷蘭與歐洲社會價值觀與多元文化。
                         </p>
                     </div>
-                    <div class="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div class="photo-box rounded-xl border border-delftBlue/15 aspect-[16/10]"><img src="teachers-coast-group.jpg" alt="師生在運河橋上合影" loading="lazy" width="1000" height="750"></div>
-                        <div class="photo-box rounded-xl border border-delftBlue/15 aspect-[16/10]"><img src="teachers-certificates.jpg" alt="學員與老師拿著證書合影" loading="lazy" width="1000" height="563"></div>
+                    <div class="lg:col-span-3">
+                        <div class="teachers-carousel" aria-roledescription="carousel" aria-label="師資活動照片">
+                            <div class="teachers-viewport photo-box rounded-xl border border-delftBlue/15" id="teachers-viewport">
+                                <div class="teachers-track" id="teachers-track">
+                                    <figure class="teachers-slide"><img src="teachers-c1.jpg" alt="男老師與女學員在餐廳長桌用餐合影" loading="lazy" width="1400" height="788"></figure>
+                                    <figure class="teachers-slide"><img src="teachers-c2.jpg" alt="荷蘭教師與午睡中的男學員自拍" loading="lazy" width="1400" height="1050"></figure>
+                                    <figure class="teachers-slide"><img src="teachers-c3.jpg" alt="老師與男學員舉杯乾杯" loading="lazy" width="1400" height="1050"></figure>
+                                    <figure class="teachers-slide"><img src="teachers-c4.jpg" alt="穿紅裙的老師與女學員圍坐圓桌" loading="lazy" width="1400" height="1050"></figure>
+                                    <figure class="teachers-slide"><img src="teachers-c5.jpg" alt="荷蘭教師比讚，與一排學員自拍合影" loading="lazy" width="1400" height="1050"></figure>
+                                </div>
+                            </div>
+                            <button type="button" class="hero-arrow prev" id="teachers-prev" aria-label="上一張師資照片">‹</button>
+                            <button type="button" class="hero-arrow next" id="teachers-next" aria-label="下一張師資照片">›</button>
+                            <div class="teachers-dots" role="tablist" aria-label="選擇師資照片">
+                                <button type="button" class="hero-dot is-on" data-teachers-dot="0" aria-label="第 1 張師資照片" aria-selected="true"></button>
+                                <button type="button" class="hero-dot" data-teachers-dot="1" aria-label="第 2 張師資照片" aria-selected="false"></button>
+                                <button type="button" class="hero-dot" data-teachers-dot="2" aria-label="第 3 張師資照片" aria-selected="false"></button>
+                                <button type="button" class="hero-dot" data-teachers-dot="3" aria-label="第 4 張師資照片" aria-selected="false"></button>
+                                <button type="button" class="hero-dot" data-teachers-dot="4" aria-label="第 5 張師資照片" aria-selected="false"></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1094,12 +1121,12 @@
             <div class="flex justify-end"><button type="button" data-next-panel="excursions" class="next-btn px-5 py-3 rounded-2xl bg-white border-2 border-delftBlue text-delftBlue text-base font-bold shadow-[3px_3px_0px_#FF6B00] cursor-pointer">繼續探索：遊學景點翻翻卡 →</button></div>
         </section>
 
-        <!-- 單元 4：11 大景點翻翻卡（插圖取自行前手冊） -->
+        <!-- 單元 4：10 大景點翻翻卡（插圖取自行前手冊） -->
         <section id="panel-excursions" data-content-panel class="hidden space-y-5">
             <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
                 <div>
                     <span class="text-sm font-bold tracking-widest text-dutchOrange uppercase">EXCURSIONS 跨國遊學景點</span>
-                    <h2 class="text-2xl sm:text-3xl font-black text-delftBlue mt-0.5">11 大精選荷德景點明信片翻翻卡</h2>
+                    <h2 class="text-2xl sm:text-3xl font-black text-delftBlue mt-0.5">10 大精選荷德景點明信片翻翻卡</h2>
                 </div>
                 <p class="text-base font-bold text-delftBlue/80">點一下明信片，就能翻面看景點介紹</p>
             </div>
@@ -1109,90 +1136,89 @@
 
         <!-- 單元 5：學生回饋與成果 -->
         <section id="panel-feedback" data-content-panel class="hidden space-y-6">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-                <div class="lg:col-span-6 rounded-3xl bg-white p-6 border-2 border-delftBlue shadow-[6px_6px_0px_#38A3A5] space-y-4">
-                    <div class="flex items-center justify-between gap-3">
-                        <div>
-                            <span class="text-sm font-bold tracking-widest text-canalTeal uppercase">STUDENT FEEDBACK 學員真實回饋</span>
-                            <h2 class="text-2xl font-black text-delftBlue mt-0.5">2026 學生回饋</h2>
-                            <p class="text-lg font-bold text-delftBlue/80 mt-0.5 leading-snug">在旅途中突破自我、滿載而歸 👍</p>
-                        </div>
-                        <span class="px-3.5 py-1.5 rounded-2xl bg-dutchOrange text-white text-sm sm:text-base font-black shadow-[2px_2px_0px_#1B4965] shrink-0">👍 100% 滿意度</span>
+            <div class="rounded-3xl bg-white p-6 border-2 border-delftBlue shadow-[6px_6px_0px_#38A3A5]">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div class="min-w-0">
+                        <span class="text-sm font-bold tracking-widest text-canalTeal uppercase">STUDENT FEEDBACK 學員真實回饋</span>
+                        <h2 class="text-2xl font-black text-delftBlue mt-0.5">2026 學生回饋</h2>
+                        <p class="text-lg font-bold text-delftBlue/80 mt-0.5 leading-snug break-keep">在旅途中突破自我、滿載而歸 👍</p>
                     </div>
-                    <div class="rounded-2xl overflow-hidden border-2 border-delftBlue/20 shadow-md aspect-video bg-black">
-                        <iframe class="w-full h-full" loading="lazy"
-                            src="https://www.youtube.com/embed/zqq-H8GhpPs"
-                            title="2027 何嘉仁荷蘭國際領袖營學員心得影片" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen></iframe>
+                    <span class="px-3.5 py-1.5 rounded-2xl bg-dutchOrange text-white text-sm sm:text-base font-black shadow-[2px_2px_0px_#1B4965] shrink-0 self-start sm:self-auto">👍 100% 滿意度</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                <div class="rounded-2xl bg-white p-4 border-2 border-delftBlue/20 shadow-sm flex gap-3 items-start">
+                    <div class="photo-box w-16 h-16 rounded-xl border border-delftBlue/20 shrink-0"><img src="student-sunny.jpg" alt="Sunny" loading="lazy" width="400" height="400"></div>
+                    <div>
+                        <div class="flex items-center justify-between gap-2"><span class="text-sm font-black text-dutchOrange">Sunny 👍</span><span class="text-base leading-none whitespace-nowrap" aria-label="五顆星">⭐⭐⭐⭐⭐</span></div>
+                        <p class="text-base text-delftBlue/90 leading-relaxed mt-1">「謝謝老師們一路上的照顧與陪伴，這趟旅程充滿歡笑與美好回憶，謝謝您的耐心、細心和付出，我都會一直記得。」</p>
                     </div>
                 </div>
-
-                <div class="lg:col-span-6 space-y-4">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                        <div class="rounded-2xl bg-white p-4 border-2 border-delftBlue/20 shadow-sm flex gap-3 items-start">
-                            <div class="photo-box w-16 h-16 rounded-xl border border-delftBlue/20 shrink-0"><img src="student-sunny.jpg" alt="Sunny" loading="lazy" width="400" height="400"></div>
-                            <div>
-                                <div class="flex items-center justify-between gap-2"><span class="text-sm font-black text-dutchOrange">Sunny 👍</span><span class="text-base leading-none whitespace-nowrap" aria-label="五顆星">⭐⭐⭐⭐⭐</span></div>
-                                <p class="text-base text-delftBlue/90 leading-relaxed mt-1">「謝謝老師們一路上的照顧與陪伴，這趟旅程充滿歡笑與美好回憶，謝謝您的耐心、細心和付出，我都會一直記得。」</p>
-                            </div>
-                        </div>
-                        <div class="rounded-2xl bg-white p-4 border-2 border-delftBlue/20 shadow-sm flex gap-3 items-start">
-                            <div class="photo-box w-16 h-16 rounded-xl border border-delftBlue/20 shrink-0"><img src="student-johnny.jpg" alt="Johnny" loading="lazy" width="400" height="400"></div>
-                            <div>
-                                <div class="flex items-center justify-between gap-2"><span class="text-sm font-black text-dutchOrange">Johnny 👍</span><span class="text-base leading-none whitespace-nowrap" aria-label="五顆星">⭐⭐⭐⭐⭐</span></div>
-                                <p class="text-base text-delftBlue/90 leading-relaxed mt-1">「卡門馬術學校，因為在那裡學習跟馬接觸，算是我人生的重大突破。」</p>
-                            </div>
-                        </div>
-                        <div class="rounded-2xl bg-white p-4 border-2 border-delftBlue/20 shadow-sm flex gap-3 items-start">
-                            <div class="photo-box w-16 h-16 rounded-xl border border-delftBlue/20 shrink-0"><img src="student-sharon.jpg" alt="Sharon" loading="lazy" width="400" height="400"></div>
-                            <div>
-                                <div class="flex items-center justify-between gap-2"><span class="text-sm font-black text-dutchOrange">Sharon 👍</span><span class="text-base leading-none whitespace-nowrap" aria-label="五顆星">⭐⭐⭐⭐⭐</span></div>
-                                <p class="text-base text-delftBlue/90 leading-relaxed mt-1">「騎馬，最後小組騎馬進森林，很有成就感，還學了馬的行為表現和怎麼清理馬。」</p>
-                            </div>
-                        </div>
-                        <div class="rounded-2xl bg-white p-4 border-2 border-delftBlue/20 shadow-sm flex gap-3 items-start">
-                            <div class="photo-box w-16 h-16 rounded-xl border border-delftBlue/20 shrink-0"><img src="student-apple.jpg" alt="Apple" loading="lazy" width="400" height="400"></div>
-                            <div>
-                                <div class="flex items-center justify-between gap-2"><span class="text-sm font-black text-dutchOrange">Apple 👍</span><span class="text-base leading-none whitespace-nowrap" aria-label="五顆星">⭐⭐⭐⭐⭐</span></div>
-                                <p class="text-base text-delftBlue/90 leading-relaxed mt-1">「最有收穫的是去騎馬，因為我一開始很緊張，後來我跟馬建立了信任，也變得很開心。」</p>
-                            </div>
-                        </div>
-                        <div class="rounded-2xl bg-white p-4 border-2 border-delftBlue/20 shadow-sm flex gap-3 items-start">
-                            <div class="photo-box w-16 h-16 rounded-xl border border-delftBlue/20 shrink-0"><img src="student-primo.jpg" alt="Primo" loading="lazy" width="400" height="400"></div>
-                            <div>
-                                <div class="flex items-center justify-between gap-2"><span class="text-sm font-black text-dutchOrange">Primo 👍</span><span class="text-base leading-none whitespace-nowrap" aria-label="五顆星">⭐⭐⭐⭐⭐</span></div>
-                                <p class="text-base text-delftBlue/90 leading-relaxed mt-1">「去吃正式西餐的那餐，因為還順便學了怎麼紳士的共進晚餐。」</p>
-                            </div>
-                        </div>
-                        <div class="rounded-2xl bg-white p-4 border-2 border-delftBlue/20 shadow-sm flex gap-3 items-start">
-                            <div class="photo-box w-16 h-16 rounded-xl border border-delftBlue/20 shrink-0"><img src="student-george.jpg" alt="George" loading="lazy" width="400" height="400"></div>
-                            <div>
-                                <div class="flex items-center justify-between gap-2"><span class="text-sm font-black text-dutchOrange">George 👍</span><span class="text-base leading-none whitespace-nowrap" aria-label="五顆星">⭐⭐⭐⭐⭐</span></div>
-                                <p class="text-base text-delftBlue/90 leading-relaxed mt-1">「我們廚藝大挑戰的那一餐，因為很好玩，而且大家做的都很好吃啦。」</p>
-                            </div>
-                        </div>
+                <div class="rounded-2xl bg-white p-4 border-2 border-delftBlue/20 shadow-sm flex gap-3 items-start">
+                    <div class="photo-box w-16 h-16 rounded-xl border border-delftBlue/20 shrink-0"><img src="student-johnny.jpg" alt="Johnny" loading="lazy" width="400" height="400"></div>
+                    <div>
+                        <div class="flex items-center justify-between gap-2"><span class="text-sm font-black text-dutchOrange">Johnny 👍</span><span class="text-base leading-none whitespace-nowrap" aria-label="五顆星">⭐⭐⭐⭐⭐</span></div>
+                        <p class="text-base text-delftBlue/90 leading-relaxed mt-1">「卡門馬術學校，因為在那裡學習跟馬接觸，算是我人生的重大突破。」</p>
                     </div>
+                </div>
+                <div class="rounded-2xl bg-white p-4 border-2 border-delftBlue/20 shadow-sm flex gap-3 items-start">
+                    <div class="photo-box w-16 h-16 rounded-xl border border-delftBlue/20 shrink-0"><img src="student-sharon.jpg" alt="Sharon" loading="lazy" width="400" height="400"></div>
+                    <div>
+                        <div class="flex items-center justify-between gap-2"><span class="text-sm font-black text-dutchOrange">Sharon 👍</span><span class="text-base leading-none whitespace-nowrap" aria-label="五顆星">⭐⭐⭐⭐⭐</span></div>
+                        <p class="text-base text-delftBlue/90 leading-relaxed mt-1">「騎馬，最後小組騎馬進森林，很有成就感，還學了馬的行為表現和怎麼清理馬。」</p>
+                    </div>
+                </div>
+                <div class="rounded-2xl bg-white p-4 border-2 border-delftBlue/20 shadow-sm flex gap-3 items-start">
+                    <div class="photo-box w-16 h-16 rounded-xl border border-delftBlue/20 shrink-0"><img src="student-apple.jpg" alt="Apple" loading="lazy" width="400" height="400"></div>
+                    <div>
+                        <div class="flex items-center justify-between gap-2"><span class="text-sm font-black text-dutchOrange">Apple 👍</span><span class="text-base leading-none whitespace-nowrap" aria-label="五顆星">⭐⭐⭐⭐⭐</span></div>
+                        <p class="text-base text-delftBlue/90 leading-relaxed mt-1">「最有收穫的是去騎馬，因為我一開始很緊張，後來我跟馬建立了信任，也變得很開心。」</p>
+                    </div>
+                </div>
+                <div class="rounded-2xl bg-white p-4 border-2 border-delftBlue/20 shadow-sm flex gap-3 items-start">
+                    <div class="photo-box w-16 h-16 rounded-xl border border-delftBlue/20 shrink-0"><img src="student-primo.jpg" alt="Primo" loading="lazy" width="400" height="400"></div>
+                    <div>
+                        <div class="flex items-center justify-between gap-2"><span class="text-sm font-black text-dutchOrange">Primo 👍</span><span class="text-base leading-none whitespace-nowrap" aria-label="五顆星">⭐⭐⭐⭐⭐</span></div>
+                        <p class="text-base text-delftBlue/90 leading-relaxed mt-1">「去吃正式西餐的那餐，因為還順便學了怎麼紳士的共進晚餐。」</p>
+                    </div>
+                </div>
+                <div class="rounded-2xl bg-white p-4 border-2 border-delftBlue/20 shadow-sm flex gap-3 items-start">
+                    <div class="photo-box w-16 h-16 rounded-xl border border-delftBlue/20 shrink-0"><img src="student-george.jpg" alt="George" loading="lazy" width="400" height="400"></div>
+                    <div>
+                        <div class="flex items-center justify-between gap-2"><span class="text-sm font-black text-dutchOrange">George 👍</span><span class="text-base leading-none whitespace-nowrap" aria-label="五顆星">⭐⭐⭐⭐⭐</span></div>
+                        <p class="text-base text-delftBlue/90 leading-relaxed mt-1">「我們廚藝大挑戰的那一餐，因為很好玩，而且大家做的都很好吃啦。」</p>
+                    </div>
+                </div>
+            </div>
 
-                    <div class="rounded-3xl bg-delftBlue text-white p-5 sm:p-6">
-                        <span class="text-sm font-bold tracking-widest text-dutchGold uppercase">SHOWCASE 學習成果展現</span>
-                        <div class="photo-box rounded-2xl border border-white/20 aspect-[16/9] mt-3">
-                            <img src="showcase-leadership.jpg" alt="學員結業成果發表合影" loading="lazy" width="1000" height="562">
-                            <div class="photo-cap">2026 荷蘭營 • 結業成果發表</div>
+            <div class="rounded-2xl overflow-hidden border-2 border-delftBlue/20 shadow-md aspect-video bg-black">
+                <iframe class="w-full h-full" loading="lazy"
+                    src="https://www.youtube.com/embed/zqq-H8GhpPs"
+                    title="2027 何嘉仁荷蘭國際領袖營學員心得影片" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen></iframe>
+            </div>
+
+            <div class="rounded-3xl bg-delftBlue text-white p-5 sm:p-6">
+                <span class="text-sm font-bold tracking-widest text-dutchGold uppercase">SHOWCASE 學習成果展現</span>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 mt-3 items-stretch">
+                    <div class="lg:col-span-6 photo-box rounded-2xl border border-white/20 aspect-[16/9]">
+                        <img src="showcase-leadership.jpg" alt="學員結業成果發表合影" loading="lazy" width="1000" height="562">
+                        <div class="photo-cap">2026 荷蘭營 • 結業成果發表</div>
+                    </div>
+                    <div class="lg:col-span-6 grid grid-cols-1 gap-3">
+                        <div class="rounded-xl bg-white/10 p-3.5 border border-white/15 flex flex-col justify-center">
+                            <div class="font-black text-dutchGold text-base mb-1">知識 Knowledge</div>
+                            <p class="text-base text-white/90 leading-relaxed">蒐集、分析與整合資訊，建立基礎研究能力。</p>
                         </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3">
-                            <div class="rounded-xl bg-white/10 p-3.5 border border-white/15">
-                                <div class="font-black text-dutchGold text-base mb-1">知識 Knowledge</div>
-                                <p class="text-base text-white/90 leading-relaxed">蒐集、分析與整合資訊，建立基礎研究能力。</p>
-                            </div>
-                            <div class="rounded-xl bg-white/10 p-3.5 border border-white/15">
-                                <div class="font-black text-dutchGold text-base mb-1">技能 Skill</div>
-                                <p class="text-base text-white/90 leading-relaxed">從獨立思考與解決問題中，提升判斷與行動力。</p>
-                            </div>
-                            <div class="rounded-xl bg-white/10 p-3.5 border border-white/15">
-                                <div class="font-black text-dutchGold text-base mb-1">表達 Expression</div>
-                                <p class="text-base text-white/90 leading-relaxed">個人寫作、團體影片，以簡報與辯論發表成果。</p>
-                            </div>
+                        <div class="rounded-xl bg-white/10 p-3.5 border border-white/15 flex flex-col justify-center">
+                            <div class="font-black text-dutchGold text-base mb-1">技能 Skill</div>
+                            <p class="text-base text-white/90 leading-relaxed">從獨立思考與解決問題中，提升判斷與行動力。</p>
+                        </div>
+                        <div class="rounded-xl bg-white/10 p-3.5 border border-white/15 flex flex-col justify-center">
+                            <div class="font-black text-dutchGold text-base mb-1">表達 Expression</div>
+                            <p class="text-base text-white/90 leading-relaxed">個人寫作、團體影片，以簡報與辯論發表成果。</p>
                         </div>
                     </div>
                 </div>
@@ -1406,7 +1432,73 @@
             start();
         })();
 
-        // ===== 2. 11 大景點翻翻卡（卡通插圖取自 2026 行前手冊） =====
+        (function initTeachersCarousel() {
+            const track = document.getElementById('teachers-track');
+            const viewport = document.getElementById('teachers-viewport');
+            if (!track || !viewport) return;
+            const dots = Array.from(document.querySelectorAll('[data-teachers-dot]'));
+            const total = track.children.length;
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const INTERVAL = 4000;
+            let index = 0;
+            let timer = null;
+            let startX = 0;
+            let deltaX = 0;
+            let dragging = false;
+
+            function show(n) {
+                index = (n + total) % total;
+                track.style.transform = 'translateX(' + (-index * 100) + '%)';
+                dots.forEach((dot, i) => {
+                    const on = i === index;
+                    dot.classList.toggle('is-on', on);
+                    dot.setAttribute('aria-selected', on ? 'true' : 'false');
+                });
+            }
+            function next() { show(index + 1); }
+            function prev() { show(index - 1); }
+            function stop() { if (timer) { clearInterval(timer); timer = null; } }
+            function start() {
+                if (reduce) return;
+                stop();
+                timer = setInterval(next, INTERVAL);
+            }
+
+            document.getElementById('teachers-next')?.addEventListener('click', () => { next(); start(); });
+            document.getElementById('teachers-prev')?.addEventListener('click', () => { prev(); start(); });
+            dots.forEach((dot) => {
+                dot.addEventListener('click', () => { show(Number(dot.getAttribute('data-teachers-dot'))); start(); });
+            });
+
+            const carousel = viewport.parentElement;
+            carousel?.addEventListener('mouseenter', stop);
+            carousel?.addEventListener('mouseleave', start);
+            document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); else start(); });
+
+            viewport.addEventListener('touchstart', (e) => {
+                if (!e.changedTouches.length) return;
+                dragging = true;
+                startX = e.changedTouches[0].clientX;
+                deltaX = 0;
+                stop();
+            }, { passive: true });
+            viewport.addEventListener('touchmove', (e) => {
+                if (!dragging || !e.changedTouches.length) return;
+                deltaX = e.changedTouches[0].clientX - startX;
+            }, { passive: true });
+            viewport.addEventListener('touchend', () => {
+                if (!dragging) return;
+                dragging = false;
+                if (deltaX > 40) prev();
+                else if (deltaX < -40) next();
+                start();
+            });
+
+            show(0);
+            start();
+        })();
+
+        // ===== 2. 10 大景點翻翻卡（卡通插圖取自 2026 行前手冊） =====
         const excursions = [
             { en: "ZAANSE SCHANS", zh: "桑斯安斯風車村", tag: "荷蘭經典文化", img: "illus-01-zaanse-schans.jpg",
               desc: "桑斯安斯風車村是荷蘭最具代表性的露天歷史村落，完整保留了 17–18 世紀的傳統風車、木造房屋與手工藝工坊。學員將親眼見到運轉中的真實風車，了解它們如何被用於磨麵、鋸木及抽水，並深入認識荷蘭先人的工作方式與生活文化。" },
@@ -1418,8 +1510,6 @@
               desc: "這裡不僅是圖書館與電影院，更是充滿活力的城市文化客廳。登上頂樓觀景台，便能將整座格羅寧根古城的錯落屋頂與遠方地平線盡收眼底。" },
             { en: "SCHIERMONNIKOOG", zh: "斯希蒙尼克島", tag: "無車生態島嶼單車行", img: "illus-05-schiermonnikoog.jpg",
               desc: "斯希蒙尼克島以壯闊的自然海岸與寧靜的島村生活著稱，島上禁止私家車。學員搭渡輪抵達後以自行車環島，在沙灘與濕地間感受荷蘭獨特的自然生態。" },
-            { en: "THE SEAL HOSPITAL AT THE WEC", zh: "海豹保育中心", tag: "野生動物救援與保育", img: "illus-06-seal-hospital.jpg",
-              desc: "海豹保育中心是荷蘭著名的野生動物保育機構，長年致力於受傷海豹的救援、照護與野放。學員將近距離觀察海豹的日常照護與餵食，並了解野生動物保育的重要性。" },
             { en: "VAN GOGH MUSEUM", zh: "梵谷博物館", tag: "世界級藝術殿堂", img: "illus-07-van-gogh-museum.jpg",
               desc: "位於阿姆斯特丹，收藏了世界上最完整的梵谷作品，包括《向日葵》、《杏花》等名作真跡。學員可從畫作的色彩、筆觸與構圖中，感受這位藝術家對生命的熱情與對自然的觀察。" },
             { en: "NEMO SCIENCE MUSEUM", zh: "NEMO 科學博物館", tag: "互動式科學探索", img: "illus-08-nemo.jpg",
