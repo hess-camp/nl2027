@@ -1100,7 +1100,8 @@
                                 <canvas id="horse-game-canvas" class="w-full h-72 sm:h-80 block select-none" aria-label="騎馬快跑遊戲畫面"></canvas>
                                 <div id="game-overlay" class="absolute inset-0 bg-delftBlue/75 backdrop-blur-[2px] flex flex-col items-center justify-center p-4 text-center text-white">
                                     <div id="overlay-title" class="text-xl sm:text-2xl font-black text-dutchGold mb-1">準備好騎上駿馬了嗎？</div>
-                                    <p id="overlay-subtitle" class="text-base text-white/95 max-w-md mb-4">按空白鍵（Space）、向上鍵（↑）、點一下畫面或按「跳躍」按鈕，越過荷蘭草原上的柵欄獲得分數！</p>
+                                    <p id="overlay-subtitle" class="text-base text-white/95 max-w-md mb-2">按空白鍵（Space）、向上鍵（↑）、點一下畫面或按「跳躍」按鈕，越過荷蘭草原上的柵欄獲得分數！</p>
+                                    <p class="text-base text-white/95 max-w-md mb-4">吃到紅蘿蔔會變成飛馬，自動飛越 10 秒，飛過的柵欄都得分！</p>
                                     <button id="overlay-start-btn" type="button" class="px-6 py-3 rounded-xl bg-dutchOrange hover:bg-orange-600 text-white font-black text-base shadow-[3px_3px_0px_#FAF6F0] cursor-pointer">立即出賽</button>
                                 </div>
                             </div>
@@ -1112,6 +1113,7 @@
                             </div>
                             <button id="jump-action-btn" type="button" class="w-full sm:w-auto px-10 py-4 rounded-2xl bg-canalTeal hover:bg-teal-600 active:translate-y-0.5 text-white font-black text-lg shadow-[4px_4px_0px_#1B4965] transition-all cursor-pointer select-none">⬆ 跳躍 JUMP</button>
                         </div>
+                        <p class="text-base font-bold text-delftBlue/80">吃到紅蘿蔔會變成飛馬，自動飛越 10 秒，飛過的柵欄都得分！</p>
                     </div>
 
                     <!-- 我的成績：只顯示玩家自己的分數 -->
@@ -1728,6 +1730,45 @@
             let hurdlesCleared = 0;
             let bgScroll = 0;
 
+            const PEGASUS_DURATION = 10;
+            const PEGASUS_FADE_IN = 0.5;
+            const PEGASUS_FADE_OUT = 0.6;
+            const PEGASUS_HOVER = 86;
+            const RAINBOW_COLORS = ['#FF7A7A', '#FFB347', '#FFE066', '#7ED321', '#5EC8E3', '#9B8CFF'];
+            let pegasusActive = false;
+            let pegasusTimer = 0;
+            let pegasusFade = 0;
+            let rainbowTrail = [];
+            let carrot = null;
+            let fencesSpawned = 0;
+            let nextCarrotAt = 6;
+            let pegasusGrace = 0;
+            let pegasusPendingGrace = false;
+
+            function rollNextCarrotAt() {
+                nextCarrotAt = fencesSpawned + 6 + Math.floor(Math.random() * 5);
+            }
+
+            function startPegasus() {
+                pegasusActive = true;
+                pegasusTimer = PEGASUS_DURATION;
+                pegasusGrace = 0;
+                pegasusPendingGrace = false;
+                carrot = null;
+            }
+
+            function resetPegasus() {
+                pegasusActive = false;
+                pegasusTimer = 0;
+                pegasusFade = 0;
+                rainbowTrail = [];
+                carrot = null;
+                pegasusGrace = 0;
+                pegasusPendingGrace = false;
+                fencesSpawned = 0;
+                nextCarrotAt = 6 + Math.floor(Math.random() * 5);
+            }
+
             const SAVED_NAME_KEY = 'nlcamp-player-name-v1';
             const MY_STATS_KEY = 'nlcamp-my-stats-v1';
             try {
@@ -1802,7 +1843,42 @@
                 ctx.ellipse(x + 34, groundY + 3, 28 * shadowScale, 6 * shadowScale, 0, 0, Math.PI * 2);
                 ctx.fill();
 
-                const legSwing = rider.isJumping ? 10 : Math.sin(rider.gallopPhase) * 11;
+                if (pegasusFade > 0) {
+                    const warning = pegasusActive && pegasusTimer <= 1.5;
+                    const blinkOn = !warning || Math.sin(timeSec * 18) > -0.2;
+                    const flap = Math.sin(timeSec * 10) * 0.4;
+                    if (blinkOn) {
+                    const drawWing = (side) => {
+                        ctx.save();
+                        ctx.globalAlpha = pegasusFade;
+                        ctx.translate(x + 32, y + 26);
+                        ctx.scale(side, 1);
+                        ctx.rotate(-0.35 + flap);
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+                        ctx.strokeStyle = 'rgba(27, 73, 101, 0.28)';
+                        ctx.lineWidth = 1.2;
+                        ctx.beginPath();
+                        ctx.moveTo(0, 0);
+                        ctx.quadraticCurveTo(18, -22, 38, -9);
+                        ctx.quadraticCurveTo(28, 2, 22, 9);
+                        ctx.quadraticCurveTo(16, -6, 0, 4);
+                        ctx.closePath();
+                        ctx.fill();
+                        ctx.stroke();
+                        ctx.strokeStyle = 'rgba(158, 198, 255, 0.6)';
+                        ctx.beginPath();
+                        ctx.moveTo(5, 0);
+                        ctx.quadraticCurveTo(16, -12, 30, -4);
+                        ctx.stroke();
+                        ctx.restore();
+                    };
+                    drawWing(-1);
+                    drawWing(1);
+                    }
+                }
+
+                const soar = pegasusFade > 0.15;
+                const legSwing = soar ? Math.sin(rider.gallopPhase) * 4 : (rider.isJumping ? 10 : Math.sin(rider.gallopPhase) * 11);
                 ctx.strokeStyle = '#6F3E24';
                 ctx.lineWidth = 5;
                 ctx.lineCap = 'round';
@@ -1936,6 +2012,7 @@
                 rider.vy = 0;
                 rider.isJumping = false;
                 rider.gallopPhase = 0;
+                resetPegasus();
 
                 if (stageEl) stageEl.textContent = 'Lv.1';
                 if (scoreEl) scoreEl.textContent = '0';
@@ -1956,6 +2033,26 @@
                 }
             }
 
+            function maybeSpawnCarrot() {
+                if (pegasusActive || carrot) return;
+                if (fencesSpawned < nextCarrotAt) return;
+                let x = viewWidth + 110;
+                let placed = false;
+                for (let tries = 0; tries < 6; tries++) {
+                    const blocked = obstacles.some((o) => Math.abs((o.x + o.width / 2) - (x + 11)) < 78);
+                    if (!blocked) { placed = true; break; }
+                    x += 86;
+                }
+                if (!placed) return;
+                carrot = {
+                    x,
+                    y: groundY - 68,
+                    width: 22,
+                    height: 30
+                };
+                rollNextCarrotAt();
+            }
+
             function spawnObstacle() {
                 const heightScale = Math.random() > 0.55 ? 1.08 : 0.92;
                 const h = Math.round(26 * heightScale);
@@ -1967,6 +2064,7 @@
                     height: h,
                     passed: false
                 });
+                fencesSpawned += 1;
                 if (currentStage >= 3 && Math.random() < Math.min(0.42, 0.14 + currentStage * 0.04)) {
                     const h2 = Math.round(38 * (Math.random() > 0.5 ? 1.1 : 0.9));
                     obstacles.push({
@@ -1976,11 +2074,51 @@
                         height: h2,
                         passed: false
                     });
+                    fencesSpawned += 1;
                 }
+                maybeSpawnCarrot();
+            }
+
+            function drawCarrot(item) {
+                const cx = item.x + item.width / 2;
+                const cy = item.y + item.height / 2;
+                ctx.save();
+                ctx.translate(cx, cy + Math.sin(performance.now() / 260) * 1.6);
+                ctx.rotate(-0.35);
+                ctx.fillStyle = '#3FA34D';
+                ctx.strokeStyle = '#2D6A4F';
+                ctx.lineWidth = 1;
+                [[-5, -16, -10, -24], [0, -16, 0, -26], [5, -16, 10, -24]].forEach(([x0, y0, x1, y1]) => {
+                    ctx.beginPath();
+                    ctx.moveTo(0, -12);
+                    ctx.quadraticCurveTo(x0, y0, x1, y1);
+                    ctx.quadraticCurveTo(x0 + 3, y0 + 2, 1, -11);
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.stroke();
+                });
+                ctx.fillStyle = '#FF7A1A';
+                ctx.strokeStyle = '#E85E00';
+                ctx.lineWidth = 1.3;
+                ctx.beginPath();
+                ctx.moveTo(-7, -11);
+                ctx.quadraticCurveTo(-9, 2, 0, 14);
+                ctx.quadraticCurveTo(9, 2, 7, -11);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+                ctx.strokeStyle = 'rgba(255, 236, 200, 0.7)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(-2, -7);
+                ctx.quadraticCurveTo(-3, 1, 0, 8);
+                ctx.stroke();
+                ctx.restore();
             }
 
             function finishRun() {
                 gameState = 'gameover';
+                resetPegasus();
                 const finalScore = Math.floor(score);
                 recordRun(finalScore, currentStage, hurdlesCleared);
                 if (overlayTitle) overlayTitle.textContent = `抵達 Lv.${currentStage} • 本局獲得 ${finalScore} 分！`;
@@ -2002,18 +2140,67 @@
                 if (scoreEl) scoreEl.textContent = String(Math.floor(score));
 
                 bgScroll += scrollSpeed * dt;
-                rider.gallopPhase += dt * (rider.isJumping ? 5 : 16 + currentStage * 1.2);
+                rider.gallopPhase += dt * ((pegasusActive || rider.isJumping) ? 5 : 16 + currentStage * 1.2);
 
-                if (rider.isJumping) {
+                if (pegasusActive) {
+                    pegasusTimer -= dt;
+                    pegasusFade = Math.min(1, pegasusFade + dt / PEGASUS_FADE_IN);
+                    if (pegasusTimer <= 0) {
+                        pegasusActive = false;
+                        pegasusPendingGrace = true;
+                    }
+                } else if (pegasusFade > 0) {
+                    pegasusFade = Math.max(0, pegasusFade - dt / PEGASUS_FADE_OUT);
+                    if (pegasusFade === 0) rainbowTrail = [];
+                }
+
+                if (!pegasusActive && pegasusGrace > 0) {
+                    pegasusGrace = Math.max(0, pegasusGrace - dt);
+                }
+
+                const standY = groundY - rider.height;
+                if (pegasusActive || pegasusFade > 0) {
+                    const targetY = pegasusActive ? standY - PEGASUS_HOVER : standY;
+                    rider.y += (targetY - rider.y) * (1 - Math.exp(-dt * 4.5));
+                    rider.vy = 0;
+                    if (!pegasusActive && rider.y >= standY - 1.2) {
+                        rider.y = standY;
+                        rider.isJumping = false;
+                        if (pegasusPendingGrace) {
+                            pegasusGrace = 1;
+                            pegasusPendingGrace = false;
+                        }
+                    } else {
+                        rider.isJumping = true;
+                    }
+                } else if (rider.isJumping) {
                     rider.y += rider.vy * dt;
                     rider.vy += GRAVITY * dt;
-                    if (rider.y >= groundY - rider.height) {
-                        rider.y = groundY - rider.height;
+                    if (rider.y >= standY) {
+                        rider.y = standY;
                         rider.vy = 0;
                         rider.isJumping = false;
                     }
                 } else {
-                    rider.y = groundY - rider.height;
+                    rider.y = standY;
+                }
+
+                if (pegasusFade > 0) {
+                    const bobY = Math.sin(rider.gallopPhase) * 1.4;
+                    for (let i = 0; i < rainbowTrail.length; i++) {
+                        rainbowTrail[i].x -= scrollSpeed * dt * 0.35;
+                    }
+                    rainbowTrail.unshift({
+                        x: rider.x + 6,
+                        y: rider.y + 30 + bobY,
+                        fade: pegasusFade
+                    });
+                    if (rainbowTrail.length > 24) rainbowTrail.length = 24;
+                }
+
+                if (carrot) {
+                    carrot.x -= scrollSpeed * dt;
+                    if (carrot.x + carrot.width < -40) carrot = null;
                 }
 
                 spawnTimer += dt;
@@ -2031,6 +2218,19 @@
                 const rRight = rider.x + rider.width - hitBoxPaddingX;
                 const rTop = rider.y + hitBoxPaddingY;
                 const rBottom = rider.y + rider.height - 6;
+
+                if (carrot && !pegasusActive) {
+                    const cLeft = carrot.x + 2;
+                    const cRight = carrot.x + carrot.width - 2;
+                    const cTop = carrot.y + 2;
+                    const cBottom = carrot.y + carrot.height - 2;
+                    if (rRight > cLeft && rLeft < cRight && rBottom > cTop && rTop < cBottom) {
+                        carrot = null;
+                        startPegasus();
+                    }
+                }
+
+                const invincible = pegasusActive || pegasusPendingGrace || pegasusGrace > 0;
 
                 for (let i = obstacles.length - 1; i >= 0; i--) {
                     const obs = obstacles[i];
@@ -2058,7 +2258,9 @@
                     const oTop = obs.y + 6;
                     const oBottom = groundY;
 
-                    const collided = rRight > oLeft && rLeft < oRight && rBottom > oTop && rTop < oBottom;
+                    // Flying (and the short landing grace) never collides;
+                    // fences that pass the rider still score in the block above.
+                    const collided = !invincible && rRight > oLeft && rLeft < oRight && rBottom > oTop && rTop < oBottom;
                     if (collided) {
                         finishRun();
                         return;
@@ -2144,24 +2346,124 @@
                 }
             }
 
+            function drawRainbowArc(cx, cy, radius, band, alpha) {
+                if (alpha <= 0.02) return;
+                ctx.save();
+                ctx.globalAlpha = alpha;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                for (let i = 0; i < RAINBOW_COLORS.length; i++) {
+                    ctx.strokeStyle = RAINBOW_COLORS[i];
+                    ctx.lineWidth = band;
+                    ctx.beginPath();
+                    ctx.arc(cx, cy, Math.max(6, radius - i * band * 0.96), Math.PI * 1.04, -0.04, false);
+                    ctx.stroke();
+                }
+                ctx.restore();
+            }
+
+            function drawSkyRainbows() {
+                if (pegasusFade <= 0) return;
+                const specs = [
+                    { speed: 0.14, period: 560, y: 58, r: 90, band: 4.4, off: 40 },
+                    { speed: 0.22, period: 400, y: 88, r: 58, band: 3.2, off: 180 },
+                    { speed: 0.18, period: 480, y: 46, r: 74, band: 3.7, off: 300 },
+                    { speed: 0.26, period: 340, y: 100, r: 44, band: 2.6, off: 90 },
+                    { speed: 0.12, period: 640, y: 68, r: 112, band: 5.0, off: 420 },
+                    { speed: 0.30, period: 300, y: 36, r: 36, band: 2.2, off: 220 },
+                    { speed: 0.16, period: 440, y: 114, r: 64, band: 3.0, off: 20 },
+                    { speed: 0.24, period: 360, y: 74, r: 50, band: 2.8, off: 510 }
+                ];
+                for (const s of specs) {
+                    const baseX = wrapOffset(bgScroll * s.speed + s.off, s.period);
+                    for (let k = -1; k <= 1; k++) {
+                        const cx = baseX + k * s.period - s.r * 0.15;
+                        if (cx + s.r < -30 || cx - s.r > viewWidth + 30) continue;
+                        drawRainbowArc(cx, s.y, s.r, s.band, pegasusFade * 0.78);
+                    }
+                }
+            }
+
+            function drawRainbowTrail() {
+                if (pegasusFade <= 0 || rainbowTrail.length < 2) return;
+                const n = RAINBOW_COLORS.length;
+                const band = 3.05;
+                for (let i = 0; i < rainbowTrail.length - 1; i++) {
+                    const p0 = rainbowTrail[i];
+                    const p1 = rainbowTrail[i + 1];
+                    const t = i / (rainbowTrail.length - 1);
+                    const alpha = pegasusFade * p0.fade * (1 - t) * 0.88;
+                    if (alpha < 0.03) continue;
+                    const taper = 1 - t * 0.58;
+                    ctx.save();
+                    ctx.globalAlpha = alpha;
+                    ctx.lineCap = 'round';
+                    ctx.lineJoin = 'round';
+                    for (let b = 0; b < n; b++) {
+                        const oy = (b - (n - 1) / 2) * band * taper;
+                        ctx.strokeStyle = RAINBOW_COLORS[b];
+                        ctx.lineWidth = Math.max(1.1, band * taper);
+                        ctx.beginPath();
+                        ctx.moveTo(p0.x, p0.y + oy);
+                        ctx.lineTo(p1.x, p1.y + oy);
+                        ctx.stroke();
+                    }
+                    ctx.restore();
+                }
+            }
+
             function drawScene(timeSec) {
                 ctx.clearRect(0, 0, viewWidth, viewHeight);
                 drawParallaxBackground();
+                drawSkyRainbows();
 
                 drawObstacles();
+                if (carrot) drawCarrot(carrot);
+                drawRainbowTrail();
                 drawCuteRiderOnHorse(timeSec);
+
+                if (gameState === 'playing' && pegasusActive) {
+                    const remain = Math.max(0, pegasusTimer);
+                    const secs = Math.max(1, Math.ceil(remain));
+                    const barW = 220;
+                    const bx = viewWidth / 2 - barW / 2;
+                    const by = 14;
+                    ctx.save();
+                    ctx.fillStyle = 'rgba(27, 73, 101, 0.9)';
+                    ctx.beginPath();
+                    ctx.roundRect(bx, by, barW, 36, 12);
+                    ctx.fill();
+                    ctx.fillStyle = '#FAF6F0';
+                    ctx.font = '900 14px "Noto Sans TC", sans-serif';
+                    ctx.textAlign = 'left';
+                    ctx.fillText('飛馬模式！', bx + 12, by + 23);
+                    ctx.textAlign = 'right';
+                    ctx.fillText(secs + ' 秒', bx + barW - 12, by + 23);
+                    const innerW = barW - 24;
+                    const progress = remain / PEGASUS_DURATION;
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
+                    ctx.beginPath();
+                    ctx.roundRect(bx + 12, by + 28, innerW, 4, 2);
+                    ctx.fill();
+                    ctx.fillStyle = '#F4A261';
+                    ctx.beginPath();
+                    ctx.roundRect(bx + 12, by + 28, Math.max(3, innerW * progress), 4, 2);
+                    ctx.fill();
+                    ctx.restore();
+                }
 
                 if (gameState === 'playing' && stageBannerTimer > 0) {
                     ctx.save();
                     ctx.fillStyle = 'rgba(27, 73, 101, 0.88)';
                     ctx.beginPath();
-                    ctx.roundRect(viewWidth / 2 - 125, 16, 250, 34, 12);
+                    const stageY = pegasusActive ? 58 : 16;
+                    ctx.roundRect(viewWidth / 2 - 125, stageY, 250, 34, 12);
                     ctx.fill();
                     ctx.fillStyle = '#F4A261';
                     ctx.font = '900 14px "Noto Sans TC", sans-serif';
                     ctx.textAlign = 'center';
                     const nextBonus = gameConfig.hurdlePoints + (currentStage - 1) * Math.round(gameConfig.hurdlePoints * 0.5);
-                    ctx.fillText(`⚡ STAGE ${currentStage} 加速！單欄 +${nextBonus} 分`, viewWidth / 2, 38);
+                    ctx.fillText(`⚡ STAGE ${currentStage} 加速！單欄 +${nextBonus} 分`, viewWidth / 2, stageY + 22);
                     ctx.restore();
                 }
             }
