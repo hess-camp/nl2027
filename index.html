@@ -1741,12 +1741,12 @@
             let rainbowTrail = [];
             let carrot = null;
             let fencesSpawned = 0;
-            let nextCarrotAt = 6;
+            let nextCarrotAt = 3 + Math.floor(Math.random() * 2);
             let pegasusGrace = 0;
             let pegasusPendingGrace = false;
 
             function rollNextCarrotAt() {
-                nextCarrotAt = fencesSpawned + 6 + Math.floor(Math.random() * 5);
+                nextCarrotAt = fencesSpawned + 4 + Math.floor(Math.random() * 3);
             }
 
             function startPegasus() {
@@ -1766,7 +1766,7 @@
                 pegasusGrace = 0;
                 pegasusPendingGrace = false;
                 fencesSpawned = 0;
-                nextCarrotAt = 6 + Math.floor(Math.random() * 5);
+                nextCarrotAt = 3 + Math.floor(Math.random() * 2);
             }
 
             const SAVED_NAME_KEY = 'nlcamp-player-name-v1';
@@ -2036,19 +2036,22 @@
             function maybeSpawnCarrot() {
                 if (pegasusActive || carrot) return;
                 if (fencesSpawned < nextCarrotAt) return;
-                let x = viewWidth + 110;
+                const minClear = 170;
+                let x = viewWidth + 240;
                 let placed = false;
-                for (let tries = 0; tries < 6; tries++) {
-                    const blocked = obstacles.some((o) => Math.abs((o.x + o.width / 2) - (x + 11)) < 78);
+                for (let tries = 0; tries < 8; tries++) {
+                    const cx = x + 12;
+                    const blocked = obstacles.some((o) => Math.abs((o.x + o.width / 2) - cx) < minClear);
                     if (!blocked) { placed = true; break; }
-                    x += 86;
+                    x += 130;
                 }
                 if (!placed) return;
+                const h = 30;
                 carrot = {
                     x,
-                    y: groundY - 68,
-                    width: 22,
-                    height: 30
+                    y: groundY - h,
+                    width: 24,
+                    height: h
                 };
                 rollNextCarrotAt();
             }
@@ -2081,18 +2084,18 @@
 
             function drawCarrot(item) {
                 const cx = item.x + item.width / 2;
-                const cy = item.y + item.height / 2;
+                const gy = item.y + item.height;
                 ctx.save();
-                ctx.translate(cx, cy + Math.sin(performance.now() / 260) * 1.6);
-                ctx.rotate(-0.35);
+                ctx.translate(cx, gy - 1 - Math.abs(Math.sin(performance.now() / 280)) * 1.1);
+                ctx.rotate(-0.16);
                 ctx.fillStyle = '#3FA34D';
                 ctx.strokeStyle = '#2D6A4F';
                 ctx.lineWidth = 1;
-                [[-5, -16, -10, -24], [0, -16, 0, -26], [5, -16, 10, -24]].forEach(([x0, y0, x1, y1]) => {
+                [[-5, -28, -9, -38], [0, -29, 0, -40], [5, -28, 9, -38]].forEach(([x0, y0, x1, y1]) => {
                     ctx.beginPath();
-                    ctx.moveTo(0, -12);
+                    ctx.moveTo(0, -24);
                     ctx.quadraticCurveTo(x0, y0, x1, y1);
-                    ctx.quadraticCurveTo(x0 + 3, y0 + 2, 1, -11);
+                    ctx.quadraticCurveTo(x0 + 3, y0 + 2, 1, -23);
                     ctx.closePath();
                     ctx.fill();
                     ctx.stroke();
@@ -2101,17 +2104,17 @@
                 ctx.strokeStyle = '#E85E00';
                 ctx.lineWidth = 1.3;
                 ctx.beginPath();
-                ctx.moveTo(-7, -11);
-                ctx.quadraticCurveTo(-9, 2, 0, 14);
-                ctx.quadraticCurveTo(9, 2, 7, -11);
+                ctx.moveTo(-8, -24);
+                ctx.quadraticCurveTo(-9, -10, 0, 0);
+                ctx.quadraticCurveTo(9, -10, 8, -24);
                 ctx.closePath();
                 ctx.fill();
                 ctx.stroke();
                 ctx.strokeStyle = 'rgba(255, 236, 200, 0.7)';
                 ctx.lineWidth = 1;
                 ctx.beginPath();
-                ctx.moveTo(-2, -7);
-                ctx.quadraticCurveTo(-3, 1, 0, 8);
+                ctx.moveTo(-2, -20);
+                ctx.quadraticCurveTo(-3, -10, 0, -4);
                 ctx.stroke();
                 ctx.restore();
             }
@@ -2220,11 +2223,11 @@
                 const rBottom = rider.y + rider.height - 6;
 
                 if (carrot && !pegasusActive) {
-                    const cLeft = carrot.x + 2;
-                    const cRight = carrot.x + carrot.width - 2;
-                    const cTop = carrot.y + 2;
-                    const cBottom = carrot.y + carrot.height - 2;
-                    if (rRight > cLeft && rLeft < cRight && rBottom > cTop && rTop < cBottom) {
+                    const pickLeft = carrot.x - 16;
+                    const pickRight = carrot.x + carrot.width + 16;
+                    const pickTop = groundY - 180;
+                    const pickBottom = groundY + 10;
+                    if (rRight > pickLeft && rLeft < pickRight && rBottom > pickTop && rTop < pickBottom) {
                         carrot = null;
                         startPegasus();
                     }
