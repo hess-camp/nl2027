@@ -164,10 +164,27 @@
 
         /* 師資照片輪播（獨立於首頁輪播） */
         .teachers-carousel { position: relative; }
-        .teachers-viewport { overflow: hidden; border-radius: 0.75rem; aspect-ratio: 4 / 3; background: #EFE8DC; }
+        .teachers-viewport { overflow: hidden; border-radius: 0.75rem; aspect-ratio: 16 / 9; background: #E8EEF1; }
         .teachers-track { display: flex; height: 100%; transition: transform 0.7s ease; will-change: transform; }
-        .teachers-slide { position: relative; min-width: 100%; height: 100%; margin: 0; }
-        .teachers-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .teachers-slide { position: relative; min-width: 100%; height: 100%; margin: 0; overflow: hidden; background: #EFE8DC; }
+        .teachers-slide img.teachers-slide-bg {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            filter: blur(26px) saturate(1.05) brightness(1.28);
+            transform: scale(1.2);
+            opacity: 0.55;
+            pointer-events: none;
+            user-select: none;
+        }
+        .teachers-slide img.teachers-slide-photo {
+            position: relative;
+            width: 100%; height: 100%;
+            object-fit: contain;
+            object-position: center;
+            display: block;
+            z-index: 1;
+        }
         .teachers-dots { position: absolute; left: 0; right: 0; bottom: 0.65rem; z-index: 2; display: flex; justify-content: center; gap: 0.4rem; }
         @media (prefers-reduced-motion: reduce) { .teachers-track { transition: none; } }
 
@@ -856,11 +873,11 @@
                         <div class="teachers-carousel" aria-roledescription="carousel" aria-label="師資活動照片">
                             <div class="teachers-viewport photo-box rounded-xl border border-delftBlue/15" id="teachers-viewport">
                                 <div class="teachers-track" id="teachers-track">
-                                    <figure class="teachers-slide"><img src="teachers-c1.jpg" alt="男老師與女學員在餐廳長桌用餐合影" loading="lazy" width="1400" height="788"></figure>
-                                    <figure class="teachers-slide"><img src="teachers-c2.jpg" alt="荷蘭教師與午睡中的男學員自拍" loading="lazy" width="1400" height="1050"></figure>
-                                    <figure class="teachers-slide"><img src="teachers-c3.jpg" alt="老師與男學員舉杯乾杯" loading="lazy" width="1400" height="1050"></figure>
-                                    <figure class="teachers-slide"><img src="teachers-c4.jpg" alt="穿紅裙的老師與女學員圍坐圓桌" loading="lazy" width="1400" height="1050"></figure>
-                                    <figure class="teachers-slide"><img src="teachers-c5.jpg" alt="荷蘭教師比讚，與一排學員自拍合影" loading="lazy" width="1400" height="1050"></figure>
+                                    <figure class="teachers-slide"><img class="teachers-slide-bg" src="teachers-c1.jpg" alt="" aria-hidden="true" loading="lazy" width="1400" height="788"><img class="teachers-slide-photo" src="teachers-c1.jpg" alt="男老師與女學員在餐廳長桌用餐合影" loading="lazy" width="1400" height="788"></figure>
+                                    <figure class="teachers-slide"><img class="teachers-slide-bg" src="teachers-c2.jpg" alt="" aria-hidden="true" loading="lazy" width="1400" height="1050"><img class="teachers-slide-photo" src="teachers-c2.jpg" alt="荷蘭教師與午睡中的男學員自拍" loading="lazy" width="1400" height="1050"></figure>
+                                    <figure class="teachers-slide"><img class="teachers-slide-bg" src="teachers-c3.jpg" alt="" aria-hidden="true" loading="lazy" width="1400" height="787"><img class="teachers-slide-photo" src="teachers-c3.jpg" alt="老師與男學員坐在窗邊玩桌遊" loading="lazy" width="1400" height="787"></figure>
+                                    <figure class="teachers-slide"><img class="teachers-slide-bg" src="teachers-c4.jpg" alt="" aria-hidden="true" loading="lazy" width="1400" height="1050"><img class="teachers-slide-photo" src="teachers-c4.jpg" alt="穿紅裙的老師與女學員圍坐圓桌" loading="lazy" width="1400" height="1050"></figure>
+                                    <figure class="teachers-slide"><img class="teachers-slide-bg" src="teachers-c5.jpg" alt="" aria-hidden="true" loading="lazy" width="1119" height="839"><img class="teachers-slide-photo" src="teachers-c5.jpg" alt="荷蘭教師比讚，與一排學員自拍合影" loading="lazy" width="1119" height="839"></figure>
                                 </div>
                             </div>
                             <button type="button" class="hero-arrow prev" id="teachers-prev" aria-label="上一張師資照片">‹</button>
