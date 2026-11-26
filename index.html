@@ -140,6 +140,12 @@
         .hero-track { display: flex; height: 100%; transition: transform 0.7s ease; will-change: transform; }
         .hero-slide { position: relative; min-width: 100%; height: 100%; margin: 0; }
         .hero-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .hero-windmill { position: absolute; top: -0.4rem; right: 0; width: 6rem; pointer-events: none; z-index: 0; }
+        @media (min-width: 640px) { .hero-windmill { width: 7.5rem; top: -1.2rem; } }
+        @media (min-width: 1024px) { .hero-windmill { width: 6.5rem; top: -2.8rem; right: -2.2rem; } }
+        .hero-windmill .blades { transform-origin: 100px 92px; animation: windmill-spin 6s linear infinite; }
+        @keyframes windmill-spin { to { transform: rotate(360deg); } }
+        @media (prefers-reduced-motion: reduce) { .hero-windmill .blades { animation-duration: 18s; } }
         .join-us { display: inline-block; margin-left: 0.6rem; font-family: "Kaushan Script", cursive; font-weight: 400; font-size: 0.85em; color: #FF6B00; transform: rotate(-8deg) translateY(-0.35em); text-shadow: 2px 2px 0 rgba(27,73,101,0.18); white-space: nowrap; }
         .hero-dots { position: absolute; left: 0; right: 0; bottom: 2.55rem; z-index: 2; display: flex; justify-content: center; gap: 0.4rem; }
         .hero-dot { width: 0.55rem; height: 0.55rem; padding: 0; border: 0; border-radius: 999px; background: rgba(255,255,255,0.6); box-shadow: 0 0 0 1px rgba(27,73,101,0.25); cursor: pointer; }
@@ -286,12 +292,30 @@
     <!-- 首頁大圖與營隊資訊（不固定，往下捲就讓出畫面） -->
     <section class="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
-            <div class="lg:col-span-6 space-y-4 order-2 lg:order-1">
-                <div class="flex flex-wrap items-center gap-2">
+            <div class="lg:col-span-6 space-y-4 order-2 lg:order-1 relative">
+                <svg class="hero-windmill" viewBox="0 0 200 230" aria-hidden="true" focusable="false">
+                    <ellipse cx="100" cy="212" rx="88" ry="16" fill="#8CC63F"/>
+                    <ellipse cx="108" cy="208" rx="70" ry="10" fill="#A6D65A"/>
+                    <path d="M74 98 L126 98 L140 210 L60 210 Z" fill="#C8955E"/>
+                    <path d="M100 98 L126 98 L140 210 L100 210 Z" fill="#B07D4B"/>
+                    <path d="M66 100 L100 58 L134 100 Z" fill="#E02B20"/>
+                    <path d="M100 58 L134 100 L100 100 Z" fill="#B81F17"/>
+                    <rect x="94" y="120" width="10" height="14" rx="2" fill="#fff" stroke="#1B4965" stroke-width="2"/>
+                    <rect x="80" y="160" width="10" height="14" rx="2" fill="#fff" stroke="#1B4965" stroke-width="2"/>
+                    <rect x="110" y="160" width="10" height="14" rx="2" fill="#fff" stroke="#1B4965" stroke-width="2"/>
+                    <g class="blades">
+                        <g><rect x="96" y="14" width="8" height="78" fill="#8B6B4A"/><rect x="102" y="18" width="24" height="66" fill="#F4EBDD" stroke="#8B6B4A" stroke-width="2.5"/><path d="M102 29h24M102 40h24M102 51h24M102 62h24M102 73h24M114 18v66" stroke="#8B6B4A" stroke-width="1.6"/></g>
+                        <g transform="rotate(90 100 92)"><g><rect x="96" y="14" width="8" height="78" fill="#8B6B4A"/><rect x="102" y="18" width="24" height="66" fill="#F4EBDD" stroke="#8B6B4A" stroke-width="2.5"/><path d="M102 29h24M102 40h24M102 51h24M102 62h24M102 73h24M114 18v66" stroke="#8B6B4A" stroke-width="1.6"/></g></g>
+                        <g transform="rotate(180 100 92)"><g><rect x="96" y="14" width="8" height="78" fill="#8B6B4A"/><rect x="102" y="18" width="24" height="66" fill="#F4EBDD" stroke="#8B6B4A" stroke-width="2.5"/><path d="M102 29h24M102 40h24M102 51h24M102 62h24M102 73h24M114 18v66" stroke="#8B6B4A" stroke-width="1.6"/></g></g>
+                        <g transform="rotate(270 100 92)"><g><rect x="96" y="14" width="8" height="78" fill="#8B6B4A"/><rect x="102" y="18" width="24" height="66" fill="#F4EBDD" stroke="#8B6B4A" stroke-width="2.5"/><path d="M102 29h24M102 40h24M102 51h24M102 62h24M102 73h24M114 18v66" stroke="#8B6B4A" stroke-width="1.6"/></g></g>
+                        <circle cx="100" cy="92" r="7" fill="#5A4632"/>
+                    </g>
+                </svg>
+                <div class="flex flex-wrap items-center gap-2 relative z-[1]">
                     <span class="px-3 py-1 rounded-full bg-delftBlue text-white text-sm font-bold">2027 荷蘭國際領袖營</span>
                     <span class="px-3 py-1 rounded-full bg-dutchOrange/15 text-dutchOrange border border-dutchOrange/40 text-sm font-bold">2027/7/9(五) – 7/25(日)，共 17 天</span>
                 </div>
-                <h1 class="text-[2rem] sm:text-5xl font-black text-delftBlue leading-tight">2027 何嘉仁<br>荷蘭國際領袖營<span class="join-us" aria-hidden="true">Join us!</span></h1>
+                <h1 class="relative z-[1] text-[2rem] sm:text-5xl font-black text-delftBlue leading-tight">2027 何嘉仁<br>荷蘭國際領袖營<span class="join-us" aria-hidden="true">Join us!</span></h1>
                 <p class="text-base sm:text-lg font-bold text-dutchOrange">HESS Netherlands International Leadership Camp<br>Explore Cultures. Grow Your World.</p>
                 <p class="inline-block px-4 py-2 rounded-2xl bg-canalTeal/15 border border-canalTeal/40 text-base font-bold text-delftBlue">對象：THC / TH+ / ESL 10級以上或 IA</p>
             </div>
