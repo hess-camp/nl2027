@@ -1741,12 +1741,12 @@
             let rainbowTrail = [];
             let carrot = null;
             let fencesSpawned = 0;
-            let nextCarrotAt = 3 + Math.floor(Math.random() * 2);
+            let nextCarrotAt = 5 + Math.floor(Math.random() * 2);
             let pegasusGrace = 0;
             let pegasusPendingGrace = false;
 
             function rollNextCarrotAt() {
-                nextCarrotAt = fencesSpawned + 4 + Math.floor(Math.random() * 3);
+                nextCarrotAt = fencesSpawned + 8 + Math.floor(Math.random() * 5);
             }
 
             function startPegasus() {
@@ -1766,7 +1766,7 @@
                 pegasusGrace = 0;
                 pegasusPendingGrace = false;
                 fencesSpawned = 0;
-                nextCarrotAt = 3 + Math.floor(Math.random() * 2);
+                nextCarrotAt = 5 + Math.floor(Math.random() * 2);
             }
 
             const SAVED_NAME_KEY = 'nlcamp-player-name-v1';
@@ -2036,21 +2036,37 @@
             function maybeSpawnCarrot() {
                 if (pegasusActive || carrot) return;
                 if (fencesSpawned < nextCarrotAt) return;
-                const minClear = 170;
-                let x = viewWidth + 240;
-                let placed = false;
-                for (let tries = 0; tries < 8; tries++) {
-                    const cx = x + 12;
-                    const blocked = obstacles.some((o) => Math.abs((o.x + o.width / 2) - cx) < minClear);
-                    if (!blocked) { placed = true; break; }
-                    x += 130;
-                }
-                if (!placed) return;
+                const minClear = 220;
+                const w = 24;
                 const h = 30;
+                const centers = obstacles.map((o) => o.x + o.width / 2).sort((a, b) => a - b);
+                const travel = scrollSpeed * Math.max(1, nextSpawnInterval);
+                const futureCenter = viewWidth + 33 + travel;
+                const marks = centers.concat([futureCenter]).sort((a, b) => a - b);
+                const isClear = (cx, list) => list.every((fc) => Math.abs(fc - cx) >= minClear);
+
+                let cx = null;
+                for (let i = 0; i < marks.length - 1; i++) {
+                    if (marks[i + 1] - marks[i] < minClear * 2) continue;
+                    const mid = (marks[i] + marks[i + 1]) / 2;
+                    if (mid >= viewWidth + 100 && isClear(mid, marks)) {
+                        cx = mid;
+                        break;
+                    }
+                }
+                if (cx == null) {
+                    const last = centers.length ? centers[centers.length - 1] : viewWidth + 33;
+                    const needTravel = (last + minClear * 2) - (viewWidth + 33);
+                    nextSpawnInterval = Math.max(nextSpawnInterval, needTravel / Math.max(1, scrollSpeed));
+                    const future = viewWidth + 33 + scrollSpeed * nextSpawnInterval;
+                    cx = (last + future) / 2;
+                }
+                if (cx < rider.x + 100) return;
+
                 carrot = {
-                    x,
-                    y: groundY - h,
-                    width: 24,
+                    x: cx - w / 2,
+                    y: groundY - 148,
+                    width: w,
                     height: h
                 };
                 rollNextCarrotAt();
@@ -2084,18 +2100,18 @@
 
             function drawCarrot(item) {
                 const cx = item.x + item.width / 2;
-                const gy = item.y + item.height;
+                const cy = item.y + item.height / 2;
                 ctx.save();
-                ctx.translate(cx, gy - 1 - Math.abs(Math.sin(performance.now() / 280)) * 1.1);
-                ctx.rotate(-0.16);
+                ctx.translate(cx, cy + Math.sin(performance.now() / 320) * 3);
+                ctx.rotate(-0.28);
                 ctx.fillStyle = '#3FA34D';
                 ctx.strokeStyle = '#2D6A4F';
                 ctx.lineWidth = 1;
-                [[-5, -28, -9, -38], [0, -29, 0, -40], [5, -28, 9, -38]].forEach(([x0, y0, x1, y1]) => {
+                [[-5, -16, -10, -24], [0, -16, 0, -26], [5, -16, 10, -24]].forEach(([x0, y0, x1, y1]) => {
                     ctx.beginPath();
-                    ctx.moveTo(0, -24);
+                    ctx.moveTo(0, -12);
                     ctx.quadraticCurveTo(x0, y0, x1, y1);
-                    ctx.quadraticCurveTo(x0 + 3, y0 + 2, 1, -23);
+                    ctx.quadraticCurveTo(x0 + 3, y0 + 2, 1, -11);
                     ctx.closePath();
                     ctx.fill();
                     ctx.stroke();
@@ -2104,17 +2120,17 @@
                 ctx.strokeStyle = '#E85E00';
                 ctx.lineWidth = 1.3;
                 ctx.beginPath();
-                ctx.moveTo(-8, -24);
-                ctx.quadraticCurveTo(-9, -10, 0, 0);
-                ctx.quadraticCurveTo(9, -10, 8, -24);
+                ctx.moveTo(-7, -11);
+                ctx.quadraticCurveTo(-9, 2, 0, 14);
+                ctx.quadraticCurveTo(9, 2, 7, -11);
                 ctx.closePath();
                 ctx.fill();
                 ctx.stroke();
                 ctx.strokeStyle = 'rgba(255, 236, 200, 0.7)';
                 ctx.lineWidth = 1;
                 ctx.beginPath();
-                ctx.moveTo(-2, -20);
-                ctx.quadraticCurveTo(-3, -10, 0, -4);
+                ctx.moveTo(-2, -7);
+                ctx.quadraticCurveTo(-3, 1, 0, 8);
                 ctx.stroke();
                 ctx.restore();
             }
@@ -2223,10 +2239,10 @@
                 const rBottom = rider.y + rider.height - 6;
 
                 if (carrot && !pegasusActive) {
-                    const pickLeft = carrot.x - 16;
-                    const pickRight = carrot.x + carrot.width + 16;
-                    const pickTop = groundY - 180;
-                    const pickBottom = groundY + 10;
+                    const pickLeft = carrot.x - 22;
+                    const pickRight = carrot.x + carrot.width + 22;
+                    const pickTop = carrot.y - 40;
+                    const pickBottom = Math.min(carrot.y + carrot.height + 22, groundY - 72);
                     if (rRight > pickLeft && rLeft < pickRight && rBottom > pickTop && rTop < pickBottom) {
                         carrot = null;
                         startPegasus();
