@@ -1700,10 +1700,10 @@
 
             // 遊戲參數（固定值）
             const gameConfig = {
-                baseSpeed: 320,
+                baseSpeed: 224,
                 hurdlePoints: 50,
                 hurdlesPerStage: 3,
-                jumpPower: 750
+                jumpPower: 800
             };
 
             let gameState = 'idle';
@@ -1715,11 +1715,11 @@
             let groundY = 255;
 
             const rider = { x: 115, y: 0, vy: 0, width: 66, height: 62, isJumping: false, gallopPhase: 0 };
-            const GRAVITY = 2250;
+            const GRAVITY = 2100;
 
             let obstacles = [];
             let spawnTimer = 0;
-            let nextSpawnInterval = 1.4;
+            let nextSpawnInterval = 1.85;
             let baseSpeed = gameConfig.baseSpeed;
             let scrollSpeed = gameConfig.baseSpeed;
             let currentStage = 1;
@@ -1885,19 +1885,19 @@
                 for (const obs of obstacles) {
                     ctx.save();
                     ctx.fillStyle = '#1B4965';
-                    ctx.fillRect(obs.x + 2, obs.y, 5, obs.height);
-                    ctx.fillRect(obs.x + obs.width - 7, obs.y, 5, obs.height);
+                    ctx.fillRect(obs.x + 2, obs.y, 4, obs.height);
+                    ctx.fillRect(obs.x + obs.width - 6, obs.y, 4, obs.height);
 
-                    const stripeCount = 3;
-                    const step = Math.max(10, Math.floor((obs.height - 6) / stripeCount));
+                    const stripeCount = 2;
+                    const step = Math.max(7, Math.floor((obs.height - 8) / stripeCount));
                     for (let s = 0; s < stripeCount; s++) {
-                        const barY = obs.y + 4 + s * step;
-                        if (barY + 5 > groundY) break;
+                        const barY = obs.y + 3 + s * step;
+                        if (barY + 4 > groundY) break;
                         ctx.fillStyle = s % 2 === 0 ? '#FF6B00' : '#FFFFFF';
                         ctx.strokeStyle = '#1B4965';
                         ctx.lineWidth = 1.5;
                         ctx.beginPath();
-                        ctx.roundRect(obs.x, barY, obs.width, 5.5, 2);
+                        ctx.roundRect(obs.x, barY, obs.width, 4.5, 2);
                         ctx.fill();
                         ctx.stroke();
                     }
@@ -1927,11 +1927,11 @@
                 hurdlesCleared = 0;
                 currentStage = 1;
                 stageBannerTimer = 0;
-                baseSpeed = Math.max(gameConfig.baseSpeed, viewWidth * 0.42);
+                baseSpeed = Math.max(gameConfig.baseSpeed, viewWidth * 0.29);
                 scrollSpeed = baseSpeed;
                 obstacles = [];
-                spawnTimer = 0.45;
-                nextSpawnInterval = 1.35;
+                spawnTimer = 0.6;
+                nextSpawnInterval = 1.85;
                 rider.y = groundY - rider.height;
                 rider.vy = 0;
                 rider.isJumping = false;
@@ -1957,9 +1957,9 @@
             }
 
             function spawnObstacle() {
-                const heightScale = Math.random() > 0.55 ? 1.15 : 0.92;
-                const h = Math.round(40 * heightScale);
-                const w = 24;
+                const heightScale = Math.random() > 0.55 ? 1.08 : 0.92;
+                const h = Math.round(26 * heightScale);
+                const w = 18;
                 obstacles.push({
                     x: viewWidth + 24,
                     y: groundY - h,
@@ -1996,8 +1996,8 @@
                     stageBannerTimer = Math.max(0, stageBannerTimer - dt);
                 }
 
-                const targetStageSpeed = baseSpeed + (currentStage - 1) * 45;
-                scrollSpeed = Math.min(720, Math.max(scrollSpeed + dt * 10, targetStageSpeed));
+                const targetStageSpeed = baseSpeed + (currentStage - 1) * 22;
+                scrollSpeed = Math.min(420, Math.max(scrollSpeed + dt * 5, targetStageSpeed));
                 score += dt * (18 + (currentStage - 1) * 4);
                 if (scoreEl) scoreEl.textContent = String(Math.floor(score));
 
@@ -2020,17 +2020,17 @@
                 if (spawnTimer >= nextSpawnInterval) {
                     spawnTimer = 0;
                     spawnObstacle();
-                    const minGap = Math.max(0.68, 1.08 - (currentStage - 1) * 0.06);
-                    const randRange = Math.max(0.32, 0.72 - (currentStage - 1) * 0.05);
+                    const minGap = Math.max(1.2, 1.85 - (currentStage - 1) * 0.04);
+                    const randRange = Math.max(0.5, 0.75 - (currentStage - 1) * 0.03);
                     nextSpawnInterval = minGap + Math.random() * randRange;
                 }
 
-                const hitBoxPaddingX = 11;
-                const hitBoxPaddingY = 8;
+                const hitBoxPaddingX = 13;
+                const hitBoxPaddingY = 10;
                 const rLeft = rider.x + hitBoxPaddingX;
                 const rRight = rider.x + rider.width - hitBoxPaddingX;
                 const rTop = rider.y + hitBoxPaddingY;
-                const rBottom = rider.y + rider.height - 4;
+                const rBottom = rider.y + rider.height - 6;
 
                 for (let i = obstacles.length - 1; i >= 0; i--) {
                     const obs = obstacles[i];
@@ -2053,9 +2053,9 @@
                         if (scoreEl) scoreEl.textContent = String(Math.floor(score));
                     }
 
-                    const oLeft = obs.x + 3;
-                    const oRight = obs.x + obs.width - 3;
-                    const oTop = obs.y + 4;
+                    const oLeft = obs.x + 5;
+                    const oRight = obs.x + obs.width - 5;
+                    const oTop = obs.y + 6;
                     const oBottom = groundY;
 
                     const collided = rRight > oLeft && rLeft < oRight && rBottom > oTop && rTop < oBottom;
