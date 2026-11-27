@@ -1709,7 +1709,7 @@
                 baseSpeed: 224,
                 hurdlePoints: 50,
                 hurdlesPerStage: 3,
-                jumpPower: 800
+                jumpPower: 700
             };
 
             let gameState = 'idle';
@@ -2097,7 +2097,7 @@
 
                 carrot = {
                     x: cx - w / 2,
-                    y: groundY - 148,
+                    y: groundY - 150,
                     width: w,
                     height: h
                 };
@@ -2233,9 +2233,17 @@
                         rider.y = standY;
                         rider.vy = 0;
                         rider.isJumping = false;
+                        if (pegasusPendingGrace) {
+                            pegasusGrace = 1;
+                            pegasusPendingGrace = false;
+                        }
                     }
                 } else {
                     rider.y = standY;
+                    if (pegasusPendingGrace) {
+                        pegasusGrace = 1;
+                        pegasusPendingGrace = false;
+                    }
                 }
 
                 if (pegasusFade > 0) {
@@ -2265,12 +2273,12 @@
                     nextSpawnInterval = minGap + Math.random() * randRange;
                 }
 
-                const hitBoxPaddingX = 13;
-                const hitBoxPaddingY = 10;
+                const hitBoxPaddingX = 7;
+                const hitBoxPaddingY = 6;
                 const rLeft = rider.x + hitBoxPaddingX;
                 const rRight = rider.x + rider.width - hitBoxPaddingX;
                 const rTop = rider.y + hitBoxPaddingY;
-                const rBottom = rider.y + rider.height - 6;
+                const rBottom = rider.y + rider.height - 4;
 
                 if (carrot && !pegasusActive) {
                     const pickLeft = carrot.x - 22;
@@ -2306,9 +2314,9 @@
                         if (scoreEl) scoreEl.textContent = String(Math.floor(score));
                     }
 
-                    const oLeft = obs.x + 5;
-                    const oRight = obs.x + obs.width - 5;
-                    const oTop = obs.y + 6;
+                    const oLeft = obs.x + 2;
+                    const oRight = obs.x + obs.width - 2;
+                    const oTop = obs.y + 3;
                     const oBottom = groundY;
 
                     // Flying (and the short landing grace) never collides;
@@ -2325,6 +2333,7 @@
                         }
                         hitInvincible = 1.5;
                         hitFlash = 0.7;
+                        continue;
                     }
 
                     if (obs.x + obs.width < -60) {
